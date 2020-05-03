@@ -1,13 +1,11 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-
-using namespace std;
+#include "Fichier.h"
 
 class Salon
 {
 	string _nom;
+	Fichier _fichier;
+
 	int _etat = 0;
 	int _manche;
 	int _nbManches;
