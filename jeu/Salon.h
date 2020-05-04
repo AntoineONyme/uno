@@ -1,5 +1,6 @@
 #pragma once
 #include "../communication/Fichier.h"
+#include "../communication/CommJeu.h"
 
 class Salon
 {
@@ -9,12 +10,16 @@ class Salon
 	int _etat = 0;
 	int _manche;
 	int _nbManches;
-	vector<string*> _joueurs;
+	vector<string> _joueurs;
 	int _idJoueurActuel;	// Joueur de ce client
 
 public:
 	Salon(string nom);
 
-	string * getJoueur(int id) const { return _joueurs[id]; };
+	string getJoueur(int id) const { return _joueurs[id]; };
 	bool joueurEstAdversaire(int id) const { return id != _idJoueurActuel and 0 <= id < _joueurs.size(); };
+
+	Fichier* getFichier() { return &_fichier; };
+	int idNextPlayer();
+	int getJoueurActuel() const { return _idJoueurActuel; };
 };

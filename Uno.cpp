@@ -1,11 +1,14 @@
 // Uno.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
 
 #pragma once
 #include <iostream>
+#include <thread>
 #include"cartes/Deck.h"
+#include"jeu/Salon.h"
 
 const string _DOSSIER_ = "";
+const string _VERSION_ = "1.0.0";
+const int _TPS_ATTENTE_ = ; //en ms
 
 int main()
 {
