@@ -149,16 +149,22 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="ColoredCard.cpp" />
+    <ClCompile Include="CommJeu.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="Fichier.cpp" />
     <ClCompile Include="OpalCard.cpp" />
+    <ClCompile Include="Salon.cpp" />
     <ClCompile Include="SpecialCard.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
     <ClInclude Include="ColoredCard.h" />
+    <ClInclude Include="CommJeu.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="Fichier.h" />
     <ClInclude Include="OpalCard.h" />
+    <ClInclude Include="Salon.h" />
     <ClInclude Include="SpecialCard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
