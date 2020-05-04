@@ -8,7 +8,7 @@ using namespace std;
 class Deck
 {	vector<Card *> deck_;
 	vector<Card*> hand_;
-	
+	vector<int> usedId_;
 	string name_;
 
 public :

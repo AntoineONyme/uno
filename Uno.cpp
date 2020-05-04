@@ -15,6 +15,8 @@ int main()
     d.generateColoredCards();
     d.generateHand();
     
+
+    
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
