@@ -12,11 +12,11 @@ class Fichier
 	string _nom;
 	string _chemin;
 	int _lastTimestamp = 0;
-	bool _erreur = false;
+	bool _erreur = true;
 
 public:
 	Fichier(string nom, string chemin);
-	Fichier() { return; };
+	Fichier() { return; };	//Permet de déclarer des attribus Fichier dans les classes
 
 	bool erreur() const { return _erreur; };
 

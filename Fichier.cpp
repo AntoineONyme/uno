@@ -4,6 +4,7 @@ Fichier::Fichier(string nom, string chemin)
 {
 	_nom = nom;
 	_chemin = chemin;
+	_erreur = false;
 }
 
 bool Fichier::detecteChangement()

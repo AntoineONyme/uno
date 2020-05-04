@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const string _DOSSIER_ = "";
+
 int main()
 {
 	cout << "Hello Thibault!\n";
