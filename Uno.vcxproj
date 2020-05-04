@@ -147,15 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CommJeu.cpp" />
-    <ClCompile Include="Fichier.cpp" />
-    <ClCompile Include="Salon.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="ColoredCard.cpp" />
+    <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="OpalCard.cpp" />
+    <ClCompile Include="SpecialCard.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CommJeu.h" />
-    <ClInclude Include="Fichier.h" />
-    <ClInclude Include="Salon.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="ColoredCard.h" />
+    <ClInclude Include="Deck.h" />
+    <ClInclude Include="OpalCard.h" />
+    <ClInclude Include="SpecialCard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
