@@ -65,7 +65,7 @@ void Deck::generateColoredCards() {
 
 void Deck::generateHand() {
 	int rd;
-	
+	/*
 	rd = rand() % 108;
 	hand_.push_back(deck_[rd]);
 	usedCards_.push_back(deck_[rd]);
@@ -85,6 +85,6 @@ void Deck::generateHand() {
 		hand_[i]->show();
 		cout << "      " << endl;
 		
-	}
+	}*/
 
 }

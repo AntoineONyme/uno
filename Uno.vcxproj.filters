@@ -13,60 +13,78 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\cartes">
+      <UniqueIdentifier>{f6fbae6f-8fb5-48fc-b7fb-ec2ed3353030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\communication">
+      <UniqueIdentifier>{74301734-53fc-4e88-be0d-ec7611e83a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\jeu">
+      <UniqueIdentifier>{be0a0e0a-b88a-424a-ae29-10c861b5744c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\cartes">
+      <UniqueIdentifier>{e08f06c8-4df1-4f2b-9fcf-ae4916323c25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\communication">
+      <UniqueIdentifier>{f2c800d9-ab0c-4548-9485-dbe58655e803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\jeu">
+      <UniqueIdentifier>{11438d41-a323-418f-b89c-a0d05ccb0697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Uno.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Deck.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="cartes\Card.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="Card.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="cartes\ColoredCard.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="OpalCard.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="cartes\Deck.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="ColoredCard.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="cartes\OpalCard.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="SpecialCard.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="cartes\SpecialCard.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="Salon.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="communication\CommJeu.cpp">
+      <Filter>Fichiers sources\communication</Filter>
     </ClCompile>
-    <ClCompile Include="Fichier.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="communication\Fichier.cpp">
+      <Filter>Fichiers sources\communication</Filter>
     </ClCompile>
-    <ClCompile Include="CommJeu.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="jeu\Salon.cpp">
+      <Filter>Fichiers sources\jeu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Deck.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="cartes\Card.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="Card.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="cartes\ColoredCard.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="OpalCard.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="cartes\Deck.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="ColoredCard.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="cartes\OpalCard.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="SpecialCard.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="cartes\SpecialCard.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="CommJeu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="communication\CommJeu.h">
+      <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
-    <ClInclude Include="Fichier.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="communication\Fichier.h">
+      <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
-    <ClInclude Include="Salon.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="jeu\Salon.h">
+      <Filter>Fichiers d%27en-tête\jeu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

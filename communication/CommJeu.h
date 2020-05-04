@@ -1,5 +1,5 @@
 #pragma once
-#include "Salon.h"
+#include "../jeu/Salon.h"
 
 class CommJeu
 {

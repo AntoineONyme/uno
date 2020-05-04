@@ -147,25 +147,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Card.cpp" />
-    <ClCompile Include="ColoredCard.cpp" />
-    <ClCompile Include="CommJeu.cpp" />
-    <ClCompile Include="Deck.cpp" />
-    <ClCompile Include="Fichier.cpp" />
-    <ClCompile Include="OpalCard.cpp" />
-    <ClCompile Include="Salon.cpp" />
-    <ClCompile Include="SpecialCard.cpp" />
+    <ClCompile Include="cartes\Card.cpp" />
+    <ClCompile Include="cartes\ColoredCard.cpp" />
+    <ClCompile Include="cartes\Deck.cpp" />
+    <ClCompile Include="cartes\OpalCard.cpp" />
+    <ClCompile Include="cartes\SpecialCard.cpp" />
+    <ClCompile Include="communication\CommJeu.cpp" />
+    <ClCompile Include="communication\Fichier.cpp" />
+    <ClCompile Include="jeu\Salon.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Card.h" />
-    <ClInclude Include="ColoredCard.h" />
-    <ClInclude Include="CommJeu.h" />
-    <ClInclude Include="Deck.h" />
-    <ClInclude Include="Fichier.h" />
-    <ClInclude Include="OpalCard.h" />
-    <ClInclude Include="Salon.h" />
-    <ClInclude Include="SpecialCard.h" />
+    <ClInclude Include="cartes\Card.h" />
+    <ClInclude Include="cartes\ColoredCard.h" />
+    <ClInclude Include="cartes\Deck.h" />
+    <ClInclude Include="cartes\OpalCard.h" />
+    <ClInclude Include="cartes\SpecialCard.h" />
+    <ClInclude Include="communication\CommJeu.h" />
+    <ClInclude Include="communication\Fichier.h" />
+    <ClInclude Include="jeu\Salon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

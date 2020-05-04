@@ -3,7 +3,8 @@
 
 #pragma once
 #include <iostream>
-#include"Deck.h"
+#include"cartes/Deck.h"
+
 const string _DOSSIER_ = "";
 
 int main()
