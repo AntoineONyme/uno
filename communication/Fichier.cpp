@@ -1,15 +1,33 @@
 #include "Fichier.h"
 
-Fichier::Fichier(string nom, string chemin)
+Fichier::Fichier(string nom, string repertoir, bool createIfNonExist)
 {
 	_nom = nom;
-	_chemin = chemin;
+	_repertoir = repertoir;
 	_erreur = false;
+
+	if (createIfNonExist && !_odrive.isDir(_repertoir)) {	//Crée le répertoir de jeu
+		_odrive.mkDir(_repertoir);
+	}
+
+	_odrive.sync(_repertoir + "/" + _nom);	//Si le fichier existe il est synchronisé 
+
+	if (!ifstream(getFilePath()).good()){
+		if (!createIfNonExist) {
+			throw "Impossible de lire le fichier !";
+		}
+
+		// On crée le fichier comme on a le droit
+		ofstream fichier(getFilePath());
+		fichier.close();
+	}
 }
 
 bool Fichier::detecteChangement()
 {
-	ifstream fileEchange(_chemin + _nom);
+	_odrive.waitForChange(_repertoir + "/" + _nom);	//Fct bloquante, pour attendre un changement du fichier
+
+	ifstream fileEchange(getFilePath());
 
 	if (!fileEchange.is_open() or !fileEchange) {
 		_erreur = true;
@@ -28,7 +46,7 @@ vector<string>* Fichier::lectureLignes()
 {
 	vector<string>* lignes = new vector<string>;
 
-	ifstream fileEchange(_chemin + _nom);
+	ifstream fileEchange(getFilePath());
 
 	if (!fileEchange.is_open() or !fileEchange) {
 		_erreur = true;
@@ -53,7 +71,7 @@ vector<string>* Fichier::lectureLignes()
 
 bool Fichier::ecritureLignes(vector<string>& lignes)
 {
-	ofstream fileEchange(_chemin + _nom);
+	ofstream fileEchange(getFilePath());
 
 	if (!fileEchange.is_open() or !fileEchange) {
 		_erreur = true;
@@ -69,5 +87,6 @@ bool Fichier::ecritureLignes(vector<string>& lignes)
 	}
 
 	fileEchange.close();
+	_odrive.refresh(_repertoir + "/" + _nom);
 	return true;
 }

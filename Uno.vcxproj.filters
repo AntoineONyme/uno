@@ -60,6 +60,9 @@
     <ClCompile Include="jeu\Salon.cpp">
       <Filter>Fichiers sources\jeu</Filter>
     </ClCompile>
+    <ClCompile Include="communication\odrive.cpp">
+      <Filter>Fichiers sources\communication</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cartes\Card.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="jeu\Salon.h">
       <Filter>Fichiers d%27en-tête\jeu</Filter>
+    </ClInclude>
+    <ClInclude Include="communication\odrive.h">
+      <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

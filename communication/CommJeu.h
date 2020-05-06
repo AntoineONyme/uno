@@ -3,7 +3,7 @@
 
 class CommJeu
 {
-	Salon* _salon;
+	Salon* _salon = nullptr;
 	int _etat = 0;
 
 	vector<int> _cartesPiochees;

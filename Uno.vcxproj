@@ -88,7 +88,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -154,6 +154,7 @@
     <ClCompile Include="cartes\SpecialCard.cpp" />
     <ClCompile Include="communication\CommJeu.cpp" />
     <ClCompile Include="communication\Fichier.cpp" />
+    <ClCompile Include="communication\odrive.cpp" />
     <ClCompile Include="jeu\Salon.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="cartes\SpecialCard.h" />
     <ClInclude Include="communication\CommJeu.h" />
     <ClInclude Include="communication\Fichier.h" />
+    <ClInclude Include="communication\odrive.h" />
     <ClInclude Include="jeu\Salon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

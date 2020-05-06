@@ -8,17 +8,45 @@
 
 const string _DOSSIER_ = "";
 const string _VERSION_ = "1.0.0";
-const int _TPS_ATTENTE_ = ; //en ms
+void fctTestTiti() {
+	Deck d;
+	std::cout << "Generation automatiques des cartes\n";
+	d.generateOpalCards();
+	d.generateColoredCards();
+	d.generateHand();
+}
+
+void fctTestClem() {
+	vector<string> lignes;
+	lignes.push_back("Ligne1");
+	lignes.push_back("Ligne2");
+
+	// Test de la classe "Fichier"
+	Fichier fichier("testiti.txt", "Test", true);
+
+
+	cout << "Essais ecriture: " << fichier.ecritureLignes(lignes) << endl;	//Retourne 1 si l'écriture s'est bien passée
+	cout << "Erreur: " << fichier.erreur() << endl; //Doit afficher 0
+
+
+	cout << "\nEssais lecture: changement " << fichier.detecteChangement() << endl;	//Doit afficher 1 (car un changement vient d'être fait)
+	vector<string>* lignesl;
+	lignesl = fichier.lectureLignes();
+
+	for (int i = 0; i < lignesl->size(); i++)
+	{
+		cout << lignesl->operator[](i) << " - ";
+		//cout << (&lignesl)[i] << " - ";
+	}
+	cout << "\nErreur: " << fichier.erreur() << endl;
+	cout << "\nEssais lecture: changement " << fichier.detecteChangement() << endl;	//Doit afficher 0 (car la lecture a déja été faite)
+}
 
 int main()
 {
-    Deck d;
-    std::cout << "Generation automatiques des cartes\n";
-    d.generateOpalCards();
-    d.generateColoredCards();
-    d.generateHand();
-    
+	fctTestClem();
 }
+
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
 // Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage

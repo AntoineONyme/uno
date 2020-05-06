@@ -1,6 +1,6 @@
 #pragma once
 #include "../communication/Fichier.h"
-#include "../communication/CommJeu.h"
+//#include "../communication/CommJeu.h"
 
 class Salon
 {
@@ -15,6 +15,7 @@ class Salon
 
 public:
 	Salon(string nom);
+	Salon();
 
 	string getJoueur(int id) const { return _joueurs[id]; };
 	bool joueurEstAdversaire(int id) const { return id != _idJoueurActuel and 0 <= id < _joueurs.size(); };

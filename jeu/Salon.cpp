@@ -2,8 +2,12 @@
 
 Salon::Salon(string nom)
 {
-	Fichier _fichier(_nom, "/");
 	_nom = nom;
+	Fichier _fichier(_nom, "/", true);
+}
+
+Salon::Salon()
+{
 }
 
 int Salon::idNextPlayer()
