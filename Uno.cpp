@@ -3,18 +3,29 @@
 #pragma once
 #include <iostream>
 #include <thread>
+<<<<<<< HEAD
 #include"Game.h"
+=======
+#include"cartes/Deck.h"
+>>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
 #include"jeu/Salon.h"
 
 const string _DOSSIER_ = "";
 const string _VERSION_ = "1.0.0";
 void fctTestTiti() {
 	Deck d;
+<<<<<<< HEAD
 	Draw dr;
 	std::cout << "Generation automatiques des cartes\n";
 	Game g(d, dr);
 	d.showDeck();
 	
+=======
+	std::cout << "Generation automatiques des cartes\n";
+	d.generateOpalCards();
+	d.generateColoredCards();
+	d.generateHand();
+>>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
 }
 
 void fctTestClem() {
@@ -46,10 +57,20 @@ void fctTestClem() {
 int main()
 {
 
+<<<<<<< HEAD
 	//fctTestClem();
 	fctTestTiti();
 }
 
+=======
+	fctTestClem();
+	//fctTestTiti();
+}
+
+
+// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
+// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
+>>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
 // Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage

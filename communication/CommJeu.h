@@ -3,11 +3,15 @@
 
 class CommJeu
 {
-	Salon* _salon;
+	Salon* _salon = nullptr;
 	int _etat = 0;
+
 	vector<int> _cartesPiochees;
+	string _carteJouee = "";
 	bool _declareUno = false;
-	int _joueurContreUno = 0;
+	string _joueurContreUno = "";
+
+	bool initialiserTour();
 
 public:
 	static const int non_initialise = 0;
@@ -19,5 +23,7 @@ public:
 	bool declareUno();
 	bool declareContreUno(int idJoueur);
 	bool finTourAtt();
+	bool declareCarteJouee(int idCarte);
+	string carteJouee() const { return _carteJouee; };
 };
 

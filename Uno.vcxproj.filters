@@ -60,11 +60,16 @@
     <ClCompile Include="jeu\Salon.cpp">
       <Filter>Fichiers sources\jeu</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="cartes\Draw.cpp">
       <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Fichiers sources\jeu</Filter>
+=======
+    <ClCompile Include="communication\odrive.cpp">
+      <Filter>Fichiers sources\communication</Filter>
+>>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,11 +97,16 @@
     <ClInclude Include="jeu\Salon.h">
       <Filter>Fichiers d%27en-tête\jeu</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="cartes\Draw.h">
       <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Fichiers d%27en-tête\jeu</Filter>
+=======
+    <ClInclude Include="communication\odrive.h">
+      <Filter>Fichiers d%27en-tête\communication</Filter>
+>>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
     </ClInclude>
   </ItemGroup>
 </Project>
