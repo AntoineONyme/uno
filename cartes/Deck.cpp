@@ -1,14 +1,11 @@
 #include "Deck.h"
-#include "Card.h"
-#include "OpalCard.h"
-#include "ColoredCard.h"
-#include "SpecialCard.h"
+
+
 #include <stdlib.h>
 #include <algorithm>
 #pragma once
 
-
-
+Draw dr;
 Deck::Deck(const string& name) {
 	name_ = name;
 }
@@ -63,7 +60,7 @@ void Deck::generateColoredCards() {
 	}
 }
 
-void Deck::generateHand() {
+/*void Deck::generateHand() {
 	//Dec var
 	int rd;
 	Card* a;
@@ -106,4 +103,11 @@ void Deck::generateHand() {
 		cout << "      " << endl;
 
 	}
+}*/
+void Deck::generateHand(list<int>hand_) {
+	
+	while (hand_.size() < 8) {
+		hand_.push_back(dr.drawCard());
+	}
 }
+

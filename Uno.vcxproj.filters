@@ -60,6 +60,12 @@
     <ClCompile Include="jeu\Salon.cpp">
       <Filter>Fichiers sources\jeu</Filter>
     </ClCompile>
+    <ClCompile Include="cartes\Draw.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Fichiers sources\jeu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cartes\Card.h">
@@ -84,6 +90,12 @@
       <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
     <ClInclude Include="jeu\Salon.h">
+      <Filter>Fichiers d%27en-tête\jeu</Filter>
+    </ClInclude>
+    <ClInclude Include="cartes\Draw.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Fichiers d%27en-tête\jeu</Filter>
     </ClInclude>
   </ItemGroup>
