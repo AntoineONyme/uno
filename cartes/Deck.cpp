@@ -1,13 +1,12 @@
-#include "Deck.h"
-
-
-#include <stdlib.h>
-#include <algorithm>
+#include"Deck.h"
 #pragma once
 
-Draw dr;
-Deck::Deck(const string& name) {
+
+
+Deck::Deck(const string& name, Draw *dr) {
+	
 	name_ = name;
+	dr = draw_;
 }
 void Deck::addCard(Card* c) {
 	deck_.push_back(c);
@@ -23,11 +22,10 @@ void Deck::showDeck() {
 
 void Deck::generateOpalCards() {
 	for (int i = 0; i < 4; i++)
-	{
 		addCard(new OpalCard(i, "joker"));
-		addCard(new OpalCard(i+4, "plusFour"));
-	}
-
+		
+	for(int j = 4; j < 8;j++)
+		addCard(new OpalCard(j, "plusFour"));
 }
 void Deck::generateColoredCards() {
 	int n = 8;
@@ -104,10 +102,8 @@ void Deck::generateColoredCards() {
 
 	}
 }*/
-void Deck::generateHand(list<int>hand_) {
-	
-	while (hand_.size() < 8) {
-		hand_.push_back(dr.drawCard());
-	}
-}
 
+vector<Card*> Deck::getDeck()
+{
+	return deck_;
+}

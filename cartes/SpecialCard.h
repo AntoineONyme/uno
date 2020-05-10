@@ -6,6 +6,7 @@ class SpecialCard : public ColoredCard
 public :
 	SpecialCard(int id, int color, int number, int sp);
 	int getSpecialType() const { return specialType_ ; }
+	const string& getType()const { return "no"; }
 	void show() const { ColoredCard::show(); cout <<  " Action de la carte : " << specialType_ << endl; }
 };
 

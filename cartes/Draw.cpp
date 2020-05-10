@@ -1,10 +1,4 @@
-#include<iostream>
-#include <stdlib.h>
-#include <algorithm>
-#include<vector>
-#include <algorithm>
 #include "Draw.h"
-#include "Deck.h"
 
 Draw::Draw() {
 	for (int i = 0; i < 108; i++)
@@ -35,3 +29,16 @@ bool Draw::pullOutCard(int IdCard) {
 
 	return false;
 }
+
+void Draw::generateHand()
+{
+	while(hand_.size() < 7)
+		hand_.push_back(drawCard());
+	
+}
+
+list<int> Draw::getHand()
+{
+	return hand_;
+}
+

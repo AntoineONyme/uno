@@ -153,14 +153,7 @@
     <ClCompile Include="cartes\Draw.cpp" />
     <ClCompile Include="cartes\OpalCard.cpp" />
     <ClCompile Include="cartes\SpecialCard.cpp" />
-    <ClCompile Include="communication\CommJeu.cpp" />
-    <ClCompile Include="communication\Fichier.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="Game.cpp" />
-=======
-    <ClCompile Include="communication\odrive.cpp" />
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
-    <ClCompile Include="jeu\Salon.cpp" />
+    <ClCompile Include="jeu\Game.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,14 +163,7 @@
     <ClInclude Include="cartes\Draw.h" />
     <ClInclude Include="cartes\OpalCard.h" />
     <ClInclude Include="cartes\SpecialCard.h" />
-    <ClInclude Include="communication\CommJeu.h" />
-    <ClInclude Include="communication\Fichier.h" />
-<<<<<<< HEAD
-    <ClInclude Include="Game.h" />
-=======
-    <ClInclude Include="communication\odrive.h" />
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
-    <ClInclude Include="jeu\Salon.h" />
+    <ClInclude Include="jeu\Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

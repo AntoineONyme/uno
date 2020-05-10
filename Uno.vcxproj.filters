@@ -51,25 +51,11 @@
     <ClCompile Include="cartes\SpecialCard.cpp">
       <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="communication\CommJeu.cpp">
-      <Filter>Fichiers sources\communication</Filter>
-    </ClCompile>
-    <ClCompile Include="communication\Fichier.cpp">
-      <Filter>Fichiers sources\communication</Filter>
-    </ClCompile>
-    <ClCompile Include="jeu\Salon.cpp">
-      <Filter>Fichiers sources\jeu</Filter>
-    </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="cartes\Draw.cpp">
       <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="jeu\Game.cpp">
       <Filter>Fichiers sources\jeu</Filter>
-=======
-    <ClCompile Include="communication\odrive.cpp">
-      <Filter>Fichiers sources\communication</Filter>
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,25 +74,11 @@
     <ClInclude Include="cartes\SpecialCard.h">
       <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="communication\CommJeu.h">
-      <Filter>Fichiers d%27en-tête\communication</Filter>
-    </ClInclude>
-    <ClInclude Include="communication\Fichier.h">
-      <Filter>Fichiers d%27en-tête\communication</Filter>
-    </ClInclude>
-    <ClInclude Include="jeu\Salon.h">
-      <Filter>Fichiers d%27en-tête\jeu</Filter>
-    </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="cartes\Draw.h">
       <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="jeu\Game.h">
       <Filter>Fichiers d%27en-tête\jeu</Filter>
-=======
-    <ClInclude Include="communication\odrive.h">
-      <Filter>Fichiers d%27en-tête\communication</Filter>
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
     </ClInclude>
   </ItemGroup>
 </Project>

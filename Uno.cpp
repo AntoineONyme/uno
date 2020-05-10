@@ -3,32 +3,28 @@
 #pragma once
 #include <iostream>
 #include <thread>
-<<<<<<< HEAD
-#include"Game.h"
-=======
-#include"cartes/Deck.h"
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
-#include"jeu/Salon.h"
+#include"jeu/Game.h"
+//#include"jeu/Salon.h"
 
 const string _DOSSIER_ = "";
 const string _VERSION_ = "1.0.0";
 void fctTestTiti() {
-	Deck d;
-<<<<<<< HEAD
-	Draw dr;
-	std::cout << "Generation automatiques des cartes\n";
-	Game g(d, dr);
-	d.showDeck();
 	
-=======
+	
 	std::cout << "Generation automatiques des cartes\n";
-	d.generateOpalCards();
-	d.generateColoredCards();
-	d.generateHand();
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
+	
+	Draw dr;
+	Deck d("deck",&dr);
+	Game g(&d,&dr);
+	g.show();
+	g.playCard();
+	g.playCard();
+
+	
+
 }
 
-void fctTestClem() {
+/*void fctTestClem() {
 	vector<string> lignes;
 	lignes.push_back("Ligne1");
 	lignes.push_back("Ligne2");
@@ -52,33 +48,23 @@ void fctTestClem() {
 	}
 	cout << "\nErreur: " << fichier.erreur() << endl;
 	cout << "\nEssais lecture: changement " << fichier.detecteChangement() << endl;	//Doit afficher 0 (car la lecture a déja été faite)
-}
+}*/
 
 int main()
 {
 
-<<<<<<< HEAD
 	//fctTestClem();
 	fctTestTiti();
-}
-
-=======
-	fctTestClem();
-	//fctTestTiti();
 }
 
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
 // Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
->>>>>>> 2717965bce08a66c5a67bf3a27c1d2dda99f9976
 
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
+// Astuces pour bien démarrer : 
 //   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
 //   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
 //   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
 //   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
+//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
+//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
