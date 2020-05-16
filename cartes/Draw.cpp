@@ -8,26 +8,44 @@ Draw::Draw() {
 int Draw::drawCard() {
 	//Dec var
 	int rd;
-	list<int>::iterator it;
+	int valCard;
+	list<int>::iterator it = draw_.begin();
 
 	//Def var
 
 	rd = rand() % draw_.size();
-	it = find(draw_.begin(), draw_.end(), rd);
-	draw_.erase(it);
-	return rd;
+	advance(it, rd);
+	valCard = *it;
+	pullOutCard(valCard,0);
+	return valCard;
 }
 
-bool Draw::pullOutCard(int IdCard) {
-	list<int>::iterator it;
-	for (it = draw_.begin(); it != draw_.end(); it++) {
-		if (*it == IdCard) {
-			draw_.erase(it);
-			return true;
-		}
-	}
+bool Draw::pullOutCard(int IdCard, int listChoice) {
 
-	return false;
+		if (listChoice == 0)
+		{
+			list<int>::iterator it1;
+			for (it1 = draw_.begin(); it1 != draw_.end(); it1++) {
+				if (*it1 == IdCard) {
+					draw_.erase(it1);
+					return true;
+				}
+			}
+		}
+
+		else
+		{
+			list<int>::iterator it;
+			for (it = hand_.begin(); it != hand_.end(); it++) {
+				if (*it == IdCard) {
+					hand_.erase(it);
+					return true;
+				}
+			}
+		}
+
+		return false;
+	
 }
 
 void Draw::generateHand()
@@ -42,3 +60,7 @@ list<int> Draw::getHand()
 	return hand_;
 }
 
+void Draw::DrawCardtoHand()
+{
+	hand_.push_back(drawCard());
+}

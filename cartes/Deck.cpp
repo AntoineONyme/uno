@@ -3,10 +3,9 @@
 
 
 
-Deck::Deck(const string& name, Draw *dr) {
+Deck::Deck(const string& name) {
 	
 	name_ = name;
-	dr = draw_;
 }
 void Deck::addCard(Card* c) {
 	deck_.push_back(c);
@@ -38,7 +37,7 @@ void Deck::generateColoredCards() {
 				addCard(new ColoredCard(n, i, j));
 				n++;
 			}
-			else if (j > 8) {
+			else if (j > 9) {
 				addCard(new SpecialCard(n, i, j, sp));
 				n++;
 				addCard(new SpecialCard(n, i, j, sp));

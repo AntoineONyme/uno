@@ -13,12 +13,15 @@ void fctTestTiti() {
 	
 	std::cout << "Generation automatiques des cartes\n";
 	
-	Draw dr;
-	Deck d("deck",&dr);
-	Game g(&d,&dr);
+	Game g;
+	g.show();
+	g.DrawCardtoHand();
 	g.show();
 	g.playCard();
+	g.show();
 	g.playCard();
+	g.show();
+	
 
 	
 

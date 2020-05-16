@@ -11,11 +11,12 @@ class Game
 	Deck* deck_;
 	list<int> usedCards_ = { -1 };
 public :
-	Game(Deck* deck, Draw* dr);
+	Game();
 	virtual void show();
 	int selectCard();
 	void playCard();
-	list<int> DrawCardtoHand();
+	void DrawCardtoHand();
 	bool checkCard(int cardValue);
+	void showCardName(int cardId);
 };
 

@@ -16,7 +16,7 @@ class Deck
 	string name_ ;
 	Draw *draw_ ;
 public :
-	Deck(const string& name, Draw *dr);
+	Deck(const string& name);
 	void addCard(Card *c);
 	void showDeck();
 	void generateOpalCards();
