@@ -51,10 +51,6 @@
     <ClCompile Include="cartes\SpecialCard.cpp">
       <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
-    <ClCompile Include="communication\Fichier.cpp">
-      <Filter>Fichiers sources\communication</Filter>
-      <Filter>Fichiers sources\cartes</Filter>
-    </ClCompile>
     <ClCompile Include="communication\odrive.cpp">
       <Filter>Fichiers sources\communication</Filter>
     </ClCompile>
@@ -75,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="jeu\Salon.cpp">
       <Filter>Fichiers sources\jeu</Filter>
+    </ClCompile>
+    <ClCompile Include="jeu\Game.cpp">
+      <Filter>Fichiers sources\jeu</Filter>
+    </ClCompile>
+    <ClCompile Include="communication\Fichier.cpp">
+      <Filter>Fichiers sources\communication</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +117,9 @@
       <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
     <ClInclude Include="jeu\Salon.h">
+      <Filter>Fichiers d%27en-tête\jeu</Filter>
+    </ClInclude>
+    <ClInclude Include="jeu\Game.h">
       <Filter>Fichiers d%27en-tête\jeu</Filter>
     </ClInclude>
   </ItemGroup>

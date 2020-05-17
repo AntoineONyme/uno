@@ -21,7 +21,7 @@ void fctTestTiti() {
 	g.playCard();
 	g.show();
 
-}*/
+*/
 
 /*void fctTestClem() {
 	vector<string> lignes;
@@ -58,7 +58,7 @@ int main()
 	unoc.lancementApplication();
 
 	system("pause");
-	//fctTestClem();
+	//fctTestClem();*/
 	//fctTestTiti();
 }
 

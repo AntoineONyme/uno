@@ -34,5 +34,6 @@ public:
 
 	static bool fichierExiste(string nom, string repertoir);
 	bool supprimerFichier();
+	static void synchroniser(string repertoir);
 };
 

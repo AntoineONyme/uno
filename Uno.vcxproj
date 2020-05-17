@@ -156,6 +156,7 @@
     <ClCompile Include="communication\CommSalon.cpp" />
     <ClCompile Include="communication\Fichier.cpp" />
     <ClCompile Include="communication\odrive.cpp" />
+    <ClCompile Include="jeu\Game.cpp" />
     <ClCompile Include="jeu\Jeu.cpp" />
     <ClCompile Include="jeu\Menu.cpp" />
     <ClCompile Include="jeu\Salon.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="communication\CommSalon.h" />
     <ClInclude Include="communication\Fichier.h" />
     <ClInclude Include="communication\odrive.h" />
+    <ClInclude Include="jeu\Game.h" />
     <ClInclude Include="jeu\Jeu.h" />
     <ClInclude Include="jeu\Menu.h" />
     <ClInclude Include="jeu\Salon.h" />

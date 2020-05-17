@@ -29,7 +29,7 @@ bool Salon::choixSalon(string pseudo)
 
 	CommSalon comm;
 	Struct_Parametres_Salon parametres_salon;
-	parametres_salon.nbJoueurs = 2;	//TO DO : adapter pour que plusieurs joueurs puissent jouer
+	parametres_salon.nbJoueurs = 2;	
 
 	// On crée le salon
 	if (choix == "new") {
@@ -88,7 +88,7 @@ bool Salon::choixSalon(string pseudo)
 		_etat = 1;
 
 		Menu::affichageSection("Attente debut");
-		if (!comm.attenteSalonComplet(parametres_salon, true)) {
+		if (!comm.attenteSalonComplet(parametres_salon, false)) {
 			cout << "Problème de salon\n";
 			return false;
 		}

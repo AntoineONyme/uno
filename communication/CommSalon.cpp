@@ -39,6 +39,8 @@ bool CommSalon::creation(Struct_Parametres_Salon parametres_salon, string pseudo
 Struct_Parametres_Salon CommSalon::join(string nom, string pseudo)
 {
 	string nfic = nom + ".salon.txt";
+	
+	Fichier::synchroniser(REPERTOIRE);
 
 	Struct_Parametres_Salon parametres_salon;
 	vector<string>* lignes;

@@ -143,3 +143,8 @@ bool Fichier::supprimerFichier()
 	_odrive.delFile(_repertoir + "/" + _nom);
 	return true;
 }
+
+void Fichier::synchroniser(string repertoir) {
+	ODrive odrive;
+	odrive.refresh(repertoir + "/");
+}

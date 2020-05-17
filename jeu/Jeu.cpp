@@ -23,7 +23,7 @@ void Jeu::lancementPartie()
 		break;
 	}
 
-	system("pause");
 	cout << "Partie terminee ! merci d'avoir participe <3" << endl;
+	system("pause");
 	return;
 }
