@@ -1,8 +1,7 @@
 #include "Draw.h"
 
 Draw::Draw() {
-	for (int i = 0; i < 108; i++)
-		draw_.push_back(i);
+	genDraw();
 }
 
 int Draw::drawCard() {
@@ -63,4 +62,10 @@ list<int> Draw::getHand()
 void Draw::DrawCardtoHand()
 {
 	hand_.push_back(drawCard());
+}
+
+void Draw::genDraw()
+{
+	for (int i = 0; i < 108; i++)
+		draw_.push_back(i);
 }

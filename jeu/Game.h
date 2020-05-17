@@ -18,5 +18,6 @@ public :
 	void DrawCardtoHand();
 	bool checkCard(int cardValue);
 	void showCardName(int cardId);
+	void regenCards();
 };
 

@@ -1,6 +1,9 @@
 #include "Game.h"
-char colors[4] = { 'R','B','J','V' };
-vector<string> actions = { "+2", "InvSens", "PasseTour" };
+
+
+
+
+
 Game::Game()
 {	
 	deck_= new Deck("Deck");
@@ -43,7 +46,7 @@ int Game::selectCard()
 		cout << "Selectionnez une carte dans votre main en indiquant sa position dans cette derniere svp : ";
 		cin >> positionCardinHand;
 		positionCardinHand--;
-		if (positionCardinHand < 0 || positionCardinHand > l.size())
+		if ((positionCardinHand < 0) || (positionCardinHand >= l.size()))
 		{	
 			cout << "\n" << "Cette carte n'existe pas " << "\n" << endl;
 			cout << "Voulez reessayez ? (y pour oui, autre sinon)" << endl;
@@ -127,6 +130,9 @@ bool Game::checkCard(int cardValue)
 
 }
 
+char colors[4] = { 'R','B','J','V' };
+vector<string> actions = { "+2", "InvSens", "PasseTour" };
+
 void Game::showCardName(int cardId)
 {
 	char color;
@@ -153,3 +159,19 @@ void Game::showCardName(int cardId)
 	}
 }
 
+void Game::regenCards()
+{
+	list<int> draw = draw_->getHand();
+	int lastPlayedCard = usedCards_.back();
+	list<int>::iterator it = draw.begin();
+	draw_->genDraw();
+	
+	usedCards_.clear();
+	usedCards_.push_back(-1);
+	usedCards_.push_back(lastPlayedCard);
+	for (it; it != draw.end(); it++)
+	{
+		draw_->pullOutCard(*it,0);
+	}
+
+}

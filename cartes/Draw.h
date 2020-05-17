@@ -19,4 +19,5 @@ public:
     list<int> getHand();
     bool pullOutCard(int idCard, int listChoice );
     void DrawCardtoHand();
+    void genDraw();
 };
