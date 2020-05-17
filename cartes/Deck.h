@@ -1,22 +1,26 @@
 #pragma once
-#include <iostream>
+#include "Card.h"
+#include "OpalCard.h"
+#include "ColoredCard.h"
+#include "SpecialCard.h"
+#include"Draw.h"
+#include <stdlib.h>
+#include <algorithm>
 #include<vector>
-#include"Card.h"
+
 
 using namespace std;
 
 class Deck
-{	vector<Card *> deck_;
-	vector<Card*> hand_;
-	vector<int> usedId_;
-	string name_;
-
+{	vector<Card *> deck_ ;
+	string name_ ;
+	Draw *draw_ ;
 public :
-	Deck(const string& name = "Deck");
-	void addCard(Card*c);
+	Deck(const string& name);
+	void addCard(Card *c);
 	void showDeck();
 	void generateOpalCards();
 	void generateColoredCards();
-	void generateHand();
+	vector<Card *> getDeck();
 };
 

@@ -150,6 +150,7 @@
     <ClCompile Include="cartes\Card.cpp" />
     <ClCompile Include="cartes\ColoredCard.cpp" />
     <ClCompile Include="cartes\Deck.cpp" />
+    <ClCompile Include="cartes\Draw.cpp" />
     <ClCompile Include="cartes\OpalCard.cpp" />
     <ClCompile Include="cartes\SpecialCard.cpp" />
     <ClCompile Include="communication\CommSalon.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="cartes\Card.h" />
     <ClInclude Include="cartes\ColoredCard.h" />
     <ClInclude Include="cartes\Deck.h" />
+    <ClInclude Include="cartes\Draw.h" />
     <ClInclude Include="cartes\OpalCard.h" />
     <ClInclude Include="cartes\SpecialCard.h" />
     <ClInclude Include="communication\CommSalon.h" />

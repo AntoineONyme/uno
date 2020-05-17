@@ -6,8 +6,9 @@ class OpalCard : public Card
 {
 	string type_;
 public :
-	OpalCard(int id, const string& type);
-	const string& getType()const { return type_; }
+	OpalCard(int id , const string& type);
+	string getType() { return type_; }
 	void show() const { Card::show(); cout << " Type de la carte : " << type_ << " " << endl; }
+	
 };
 

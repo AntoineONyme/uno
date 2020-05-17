@@ -53,9 +53,7 @@
     </ClCompile>
     <ClCompile Include="communication\Fichier.cpp">
       <Filter>Fichiers sources\communication</Filter>
-    </ClCompile>
-    <ClCompile Include="jeu\Salon.cpp">
-      <Filter>Fichiers sources\jeu</Filter>
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
     <ClCompile Include="communication\odrive.cpp">
       <Filter>Fichiers sources\communication</Filter>
@@ -71,6 +69,12 @@
     </ClCompile>
     <ClCompile Include="communication\CommSalon.cpp">
       <Filter>Fichiers sources\communication</Filter>
+    </ClCompile>
+    <ClCompile Include="cartes\Draw.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
+    </ClCompile>
+    <ClCompile Include="jeu\Salon.cpp">
+      <Filter>Fichiers sources\jeu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +96,6 @@
     <ClInclude Include="communication\Fichier.h">
       <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
-    <ClInclude Include="jeu\Salon.h">
-      <Filter>Fichiers d%27en-tête\jeu</Filter>
-    </ClInclude>
     <ClInclude Include="communication\odrive.h">
       <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
@@ -109,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="communication\CommSalon.h">
       <Filter>Fichiers d%27en-tête\communication</Filter>
+    </ClInclude>
+    <ClInclude Include="cartes\Draw.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
+    </ClInclude>
+    <ClInclude Include="jeu\Salon.h">
+      <Filter>Fichiers d%27en-tête\jeu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

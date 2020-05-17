@@ -1,20 +1,29 @@
 #include "jeu/Unoc.h"
 
-//#include <iostream>
-//#include <thread>
-//#include"cartes/Deck.h"
-//#include"jeu/Salon.h"
-
 /*
-void fctTestTiti() {
-	Deck d;
-	std::cout << "Generation automatiques des cartes\n";
-	d.generateOpalCards();
-	d.generateColoredCards();
-	d.generateHand();
-}
+#include <iostream>
+#include <thread>
+#include"jeu/Game.h"
 
-void fctTestClem() {
+
+
+void fctTestTiti() {
+	
+	
+	std::cout << "Generation automatiques des cartes\n";
+	
+	Game g;
+	g.show();
+	g.DrawCardtoHand();
+	g.show();
+	g.playCard();
+	g.show();
+	g.playCard();
+	g.show();
+
+}*/
+
+/*void fctTestClem() {
 	vector<string> lignes;
 	lignes.push_back("Ligne1");
 	lignes.push_back("Ligne2");
