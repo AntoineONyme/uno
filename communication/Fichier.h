@@ -14,6 +14,7 @@ class Fichier
 	string _repertoir;
 	int _lastTimestamp = 0;
 	bool _erreur = true;
+	bool _nouveau = true;
 
 	ODrive _odrive;
 	string getFilePath() { return _odrive.getFullName(_repertoir + "/" + _nom); };
@@ -28,5 +29,10 @@ public:
 	vector<string>* lectureLignes();
 
 	bool ecritureLignes(vector<string>& lignes);
+	bool ajoutLignes(vector<string>& lignes);
+	bool ajoutLigne(string ligne);
+
+	static bool fichierExiste(string nom, string repertoir);
+	bool supprimerFichier();
 };
 

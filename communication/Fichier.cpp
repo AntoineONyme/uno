@@ -12,7 +12,7 @@ Fichier::Fichier(string nom, string repertoir, bool createIfNonExist)
 
 	_odrive.sync(_repertoir + "/" + _nom);	//Si le fichier existe il est synchronisé 
 
-	if (!ifstream(getFilePath()).good()){
+	if (!ifstream(getFilePath()).good()) {
 		if (!createIfNonExist) {
 			throw "Impossible de lire le fichier !";
 		}
@@ -84,9 +84,62 @@ bool Fichier::ecritureLignes(vector<string>& lignes)
 	for (int i = 0; i < lignes.size(); i++)
 	{
 		fileEchange << lignes[i] << endl;
+		/*if (i < lignes.size() - 1)
+		{
+			fileEchange << endl;
+		}*/
 	}
 
 	fileEchange.close();
 	_odrive.refresh(_repertoir + "/" + _nom);
+	return true;
+}
+
+bool Fichier::ajoutLignes(vector<string>& lignes)
+{
+	ofstream fileEchange(getFilePath(), ios::app);
+
+	if (!fileEchange.is_open() or !fileEchange) {
+		_erreur = true;
+		return false;
+	}
+
+	for (int i = 0; i < lignes.size(); i++)
+	{
+		fileEchange << lignes[i] << endl;
+	}
+
+	fileEchange.close();
+	_odrive.refresh(_repertoir + "/" + _nom);
+	return true;
+}
+
+bool Fichier::ajoutLigne(string ligne)
+{
+	ofstream fileEchange(getFilePath(), ios::app);
+
+	if (!fileEchange.is_open() or !fileEchange) {
+		_erreur = true;
+		return false;
+	}
+
+	fileEchange << ligne << endl;
+
+	fileEchange.close();
+	_odrive.refresh(_repertoir + "/" + _nom);
+	return true;
+}
+
+bool Fichier::fichierExiste(string nom, string repertoir)
+{
+	ODrive odrive;
+	string loc = odrive.getFullName(repertoir + "/" + nom);
+
+	return ifstream(loc).good();
+}
+
+bool Fichier::supprimerFichier()
+{
+	_odrive.delFile(_repertoir + "/" + _nom);
 	return true;
 }

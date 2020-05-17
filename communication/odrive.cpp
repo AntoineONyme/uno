@@ -120,6 +120,7 @@ void ODrive::delFile(string file)
 #elif defined(_WIN32) || defined(WIN32)
     ocmd<<"del \""<<odDrivePath_<<'/'<<file<<"\""<<redirString_;
 #endif
+    cout << "del \"" << odDrivePath_ << '/' << file << "\"" << redirString_ << endl;
     system(ocmd.str().c_str());
 
     // Extract parent dir

@@ -1,4 +1,4 @@
-#pragma once
+#pragma once/*
 #include "../jeu/Salon.h"
 
 class CommJeu
@@ -26,4 +26,4 @@ public:
 	bool declareCarteJouee(int idCarte);
 	string carteJouee() const { return _carteJouee; };
 };
-
+*/

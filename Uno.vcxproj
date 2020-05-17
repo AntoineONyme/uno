@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -152,10 +152,13 @@
     <ClCompile Include="cartes\Deck.cpp" />
     <ClCompile Include="cartes\OpalCard.cpp" />
     <ClCompile Include="cartes\SpecialCard.cpp" />
-    <ClCompile Include="communication\CommJeu.cpp" />
+    <ClCompile Include="communication\CommSalon.cpp" />
     <ClCompile Include="communication\Fichier.cpp" />
     <ClCompile Include="communication\odrive.cpp" />
+    <ClCompile Include="jeu\Jeu.cpp" />
+    <ClCompile Include="jeu\Menu.cpp" />
     <ClCompile Include="jeu\Salon.cpp" />
+    <ClCompile Include="jeu\Unoc.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,10 +167,13 @@
     <ClInclude Include="cartes\Deck.h" />
     <ClInclude Include="cartes\OpalCard.h" />
     <ClInclude Include="cartes\SpecialCard.h" />
-    <ClInclude Include="communication\CommJeu.h" />
+    <ClInclude Include="communication\CommSalon.h" />
     <ClInclude Include="communication\Fichier.h" />
     <ClInclude Include="communication\odrive.h" />
+    <ClInclude Include="jeu\Jeu.h" />
+    <ClInclude Include="jeu\Menu.h" />
     <ClInclude Include="jeu\Salon.h" />
+    <ClInclude Include="jeu\Unoc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

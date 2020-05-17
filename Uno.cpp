@@ -1,13 +1,11 @@
-// Uno.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
+#include "jeu/Unoc.h"
 
-#pragma once
-#include <iostream>
-#include <thread>
-#include"cartes/Deck.h"
-#include"jeu/Salon.h"
+//#include <iostream>
+//#include <thread>
+//#include"cartes/Deck.h"
+//#include"jeu/Salon.h"
 
-const string _DOSSIER_ = "";
-const string _VERSION_ = "1.0.0";
+/*
 void fctTestTiti() {
 	Deck d;
 	std::cout << "Generation automatiques des cartes\n";
@@ -40,12 +38,18 @@ void fctTestClem() {
 	}
 	cout << "\nErreur: " << fichier.erreur() << endl;
 	cout << "\nEssais lecture: changement " << fichier.detecteChangement() << endl;	//Doit afficher 0 (car la lecture a déja été faite)
-}
+}*/
 
 int main()
 {
 
-	fctTestClem();
+	//Lancement du jeu
+	Unoc unoc;
+
+	unoc.lancementApplication();
+
+	system("pause");
+	//fctTestClem();
 	//fctTestTiti();
 }
 
@@ -60,3 +64,4 @@ int main()
 //   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
 //   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
 //   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.
+
