@@ -57,50 +57,6 @@ void Deck::generateColoredCards() {
 	}
 }
 
-/*void Deck::generateHand() {
-	//Dec var
-	int rd;
-	Card* a;
-	vector<int>::iterator it;
-	
-	//Def var
-	rd = rand() % 108;
-	a = deck_[rd];
-	it = find(usedId_.begin(), usedId_.end(), a->getId());
-	
-	while (hand_.size() < 7) 
-	{
-		rd = rand() % 108;
-		a = deck_[rd];
-		it = find(usedId_.begin(), usedId_.end(), a->getId());
-		
-		if (it == usedId_.end())
-		{
-			hand_.push_back(deck_[rd]);
-			usedId_.push_back(a->getId());
-		}
-		else
-			cout << " BIIIIP " << endl;
-	}
-		
-			
-
-	
-	cout << "Voici votre main :\n" << endl;
-	for (int i = 0; i < hand_.size(); i++)
-	{	
-		hand_[i]->show();
-		cout << "      " << endl;
-		
-	}
-	cout << "Voici les cartes utilisees :\n" << endl;
-	for (int i = 0; i < usedId_.size(); i++)
-	{
-		cout << usedId_[i];
-		cout << "      " << endl;
-
-	}
-}*/
 
 vector<Card*> Deck::getDeck()
 {

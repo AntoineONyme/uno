@@ -12,8 +12,6 @@ Game::Game()
 	deck_->generateColoredCards();
 	deck_->showDeck();
 	cout << "Boup" << endl;
-	draw_->generateHand();
-	cout << "Boup" << endl;
 
 }
 
@@ -101,6 +99,7 @@ void Game::playCard()
 
 void Game::DrawCardtoHand()
 {
+
 	draw_->DrawCardtoHand();
 }
 
@@ -174,4 +173,45 @@ void Game::regenCards()
 		draw_->pullOutCard(*it,0);
 	}
 
+}
+
+int Game::counterUno(bool tokenUno)
+{
+	int idCounterUno;
+	if (tokenUno == false)
+	{
+		DrawCardtoHand();
+		return -1;
+	}
+	else 
+	{
+		cout << "Contre qui voulez vous faire un contre-Uno ? (postition dans la liste de joueur) : ";
+		cin >> idCounterUno;
+		idCounterUno--;
+		return idCounterUno;
+	}
+}
+
+bool Game::sayUno()
+{
+	list<int> hand = draw_->getHand();
+	if (hand.size() != 1)
+		DrawCardtoHand();
+	return true;
+}
+
+vector<int>* Game::cardsToSend()
+{
+	list<int> hand = draw_->getHand();
+	vector<int>* cardsToSend = new vector<int>(hand.size());
+	list<int>::iterator it = hand.begin();
+	for (it; it != hand.end(); it++)
+		cardsToSend->push_back(*it);
+	return cardsToSend;
+}
+
+void Game::removeDrawCards(vector<int>* cardsToSend)
+{
+	for (int i = 0; i < cardsToSend->size(); i++)
+		draw_->pullOutCard(cardsToSend->operator[](i), 0);
 }

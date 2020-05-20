@@ -1,6 +1,6 @@
 #include "jeu/Unoc.h"
 
-/*
+
 #include <iostream>
 #include <thread>
 #include"jeu/Game.h"
@@ -8,11 +8,12 @@
 
 
 void fctTestTiti() {
-	
-	
+
+
 	std::cout << "Generation automatiques des cartes\n";
-	
+
 	Game g;
+	g.generateHand();
 	g.show();
 	g.DrawCardtoHand();
 	g.show();
@@ -21,7 +22,7 @@ void fctTestTiti() {
 	g.playCard();
 	g.show();
 
-*/
+}
 
 /*void fctTestClem() {
 	vector<string> lignes;
@@ -53,13 +54,13 @@ int main()
 {
 
 	//Lancement du jeu
-	Unoc unoc;
+	//Unoc unoc;
 
-	unoc.lancementApplication();
+	//unoc.lancementApplication();
 
-	system("pause");
+	//system("pause");
 	//fctTestClem();*/
-	//fctTestTiti();
+	fctTestTiti();
 }
 
 
