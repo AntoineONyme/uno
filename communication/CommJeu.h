@@ -1,10 +1,17 @@
-#pragma once/*
-#include "../jeu/Salon.h"
+#pragma once
+
+#include <vector>
+#include <string>
+#include <iostream>
+
+#include "Fichier.h"
 
 class CommJeu
 {
-	Salon* _salon = nullptr;
 	int _etat = 0;
+	string _nomSalon = "";
+
+	Fichier* _fichier = nullptr;
 
 	vector<int> _cartesPiochees;
 	string _carteJouee = "";
@@ -13,12 +20,12 @@ class CommJeu
 
 	bool initialiserTour();
 
-public:
-	static const int non_initialise = 0;
-	static const int attente_autres_joueurs = 1;
-	static const int jeu_joueur = 2;
+	const string REPERTOIRE = "XXpussyEmpalle";
+	const string VERSION = "1.0.0";
 
-	CommJeu(Salon* salon);
+public:
+
+	CommJeu(string nomSalon);
 	bool ajoutCartePioche(int id);
 	bool declareUno();
 	bool declareContreUno(int idJoueur);
@@ -26,4 +33,3 @@ public:
 	bool declareCarteJouee(int idCarte);
 	string carteJouee() const { return _carteJouee; };
 };
-*/

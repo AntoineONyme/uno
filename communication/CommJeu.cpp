@@ -10,31 +10,38 @@ bool CommJeu::initialiserTour()
 	return true;
 }
 
-CommJeu::CommJeu(Salon* salon)
+CommJeu::CommJeu(string nomSalon)
 {
-	_salon = salon;
+	string nfic = nomSalon + ".jeu.txt";
+	_nomSalon = nomSalon;
+
+	_fichier = new Fichier(nfic, REPERTOIRE, false);
+
+	if (!_fichier->fichierExiste(nfic, REPERTOIRE)) {
+		cout << "Ce salon n'existe pas !\n";
+	}
 }
 
 bool CommJeu::ajoutCartePioche(int id)
-{
+{/*
 	// Vérification que la phase de jeu permet de piocher
 	if (_etat != jeu_joueur) {
 		return false;
 	}
-	_cartesPiochees.push_back(id);
+	_cartesPiochees.push_back(id);*/
 	return true;
 }
 
-bool CommJeu::declareUno() {
+bool CommJeu::declareUno() {/*
 	// Vérification que la phase de jeu permet de déclarer un uno
 	if (_etat != jeu_joueur) {
 		return false;
 	}
-	_declareUno = true;
+	_declareUno = true;*/
 	return true;
 }
 
-bool CommJeu::declareContreUno(int idJoueur) {
+bool CommJeu::declareContreUno(int idJoueur) {/*
 	// Vérification que la phase de jeu permet de déclarer un uno
 	if (_etat != jeu_joueur) {
 		return false;
@@ -45,13 +52,13 @@ bool CommJeu::declareContreUno(int idJoueur) {
 		return false;
 	}
 
-	_joueurContreUno = idJoueur;
+	_joueurContreUno = idJoueur;*/
 	return true;
 }
 
 bool CommJeu::finTourAtt() {
 	//to do 1 : on envoit les données
-	vector<string> lignes;
+	vector<string> lignes;/*
 
 	//Ligne 1 : on donne l'id du joueur suivant
 	lignes.push_back(_salon->idNextPlayer() + "");
@@ -110,7 +117,7 @@ bool CommJeu::finTourAtt() {
 
 	//On termine par réinitialiser les attribus de jeu
 	initialiserTour();
-
+	*/
 	return true;
 }
 

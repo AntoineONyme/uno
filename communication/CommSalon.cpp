@@ -1,6 +1,19 @@
 #include "CommJeu.h"
 #include "CommSalon.h"
 
+void CommSalon::creationFichierJeu(Struct_Parametres_Salon parametres_salon)
+{
+	string nfic = parametres_salon.nom + ".jeu.txt";
+
+	Fichier fichier(nfic, REPERTOIRE, true);
+	vector<string> lignes;
+
+	// Ligne1 : ligne vide pour empécher les erreurs de fichies
+	lignes.push_back("");
+
+	fichier.ecritureLignes(lignes);
+}
+
 CommSalon::CommSalon()
 {
 }
@@ -107,6 +120,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 	{
 		// joueur actuel est le dernier joueur et a ete detecte
 		if (lignes->operator[](i) == "COMMENCE") {
+			creationFichierJeu(parametres_salon);
 			return true;
 		}
 		if (lignes->operator[](i).size() > 0) {
@@ -138,6 +152,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				for (int i = nbLignes; i < lignes->size(); i++)
 				{
 					if (lignes->operator[](i) == "COMMENCE") {
+						creationFichierJeu(parametres_salon);
 						return true;
 					}
 					else if(lignes->operator[](i).size() > 0) {

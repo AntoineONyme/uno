@@ -24,4 +24,5 @@ public:
 	int getJoueurActuel() const { return _idJoueurActuel; };
 	int getNbJoueurs() const { return _joueurs->size(); };
 	int getNbManches() const { return _nbManches; };
+	string getNomSalon() const { return _nom; };
 };
