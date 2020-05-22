@@ -39,7 +39,7 @@ void Jeu::lancementPartie()
 		commJeu.setCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
-
+		cout << "LOL";
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{
