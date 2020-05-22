@@ -49,9 +49,9 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 
 void Draw::generateHand()
 {
+	
 	while(hand_.size() < 7)
 		hand_.push_back(drawCard());
-	
 }
 
 list<int> Draw::getHand()

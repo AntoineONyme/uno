@@ -19,5 +19,10 @@ public :
 	bool checkCard(int cardValue);
 	void showCardName(int cardId);
 	void regenCards();
+	int counterUno(bool tokenUno);
+	bool sayUno();
+	vector<int>* cardsToSend();
+	void removeDrawCards(vector<int>* cardsToSend);
+	void generateHand() {draw_->generateHand(); }
 };
 
