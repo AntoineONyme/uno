@@ -18,6 +18,7 @@ public:
 	bool choixSalon(string pseudo);
 
 	string getJoueur(int id) const { return _joueurs->operator[](id); };
+	string getJoueur(string id) const { return getJoueur(std::stoi(id)); };
 	bool joueurEstAdversaire(int id) const { return id != _idJoueurActuel and 0 <= id < _joueurs->size(); };
 
 	int idNextPlayer();

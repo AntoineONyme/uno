@@ -35,14 +35,11 @@ bool Salon::choixSalon(string pseudo)
 	if (choix == "new") {
 		Menu::affichageSection("Creation de salon");
 
-		cout << "nom: ";
-		cin >> parametres_salon.nom;
+		parametres_salon.nom = Fichier::lectureString("nom", 3, 10, "test");
 
-		cout << "Nombre de manches: ";
-		cin >> parametres_salon.nbManches;
+		parametres_salon.nbManches = Fichier::lectureInt("Nombre de manches", 1, 10, 2);
 
-		cout << "Nombre de joueurs: ";
-		cin >> parametres_salon.nbJoueurs;
+		parametres_salon.nbJoueurs = Fichier::lectureInt("Nombre de joueurs", 1, 3, 1);
 
 		if (!comm.creation(parametres_salon, pseudo)) {
 			cout << "Erreur de creation de salon\n";
@@ -72,8 +69,9 @@ bool Salon::choixSalon(string pseudo)
 	// On rejoint un salon
 	else if (choix == "join") {
 		Menu::affichageSection("Rejoindre un salon");
-		cout << "nom: ";
-		cin >> parametres_salon.nom;
+
+		parametres_salon.nom = Fichier::lectureString("nom", 3, 10, "test");
+
 		parametres_salon = comm.join(parametres_salon.nom, pseudo);
 		if (parametres_salon.erreur != "") {
 			cout << "Erreur pour rejoindre un salon: " << parametres_salon.erreur << endl;
@@ -109,5 +107,5 @@ bool Salon::choixSalon(string pseudo)
 
 int Salon::idNextPlayer()
 {
-	return _joueurs->size() >= _idJoueurActuel + 1 ? 0 : _idJoueurActuel + 1;	//Condition binaire de vérification
+	return _joueurs->size() <= _idJoueurActuel + 1 ? 0 : _idJoueurActuel + 1;	//Condition binaire de vérification
 }

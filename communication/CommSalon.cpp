@@ -9,7 +9,7 @@ void CommSalon::creationFichierJeu(Struct_Parametres_Salon parametres_salon)
 	vector<string> lignes;
 
 	// Ligne1 : ligne vide pour empécher les erreurs de fichies
-	lignes.push_back("");
+	lignes.push_back("vide");
 
 	fichier.ecritureLignes(lignes);
 }
@@ -98,7 +98,7 @@ Struct_Parametres_Salon CommSalon::join(string nom, string pseudo)
 	//La déclaration est compatible, il reste à enregistrer ce nouveau joueur
 	_fichier->ajoutLigne(pseudo);
 	parametres_salon.joueurs = new vector<string>;
-	parametres_salon.idJoueurActuel = lignes->size() - 4;
+	parametres_salon.idJoueurActuel = lignes->size() - 3;
 
 	return parametres_salon;
 }
@@ -120,7 +120,6 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 	{
 		// joueur actuel est le dernier joueur et a ete detecte
 		if (lignes->operator[](i) == "COMMENCE") {
-			creationFichierJeu(parametres_salon);
 			return true;
 		}
 		if (lignes->operator[](i).size() > 0) {
@@ -152,7 +151,6 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				for (int i = nbLignes; i < lignes->size(); i++)
 				{
 					if (lignes->operator[](i) == "COMMENCE") {
-						creationFichierJeu(parametres_salon);
 						return true;
 					}
 					else if(lignes->operator[](i).size() > 0) {
@@ -166,7 +164,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				// Si il y a assez de joueurs et le joueur héberge la partie
 				if (parametres_salon.joueurs->size() >= parametres_salon.nbJoueurs and heberge)
 				{
-
+					creationFichierJeu(parametres_salon);
 					_fichier->ajoutLigne("COMMENCE");
 					return true;
 				}

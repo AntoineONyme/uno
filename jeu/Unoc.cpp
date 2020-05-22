@@ -11,10 +11,8 @@ Unoc::Unoc()
 
 void Unoc::lancementApplication()
 {
-	cout << "\nMerci de choisir un pseudo (longueur entre 5 et 20): ";
-
-	string pseudo;
-	cin >> pseudo;
+	cout << endl;
+	string pseudo = Fichier::lectureString("Merci de choisir un pseudo", 3, 10, "Titi");
 
 	bool continuer = true;
 

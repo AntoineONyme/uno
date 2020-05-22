@@ -1,22 +1,27 @@
 #pragma once
-
+/*
 #include <vector>
 #include <string>
 #include <iostream>
 
-#include "Fichier.h"
+#include "Fichier.h"*/
+
+#include "../jeu/Salon.h"
 
 class CommJeu
 {
 	int _etat = 0;
-	string _nomSalon = "";
 
 	Fichier* _fichier = nullptr;
+	Salon* _salon = nullptr;
 
-	vector<int> _cartesPiochees;
-	string _carteJouee = "";
-	bool _declareUno = false;
-	string _joueurContreUno = "";
+	vector<int>* _cartesPiochees = nullptr;
+	vector<int>* _cartesPiocheesAdversaire = nullptr;
+
+	int _carteJouee = -1;
+	int _carteJoueeAdversaire = -1;
+	bool _declarerUno = false;
+	int _joueurContreUno = -1;
 
 	bool initialiserTour();
 
@@ -25,11 +30,18 @@ class CommJeu
 
 public:
 
-	CommJeu(string nomSalon);
+	CommJeu(Salon* psalon);
+	~CommJeu();
+	void attenteTour();
+	void setCartesPiochees(vector<int>* cartesPiochees);
+	bool finTourAtt(bool finPartie = false);
+
 	bool ajoutCartePioche(int id);
-	bool declareUno();
+	bool declarerUno();
 	bool declareContreUno(int idJoueur);
-	bool finTourAtt();
-	bool declareCarteJouee(int idCarte);
-	string carteJouee() const { return _carteJouee; };
+	bool declarerCarteJouee(int idCarte);
+
+	int getCarteJoueeAdversaire() const { return _carteJoueeAdversaire; };
+	vector<int>* getCartePiocheesAdversaire() const { return _cartesPiocheesAdversaire; };
+	int carteJouee() const { return _carteJouee; };
 };
