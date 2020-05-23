@@ -51,38 +51,44 @@ void CommJeu::attenteTour()
 
 		vector<string>* lignes = _fichier->lectureLignes();
 		if (lignes->size() > 7) {
-			string nomJoueur = _salon->getJoueur(lignes->operator[](1));
 
-			//	Carte Jouée
-			if (lignes->operator[](2).size() > 0)
+			//	On regarde si celui qui a envoyé ça n'est pas le même joueur
+			if (lignes->operator[](1) != std::to_string(_salon->getJoueurActuel()))
 			{
-				cout << nomJoueur << " vient de jouer la carte " << lignes->operator[](2) << endl;
-				_carteJoueeAdversaire = std::stoi(lignes->operator[](2));
-			}
-			//	Uno
-			if (lignes->operator[](3).size() > 0)
-			{
-				cout << nomJoueur << " déclare un Uno." << endl;
-			}
-			//	Contre-Uno
-			if (lignes->operator[](4).size() > 0)
-			{
-				cout << nomJoueur << " déclare un contre uno contre " << _salon->getJoueur(lignes->operator[](4)) << "." << endl;
-			}
-			//	Si c'est la fin de la manche
-			if (lignes->operator[](5).size() > 0)
-			{
-				cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
-			}
-			//	Si pioche
-			if (lignes->operator[](6).size() > 0)
-			{
-				cout << nomJoueur << " vient de piocher " << lignes->operator[](6) << endl;
-			}
-			//	Si pioche
-			if (lignes->operator[](7).size() > 0)
-			{
-				cout << "["<< nomJoueur << "] " << lignes->operator[](7) << endl;
+
+				string nomJoueur = _salon->getJoueur(lignes->operator[](1));
+
+				//	Carte Jouée
+				if (lignes->operator[](2).size() > 0)
+				{
+					cout << nomJoueur << " vient de jouer la carte " << lignes->operator[](2) << endl;
+					_carteJoueeAdversaire = std::stoi(lignes->operator[](2));
+				}
+				//	Uno
+				if (lignes->operator[](3).size() > 0)
+				{
+					cout << nomJoueur << " déclare un Uno." << endl;
+				}
+				//	Contre-Uno
+				if (lignes->operator[](4).size() > 0)
+				{
+					cout << nomJoueur << " déclare un contre uno contre " << _salon->getJoueur(lignes->operator[](4)) << "." << endl;
+				}
+				//	Si c'est la fin de la manche
+				if (lignes->operator[](5).size() > 0)
+				{
+					cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
+				}
+				//	Si pioche
+				if (lignes->operator[](6).size() > 0)
+				{
+					cout << nomJoueur << " vient de piocher " << lignes->operator[](6) << endl;
+				}
+				//	Si pioche
+				if (lignes->operator[](7).size() > 0)
+				{
+					cout << "[" << nomJoueur << "] " << lignes->operator[](7) << endl;
+				}
 			}
 
 
