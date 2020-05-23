@@ -65,7 +65,7 @@ int Game::selectCard()
 	return -1;
 }	
 
-void Game::playCard()
+int Game::playCard()
 {	
 	int numCard = selectCard();
 	if (numCard == -1)
@@ -80,6 +80,7 @@ void Game::playCard()
 			vector<Card*> deck = deck_->getDeck();
 			cout << " Vous avez jouer la carte suivant : " << endl;
 			deck[numCard]->show();
+			return numCard;
 		}
 		else
 		{
@@ -145,13 +146,13 @@ void Game::showCardName(int cardId)
 		
 		if (deck[cardId]->getNumber() < 10)
 		{
-			color = colors[deck[cardId]->getColor()];
+			color = colors[deck[cardId]->getColor()-1];
 			num = deck[cardId]->getNumber();
 			cout << color << num << " | ";
 		}
 		else
 		{
-			color = colors[deck[cardId]->getColor()];
+			color = colors[deck[cardId]->getColor()-1];
 			cout << color << actions[deck[cardId]->getSpecialType()] << " | ";
 		}
 			
@@ -175,20 +176,28 @@ void Game::regenCards()
 
 }
 
-int Game::counterUno(bool tokenUno)
+void Game::counterUno(bool tokenUno, int idUno)
 {
 	int idCounterUno;
 	if (tokenUno == false)
 	{
+		cout << "Pas de chance il ne reste qu'une carte à aucun joueur...";
 		DrawCardtoHand();
-		return -1;
 	}
 	else 
 	{
 		cout << "Contre qui voulez vous faire un contre-Uno ? (postition dans la liste de joueur) : ";
 		cin >> idCounterUno;
 		idCounterUno--;
-		return idCounterUno;
+		if (idCounterUno == idUno)
+		{
+			cout << "Habile Bil ! Le joueur " << idUno + 1 << "doit piocher une carte !";
+		}
+		else
+		{
+			cout << "Pas de chance ce n'est pas le bon joueur...";
+			DrawCardtoHand();
+		}
 	}
 }
 
@@ -196,8 +205,12 @@ bool Game::sayUno()
 {
 	list<int> hand = draw_->getHand();
 	if (hand.size() != 1)
+	{
 		DrawCardtoHand();
-	return true;
+		return false;
+	}
+	else
+		return true;
 }
 
 vector<int>* Game::cardsToSend()
@@ -214,4 +227,47 @@ void Game::removeDrawCards(vector<int>* cardsToSend)
 {
 	for (int i = 0; i < cardsToSend->size(); i++)
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
+}
+
+void Game::applyAction(int idPlayedCard)
+{
+	vector<Card*> deck = deck_->getDeck();
+	int specialType = deck[idPlayedCard]->getSpecialType();
+	string Type = deck[idPlayedCard]->getType();
+	if (Type == "no")
+	{
+		switch (specialType)
+		{
+		case 0:
+			DrawCardtoHand();
+			DrawCardtoHand();
+			
+		case 1:
+			endTurn();
+			
+		case 2:
+			endTurn();
+		
+		default:
+			break;
+		}
+	}
+	else
+	{
+		if (Type == "joker")
+			;
+		else
+		{
+			DrawCardtoHand();
+			DrawCardtoHand();
+			DrawCardtoHand();
+			DrawCardtoHand();
+		}
+	}
+	
+}
+
+void Game::endTurn()
+{
+	;
 }

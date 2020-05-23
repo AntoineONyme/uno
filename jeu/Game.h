@@ -14,15 +14,17 @@ public :
 	Game();
 	virtual void show();
 	int selectCard();
-	void playCard();
+	int playCard();
 	void DrawCardtoHand();
 	bool checkCard(int cardValue);
 	void showCardName(int cardId);
 	void regenCards();
-	int counterUno(bool tokenUno);
+	void counterUno(bool tokenUno, int idUno);
 	bool sayUno();
 	vector<int>* cardsToSend();
 	void removeDrawCards(vector<int>* cardsToSend);
 	void generateHand() {draw_->generateHand(); }
+	void applyAction(int idPlayedCard);
+	void endTurn();
 };
 
