@@ -39,7 +39,6 @@ void Jeu::lancementPartie()
 		commJeu.setCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
-		cout << "LOL";
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{
@@ -68,6 +67,7 @@ void Jeu::lancementPartie()
 				Menu menu("Choix de l'action");
 				menu.ajoutOption("uno", "Uno");
 				menu.ajoutOption("contreUno", "Contre-Uno");
+				menu.ajoutOption("msg", "Envoyer un message");
 				menu.ajoutOption("exit", "Terminer son tour");
 				string choix = menu.affichageMenu();
 				if (choix == "uno")
@@ -79,6 +79,11 @@ void Jeu::lancementPartie()
 				{
 					int idJoueur = Fichier::lectureInt("joueur", 0, _salon->getNbJoueurs() - 1);
 					commJeu.declareContreUno(idJoueur);
+				}
+				if (choix == "msg")
+				{
+					string msg = Fichier::lectureString("message", 1, 30);
+					commJeu.declareMessage(msg);
 				}
 				else
 				{

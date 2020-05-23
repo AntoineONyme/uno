@@ -2,15 +2,13 @@
 
 bool CommJeu::initialiserTour()
 {
-	cout << "yytest\n";
 	_cartesPiochees->clear();
 	_cartesPiocheesAdversaire->clear();
-	cout << "yyteste\n";
 	_carteJouee = -1;
 	_carteJoueeAdversaire = -1;
 	_joueurContreUno = -1;
 	_declarerUno = false;
-	cout << "yytestz\n";
+	_message = "";
 
 	return true;
 }
@@ -52,7 +50,7 @@ void CommJeu::attenteTour()
 		cout << "attente...";
 
 		vector<string>* lignes = _fichier->lectureLignes();
-		if (lignes->size() >= 7) {
+		if (lignes->size() > 7) {
 			string nomJoueur = _salon->getJoueur(lignes->operator[](1));
 
 			//	Carte Jouée
@@ -76,10 +74,15 @@ void CommJeu::attenteTour()
 			{
 				cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
 			}
-			//	Si c'est la fin de la manche
+			//	Si pioche
 			if (lignes->operator[](6).size() > 0)
 			{
 				cout << nomJoueur << " vient de piocher " << lignes->operator[](6) << endl;
+			}
+			//	Si pioche
+			if (lignes->operator[](7).size() > 0)
+			{
+				cout << "["<< nomJoueur << "] " << lignes->operator[](7) << endl;
 			}
 
 
@@ -179,6 +182,9 @@ bool CommJeu::finTourAtt(bool finPartie) {
 		cartesTirees += std::to_string(_cartesPiochees->operator[](i)) + " ";
 	}
 	lignes.push_back(cartesTirees);
+
+	//Ligne 8 : si fin tour
+	lignes.push_back(_message);
 
 	//	On essaye d'écrire les lignes et on teste si il y a une erreur
 	if (!_fichier->ecritureLignes(lignes)) {

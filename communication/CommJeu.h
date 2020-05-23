@@ -22,6 +22,7 @@ class CommJeu
 	int _carteJoueeAdversaire = -1;
 	bool _declarerUno = false;
 	int _joueurContreUno = -1;
+	string _message;
 
 	bool initialiserTour();
 
@@ -40,6 +41,7 @@ public:
 	bool declarerUno();
 	bool declareContreUno(int idJoueur);
 	bool declarerCarteJouee(int idCarte);
+	void declareMessage(string message) { _message = message; };
 
 	int getCarteJoueeAdversaire() const { return _carteJoueeAdversaire; };
 	vector<int>* getCartePiocheesAdversaire() const { return _cartesPiocheesAdversaire; };
