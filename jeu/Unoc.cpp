@@ -11,19 +11,21 @@ Unoc::Unoc()
 
 void Unoc::lancementApplication()
 {
-	cout << "\nMerci de choisir un pseudo (longueur entre 5 et 20): ";
-
-	string pseudo;
-	cin >> pseudo;
+	cout << endl;
+	string pseudo = Fichier::lectureString("Merci de choisir un pseudo", 3, 10, "Titi");
 
 	bool continuer = true;
+
+	//	Boucle pour redémarer une partie une fois qu'elle est finie
 	while (continuer)
 	{
+		//	La classe salon permet de gérer la mise en relation des joueurs (création ou rejoindre un salon existant)
 		_salon = new Salon();
 		if (!_salon->choixSalon(pseudo)) {
 			continuer = false;
 		}
 		else {
+			//	A cette étape, les joueurs sont mis en relation et la partie peut commencer
 			_jeu = new Jeu(_salon);
 			_jeu->lancementPartie();
 			delete _jeu;

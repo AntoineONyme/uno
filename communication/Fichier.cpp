@@ -12,7 +12,7 @@ Fichier::Fichier(string nom, string repertoir, bool createIfNonExist)
 
 	_odrive.sync(_repertoir + "/" + _nom);	//Si le fichier existe il est synchronisé 
 
-	if (!ifstream(getFilePath()).good()) {
+	if (!ifstream(getFilePath()).good() and createIfNonExist) {
 		if (!createIfNonExist) {
 			throw "Impossible de lire le fichier !";
 		}
@@ -53,15 +53,16 @@ vector<string>* Fichier::lectureLignes()
 		return lignes;	//Si il n'a pas été possible d'ouvrir le fichier, on retourne une liste vide
 	}
 
-	fileEchange >> _lastTimestamp;	//Lecture de la première ligne
+	string ligne;
+
+	getline(fileEchange, ligne);
+	_lastTimestamp = std::stoi(ligne);	//Lecture de la première ligne
 
 	// Lecture ligne par ligne jusqu'à la fin du fichier
-	string ligne;
 	while (getline(fileEchange, ligne))
 	{
 		// Si la ligne est de longueur non nulle, alors on l'ajoute
-		if (ligne.size() > 0)
-			lignes->push_back(ligne);
+		lignes->push_back(ligne);
 	}
 
 	fileEchange.close();
@@ -84,10 +85,6 @@ bool Fichier::ecritureLignes(vector<string>& lignes)
 	for (int i = 0; i < lignes.size(); i++)
 	{
 		fileEchange << lignes[i] << endl;
-		/*if (i < lignes.size() - 1)
-		{
-			fileEchange << endl;
-		}*/
 	}
 
 	fileEchange.close();
@@ -133,9 +130,8 @@ bool Fichier::ajoutLigne(string ligne)
 bool Fichier::fichierExiste(string nom, string repertoir)
 {
 	ODrive odrive;
-	string loc = odrive.getFullName(repertoir + "/" + nom);
 
-	return ifstream(loc).good();
+	return ifstream(odrive.getFullName(repertoir + "/" + nom)).good();
 }
 
 bool Fichier::supprimerFichier()
@@ -147,4 +143,58 @@ bool Fichier::supprimerFichier()
 void Fichier::synchroniser(string repertoir) {
 	ODrive odrive;
 	odrive.refresh(repertoir + "/");
+}
+
+string Fichier::lectureString(string label, int min, int max, string vdefault)
+{
+	string data;
+	while (true)
+	{
+		if (vdefault != "-333")
+		{
+			cout << label << " [" << vdefault << "]: ";
+		}
+		else {
+			cout << label << " : ";
+		}
+
+		cin >> data;
+		if (data == "0" and vdefault != "-333")
+		{
+			return vdefault;
+		}
+		if (data.size() < min or data.size() > max) {
+			cout << "Erreur, la lougueur doit etre comprise entre " << min << " et " << max << ".\n";
+		}
+		else {
+			return data;
+		}
+	}
+}
+
+int Fichier::lectureInt(string label, int min, int max, int vdefault)
+{
+	int data;
+	while (true)
+	{
+		if (vdefault != -333)
+		{
+			cout << label << " [" << vdefault << "]: ";
+		}
+		else {
+			cout << label << ": ";
+		}
+
+		cin >> data;
+		if (data == 0 and vdefault != -333)
+		{
+			return vdefault;
+		}
+		if (data < min or data > max) {
+			cout << "Erreur, la valeur doit etre comprise entre " << min << " et " << max << ".\n";
+		}
+		else {
+			return data;
+		}
+	}
 }

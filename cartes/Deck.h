@@ -4,7 +4,6 @@
 #include "ColoredCard.h"
 #include "SpecialCard.h"
 #include"Draw.h"
-#include <stdlib.h>
 #include <algorithm>
 #include<vector>
 

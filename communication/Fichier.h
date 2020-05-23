@@ -34,6 +34,9 @@ public:
 
 	static bool fichierExiste(string nom, string repertoir);
 	bool supprimerFichier();
+
 	static void synchroniser(string repertoir);
+	static string lectureString(string label, int min, int max, string vdefault = "-333");
+	static int lectureInt(string label, int min, int max, int vdefault = -333);
 };
 

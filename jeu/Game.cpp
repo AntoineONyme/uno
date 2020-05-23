@@ -10,14 +10,13 @@ Game::Game()
 	draw_ = new Draw();
 	deck_->generateOpalCards();
 	deck_->generateColoredCards();
-	deck_->showDeck();
-	cout << "Boup" << endl;
+	// deck_->showDeck();
 
 }
 
 void Game::show() 
 {
-	cout <<"\n" << "Affichage de votre main : " << endl;
+	cout << "Affichage de votre main : " << endl;
 	list<int> l = draw_->getHand();
 	list<int>::iterator it;
 	cout << "| ";

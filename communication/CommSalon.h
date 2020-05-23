@@ -20,9 +20,10 @@ typedef struct {
 class CommSalon
 {
 	int _etat = 0;
-	string _nom = "";
 
 	Fichier* _fichier = nullptr;
+
+	void creationFichierJeu(Struct_Parametres_Salon parametres_salon);
 
 public:
 	static const int non_initialise = 0;

@@ -1,6 +1,19 @@
 #include "CommJeu.h"
 #include "CommSalon.h"
 
+void CommSalon::creationFichierJeu(Struct_Parametres_Salon parametres_salon)
+{
+	string nfic = parametres_salon.nom + ".jeu.txt";
+
+	Fichier fichier(nfic, REPERTOIRE, true);
+	vector<string> lignes;
+
+	// Ligne1 : ligne vide pour empécher les erreurs de fichies
+	lignes.push_back("vide");
+
+	fichier.ecritureLignes(lignes);
+}
+
 CommSalon::CommSalon()
 {
 }
@@ -85,7 +98,7 @@ Struct_Parametres_Salon CommSalon::join(string nom, string pseudo)
 	//La déclaration est compatible, il reste à enregistrer ce nouveau joueur
 	_fichier->ajoutLigne(pseudo);
 	parametres_salon.joueurs = new vector<string>;
-	parametres_salon.idJoueurActuel = lignes->size() - 4;
+	parametres_salon.idJoueurActuel = lignes->size() - 3;
 
 	return parametres_salon;
 }
@@ -151,7 +164,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				// Si il y a assez de joueurs et le joueur héberge la partie
 				if (parametres_salon.joueurs->size() >= parametres_salon.nbJoueurs and heberge)
 				{
-
+					creationFichierJeu(parametres_salon);
 					_fichier->ajoutLigne("COMMENCE");
 					return true;
 				}

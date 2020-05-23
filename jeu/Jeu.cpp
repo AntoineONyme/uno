@@ -1,4 +1,4 @@
-#include "Jeu.h"
+﻿#include "Jeu.h"
 
 Jeu::Jeu(Salon* psalon)
 {
@@ -17,9 +17,80 @@ void Jeu::lancementPartie()
 	}
 	cout << endl;
 
+	// Instanciation de l'objet de communication
+	CommJeu commJeu(_salon);
+
 	while (_numManche != _salon->getNbManches())
 	{
-		// to do : mettre en place la routine de jeu
+		Game g;
+		cout << "Jactuel: " << _salon->getJoueurActuel() << endl;
+
+		//	étape 1: on pioche les cartes
+		if (_salon->getJoueurActuel() != 0)
+		{
+			commJeu.attenteTour();
+			//g.removeDrawCards(commJeu.cartesPiochees());
+		}
+		g.generateHand();
+		vector<int>* mainDepart = g.cardsToSend();
+
+		cout << endl;
+		//g.show();
+		commJeu.setCartesPiochees(mainDepart);
+		commJeu.finTourAtt();
+
+		cout << "LOL";
+		//	étape 2: on joue, boucle de jeu de la manche
+		while (true)
+		{
+			g.show();
+			/*
+				Il faudrait que cette fonction fasse piocher le le joueur si nécessaire, et retourne -1 si c'est le cas
+				→ si il est obligé d'après la dernière carte
+				→ si il ne peut pas jouer de carte
+
+				En outre j'aimerais passe en argument la dernière carte jouée par l'adversaire
+				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
+			*/
+			
+			int carte = g.selectCard();
+			if (carte != -1)
+			{
+				commJeu.declarerCarteJouee(carte);
+			}
+			else {
+				int cartePiochee = 0; //Ici il faut le remplir avec une fonction de Game, par exemple :
+				//	cartePiochee = g.getDrawnedCard();
+				commJeu.ajoutCartePioche(cartePiochee);
+			}
+			
+			while (true) {
+				Menu menu("Choix de l'action");
+				menu.ajoutOption("uno", "Uno");
+				menu.ajoutOption("contreUno", "Contre-Uno");
+				menu.ajoutOption("exit", "Terminer son tour");
+				string choix = menu.affichageMenu();
+				if (choix == "uno")
+				{
+					g.sayUno();
+					commJeu.declarerUno();
+				}
+				else if (choix == "contreUno")
+				{
+					int idJoueur = Fichier::lectureInt("joueur", 0, _salon->getNbJoueurs() - 1);
+					commJeu.declareContreUno(idJoueur);
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			//	On termine par transmettre les infos et attendre
+			commJeu.finTourAtt();
+		}
+
+		//Ici on ne joue qu'une manche, pas encore fini
 		break;
 	}
 
