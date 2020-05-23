@@ -5,7 +5,7 @@ Draw::Draw() {
 }
 
 int Draw::drawCard() {
-	srand(clock());
+	srand(time(NULL));
 	//Dec var
 	int rd;
 	int valCard;

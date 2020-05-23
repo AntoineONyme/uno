@@ -215,7 +215,7 @@ bool Game::sayUno()
 vector<int>* Game::cardsToSend()
 {
 	list<int> hand = draw_->getHand();
-	vector<int>* cardsToSend = new vector<int>(hand.size());
+	vector<int>* cardsToSend = new vector<int>;
 	list<int>::iterator it = hand.begin();
 	for (it; it != hand.end(); it++)
 		cardsToSend->push_back(*it);

@@ -1,13 +1,12 @@
 #include "jeu/Unoc.h"
 
-/*
+
 
 #include <iostream>
 #include <thread>
 #include"jeu/Game.h"
 
-
-
+/*
 void fctTestTiti() {
 
 
@@ -16,12 +15,7 @@ void fctTestTiti() {
 	Game g;
 	g.generateHand();
 	g.show();
-	g.DrawCardtoHand();
-	g.show();
-	g.playCard();
-	g.show();
-	g.playCard();
-	g.show();
+	g.cardsToSend();
 
 } // */
 
