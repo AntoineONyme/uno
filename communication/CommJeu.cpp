@@ -2,12 +2,15 @@
 
 bool CommJeu::initialiserTour()
 {
+	cout << "yytest\n";
 	_cartesPiochees->clear();
 	_cartesPiocheesAdversaire->clear();
+	cout << "yyteste\n";
 	_carteJouee = -1;
 	_carteJoueeAdversaire = -1;
 	_joueurContreUno = -1;
 	_declarerUno = false;
+	cout << "yytestz\n";
 
 	return true;
 }
@@ -23,7 +26,8 @@ CommJeu::CommJeu(Salon* psalon)
 		cout << "Ce salon n'existe pas !\n";
 	}
 
-	vector<int>* _cartesPiochees = new vector<int>;
+	_cartesPiochees = new vector<int>;
+	_cartesPiocheesAdversaire = new vector<int>;
 }
 
 //	On supprime les aggrégations
@@ -31,6 +35,8 @@ CommJeu::~CommJeu()
 {
 	if (_cartesPiochees != nullptr)
 		delete _cartesPiochees;
+	if (_cartesPiocheesAdversaire != nullptr)
+		delete _cartesPiocheesAdversaire;
 	if (_fichier != nullptr)
 		delete _fichier;
 }
