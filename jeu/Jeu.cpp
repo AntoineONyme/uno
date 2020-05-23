@@ -1,5 +1,5 @@
 ﻿#include "Jeu.h"
-
+#include"../StaticFunction.h"
 Jeu::Jeu(Salon* psalon)
 {
 	_salon = psalon;
@@ -42,7 +42,9 @@ void Jeu::lancementPartie()
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{
+			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();
 			g.show();
+			
 			/*
 				Il faudrait que cette fonction fasse piocher le le joueur si nécessaire, et retourne -1 si c'est le cas
 				→ si il est obligé d'après la dernière carte
@@ -51,16 +53,24 @@ void Jeu::lancementPartie()
 				En outre j'aimerais passe en argument la dernière carte jouée par l'adversaire
 				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
 			*/
-			
-			int carte = g.selectCard();
-			if (carte != -1)
+			//g.applyAction(derniereCarteJouee);
+			int carte = g.playCard(derniereCarteJouee);
+			if (carte != derniereCarteJouee)
 			{
 				commJeu.declarerCarteJouee(carte);
 			}
-			else {
+			else 
+			{
 				int cartePiochee = 0; //Ici il faut le remplir avec une fonction de Game, par exemple :
-				//	cartePiochee = g.getDrawnedCard();
+				cartePiochee = g.DrawCardtoHand();
 				commJeu.ajoutCartePioche(cartePiochee);
+				if (g.checkCard(cartePiochee, derniereCarteJouee) == true)
+				{
+					g.placeCard(cartePiochee);
+					commJeu.declarerCarteJouee(cartePiochee);
+				}
+				else
+					commJeu.declarerCarteJouee(carte);
 			}
 			
 			while (true) {

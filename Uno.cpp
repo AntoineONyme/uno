@@ -2,10 +2,10 @@
 
 #include <thread>
 
-/*
+
 #include"jeu/Game.h"
 #include <iostream>
-void fctTestTiti() {
+/*void fctTestTiti() {
 
 
 	std::cout << "Generation automatiques des cartes\n";
@@ -13,16 +13,16 @@ void fctTestTiti() {
 	Game g;
 	g.generateHand();
 	g.show();
-	g.cardsToSend();
+	g.playCard(18);
 
-} // */
+}*/ // 
 
 int main()
 {
 	
 	//Lancement du jeu
 
-	Unoc unoc;
+	Unoc unoc; 
 
 	unoc.lancementApplication();
 	

@@ -60,9 +60,11 @@ list<int> Draw::getHand()
 	return hand_;
 }
 
-void Draw::DrawCardtoHand()
+int Draw::DrawCardtoHand()
 {
-	hand_.push_back(drawCard());
+	int drawnCard = drawCard();
+	hand_.push_back(drawnCard);
+	return drawnCard;
 }
 
 void Draw::genDraw()

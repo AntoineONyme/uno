@@ -5,6 +5,7 @@
 #include<vector>
 #include"../cartes/Deck.h"
 #include"../cartes/Draw.h"
+#include"../StaticFunction.h"
 class Game
 {
 	Draw* draw_;
@@ -13,18 +14,21 @@ class Game
 public :
 	Game();
 	virtual void show();
+	int placeCard(int cardValue);
 	int selectCard();
-	int playCard();
-	void DrawCardtoHand();
-	bool checkCard(int cardValue);
-	void showCardName(int cardId);
+	int playCard(int lastPlayedCard);
+	int DrawCardtoHand();
+	bool checkCard(int cardValue, int lastPlayedCard);
+	//void showCardName(int cardId);
 	void regenCards();
 	void counterUno(bool tokenUno, int idUno);
 	bool sayUno();
+	//vector<int>* cardsToSend(int sizeHandBeginTurn, int sendChoice = 1 );
 	vector<int>* cardsToSend();
-	void removeDrawCards(vector<int>* cardsToSend);
+	void removeDrawnCards(vector<int>* cardsToSend);
 	void generateHand() {draw_->generateHand(); }
 	void applyAction(int idPlayedCard);
 	void endTurn();
+	
 };
 

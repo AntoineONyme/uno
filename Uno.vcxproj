@@ -162,6 +162,7 @@
     <ClCompile Include="jeu\Menu.cpp" />
     <ClCompile Include="jeu\Salon.cpp" />
     <ClCompile Include="jeu\Unoc.cpp" />
+    <ClCompile Include="StaticFunction.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="jeu\Menu.h" />
     <ClInclude Include="jeu\Salon.h" />
     <ClInclude Include="jeu\Unoc.h" />
+    <ClInclude Include="StaticFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

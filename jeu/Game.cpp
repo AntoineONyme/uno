@@ -10,7 +10,7 @@ Game::Game()
 	draw_ = new Draw();
 	deck_->generateOpalCards();
 	deck_->generateColoredCards();
-	// deck_->showDeck();
+	//deck_->showDeck();
 
 }
 
@@ -23,6 +23,7 @@ void Game::show()
 	for (it = l.begin(); it != l.end(); it++) 
 	{
 		showCardName(*it);
+		cout << " | ";
 	}
 	cout << "\n";
 
@@ -64,22 +65,19 @@ int Game::selectCard()
 	return -1;
 }	
 
-int Game::playCard()
+int Game::playCard(int lastPlayedCard)
 {	
 	int numCard = selectCard();
 	if (numCard == -1)
 		cout << "Aucune carte selectionnee" << endl;
 	else
 	{	
-		if (checkCard(numCard) == true)
+		if (checkCard(numCard, lastPlayedCard) == true)
 		{
-			usedCards_.push_back(numCard);
 			
-			draw_->pullOutCard(numCard,1);
-			vector<Card*> deck = deck_->getDeck();
-			cout << " Vous avez jouer la carte suivant : " << endl;
-			deck[numCard]->show();
+			placeCard(numCard);
 			return numCard;
+			
 		}
 		else
 		{
@@ -88,39 +86,44 @@ int Game::playCard()
 			cout << "Voulez vous reselectionner une carte ? (y pour oui, autre sinon) : ";
 			cin >> answer;
 			if (answer == 'y')
-				Game::playCard();
+				Game::playCard(lastPlayedCard);
 			else
+			{
 				cout << "Aucune carte selectionnee" << endl;
+				return lastPlayedCard;
+			}
+			
 		}
 	}	
 
 
 }
 
-void Game::DrawCardtoHand()
+int Game::DrawCardtoHand()
 {
-
-	draw_->DrawCardtoHand();
+	int drawCard = draw_->DrawCardtoHand();
+	
+	return drawCard;
 }
 
-bool Game::checkCard(int cardValue)
+bool Game::checkCard(int cardValue, int lastPlayedCard)
 {	
 	vector<Card*> deck = deck_->getDeck();
 	
-	int lastCard = usedCards_.back();
+	
 	list<int>::iterator it;
-	if (usedCards_.size() == 1)
+	if (lastPlayedCard == -1)
 		return true;
-	for (it = usedCards_.begin(); it != usedCards_.end(); it++)
+	/*for (it = usedCards_.begin(); it != usedCards_.end(); it++)
 	{
 		if (*it == cardValue)
 			return false;
-	}
+	}*/
 	if (deck[cardValue]->getType() != "no")
 		return true;
 	else 
 	{
-		if ((deck[cardValue]->getColor() != deck[lastCard]->getColor()) && (deck[cardValue]->getNumber() != deck[lastCard]->getNumber()))
+		if ((deck[cardValue]->getColor() != deck[lastPlayedCard]->getColor()) && (deck[cardValue]->getNumber() != deck[lastPlayedCard]->getNumber()))
 			return false;
 		else
 			return true;
@@ -129,34 +132,6 @@ bool Game::checkCard(int cardValue)
 
 }
 
-char colors[4] = { 'R','B','J','V' };
-vector<string> actions = { "+2", "InvSens", "PasseTour" };
-
-void Game::showCardName(int cardId)
-{
-	char color;
-	string action;
-	int num;
-	vector<Card*> deck = deck_->getDeck();
-	if (deck[cardId]->getType() != "no")
-		cout << deck[cardId]->getType() << " | ";
-	else
-	{
-		
-		if (deck[cardId]->getNumber() < 10)
-		{
-			color = colors[deck[cardId]->getColor()-1];
-			num = deck[cardId]->getNumber();
-			cout << color << num << " | ";
-		}
-		else
-		{
-			color = colors[deck[cardId]->getColor()-1];
-			cout << color << actions[deck[cardId]->getSpecialType()] << " | ";
-		}
-			
-	}
-}
 
 void Game::regenCards()
 {
@@ -212,6 +187,26 @@ bool Game::sayUno()
 		return true;
 }
 
+/*vector<int>* Game::cardsToSend(int sizeHandBeginTurn, int sendChoice)
+{
+	vector<int>* cardsToSend = new vector<int>;
+	list<int> hand = draw_->getHand();
+	list<int>::iterator it = hand.begin();
+	if (sendChoice == 0)
+	{
+		for (it; it != hand.end(); it++)
+			cardsToSend->push_back(*it);
+		return cardsToSend;
+	}
+	else
+	{
+		advance(it, sizeHandBeginTurn - 1);
+		for (it; it != hand.end(); it++)
+			cardsToSend->push_back(*it);
+		return cardsToSend;
+	}
+}*/
+
 vector<int>* Game::cardsToSend()
 {
 	list<int> hand = draw_->getHand();
@@ -222,7 +217,7 @@ vector<int>* Game::cardsToSend()
 	return cardsToSend;
 }
 
-void Game::removeDrawCards(vector<int>* cardsToSend)
+void Game::removeDrawnCards(vector<int>* cardsToSend)
 {
 	for (int i = 0; i < cardsToSend->size(); i++)
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
@@ -269,4 +264,13 @@ void Game::applyAction(int idPlayedCard)
 void Game::endTurn()
 {
 	;
+}
+
+int Game::placeCard(int cardValue)
+{
+	draw_->pullOutCard(cardValue, 1);
+	vector<Card*> deck = deck_->getDeck();
+	cout << " Vous avez jouer la carte suivant : " << endl;
+	deck[cardValue]->show();
+	return cardValue;
 }

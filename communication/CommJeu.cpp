@@ -1,4 +1,6 @@
 #include "CommJeu.h"
+#include "../StaticFunction.h"
+
 
 bool CommJeu::initialiserTour()
 {
@@ -61,7 +63,10 @@ void CommJeu::attenteTour()
 				//	Carte Jouée
 				if (lignes->operator[](2).size() > 0)
 				{
-					cout << nomJoueur << " vient de jouer la carte " << lignes->operator[](2) << endl;
+					cout << nomJoueur << " vient de jouer la carte ";
+					showCardName(std::stoi(lignes->operator[](2)));
+					cout <<endl;
+					//cout << nomJoueur << " vient de jouer la carte " << lignes->operator[](2) << endl;
 					_carteJoueeAdversaire = std::stoi(lignes->operator[](2));
 				}
 				//	Uno

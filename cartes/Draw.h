@@ -19,7 +19,7 @@ public:
     void generateHand();
     list<int> getHand();
     bool pullOutCard(int idCard, int listChoice );
-    void DrawCardtoHand();
+    int DrawCardtoHand();
     void genDraw();
    
 };
