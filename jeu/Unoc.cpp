@@ -34,7 +34,7 @@ void Unoc::lancementApplication()
 	}
 
 	// A ce stade le jeu est termine donc on arrete tout :(
-	cout << endl << "A bientôt !" << endl;
+	cout << endl << "A bientot !" << endl;
 	return;
 }
 

@@ -100,12 +100,14 @@ int Menu::lectureInt(string label, int min, int max, int vdefault)
 		if (valeur.size() != 0){
 			data = stoi(valeur);
 		}
-		else {
-			data = 0;
-		}
-		if (vdefault != -333) {
+		else if (vdefault != -333) {
 			return vdefault;
 		}
+		else {
+			cout << "Erreur, la valeur doit etre non nulle.\n";
+			continue;
+		}
+		
 		if (data < min or data > max) {
 			cout << "Erreur, la valeur doit etre comprise entre " << min << " et " << max << ".\n";
 		}
