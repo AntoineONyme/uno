@@ -5,7 +5,8 @@
 #include<vector>
 #include"../cartes/Deck.h"
 #include"../cartes/Draw.h"
-#include"../StaticFunction.h"
+#include"../cartes/StaticFunction.h"
+
 class Game
 {
 	Draw* draw_;

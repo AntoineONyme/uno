@@ -81,8 +81,8 @@
     <ClCompile Include="communication\CommJeu.cpp">
       <Filter>Fichiers sources\communication</Filter>
     </ClCompile>
-    <ClCompile Include="StaticFunction.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="cartes\StaticFunction.cpp">
+      <Filter>Fichiers sources\cartes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,8 +131,8 @@
     <ClInclude Include="communication\CommJeu.h">
       <Filter>Fichiers d%27en-tête\communication</Filter>
     </ClInclude>
-    <ClInclude Include="StaticFunction.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="cartes\StaticFunction.h">
+      <Filter>Fichiers d%27en-tête\cartes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
