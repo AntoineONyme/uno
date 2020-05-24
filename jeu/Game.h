@@ -27,7 +27,7 @@ public :
 	vector<int>* cardsToSend();
 	void removeDrawnCards(vector<int>* cardsToSend);
 	void generateHand() {draw_->generateHand(); }
-	void applyAction(int idPlayedCard);
+	int applyAction(int idPlayedCard);
 	void endTurn();
 	
 };

@@ -12,7 +12,7 @@ void Deck::addCard(Card* c) {
 }
 
 void Deck::showDeck() {
-	for (int i = 0; i < deck_.size(); i++)
+	for (int i = 0; i < deck_.size() - 8 ; i++)
 	{
 		deck_[i]->show();
 		cout << "      " << endl;
@@ -24,7 +24,7 @@ void Deck::generateOpalCards() {
 		addCard(new OpalCard(i, "joker"));
 		
 	for(int j = 4; j < 8;j++)
-		addCard(new OpalCard(j, "plusFour"));
+		addCard(new OpalCard(j, "+4"));
 }
 void Deck::generateColoredCards() {
 	int n = 8;
@@ -55,6 +55,21 @@ void Deck::generateColoredCards() {
 		}
 		
 	}
+	addCard(new ColoredCard(n, 1, -1));
+	n++;
+	addCard(new ColoredCard(n, 2, -1));
+	n++;
+	addCard(new ColoredCard(n, 3, -1));
+	n++;
+	addCard(new ColoredCard(n, 4, -1));
+	n++;
+	addCard(new ColoredCard(n, 1, -2));
+	n++;
+	addCard(new ColoredCard(n, 2, -2));
+	n++;
+	addCard(new ColoredCard(n, 3, -2));
+	n++;
+	addCard(new ColoredCard(n, 4, -2));
 }
 
 

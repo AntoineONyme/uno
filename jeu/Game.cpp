@@ -223,42 +223,47 @@ void Game::removeDrawnCards(vector<int>* cardsToSend)
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
 }
 
-void Game::applyAction(int idPlayedCard)
+int Game::applyAction(int idPlayedCard)
 {
-	vector<Card*> deck = deck_->getDeck();
-	int specialType = deck[idPlayedCard]->getSpecialType();
-	string Type = deck[idPlayedCard]->getType();
-	if (Type == "no")
-	{
-		switch (specialType)
-		{
-		case 0:
-			DrawCardtoHand();
-			DrawCardtoHand();
-			
-		case 1:
-			endTurn();
-			
-		case 2:
-			endTurn();
-		
-		default:
-			break;
-		}
-	}
+	if (idPlayedCard < 0)
+		return 0;
 	else
 	{
-		if (Type == "joker")
-			;
+		vector<Card*> deck = deck_->getDeck();
+		int specialType = deck[idPlayedCard]->getSpecialType();
+		string Type = deck[idPlayedCard]->getType();
+		if (Type == "no")
+		{
+			if (specialType == 0)
+			{
+				DrawCardtoHand();
+				DrawCardtoHand();
+				return 0;
+			}
+
+			if (specialType == 1)
+				return -1;
+
+			if (specialType == 2)
+				return -1;
+			else
+				return 0;
+		}
+
 		else
 		{
-			DrawCardtoHand();
-			DrawCardtoHand();
-			DrawCardtoHand();
-			DrawCardtoHand();
+			if (deck[idPlayedCard]->getNumber() == -2)
+			{
+				DrawCardtoHand();
+				DrawCardtoHand();
+				DrawCardtoHand();
+				DrawCardtoHand();
+				return 0;
+			}
+			else
+				return 0;
 		}
 	}
-	
 }
 
 void Game::endTurn()
@@ -272,5 +277,40 @@ int Game::placeCard(int cardValue)
 	vector<Card*> deck = deck_->getDeck();
 	cout << " Vous avez jouer la carte suivant : " << endl;
 	deck[cardValue]->show();
+	if (cardValue < 8) 
+	{
+		int colorChoice;
+		if (cardValue < 4)
+		{
+		
+			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
+			cout << "Choississez la couleur de votre joker (1 = rouge par exemple) : ";
+			cin >> colorChoice;
+			if (colorChoice == 1)
+				return 108;
+			if (colorChoice == 2)
+				return 109;
+			if (colorChoice == 3)
+				return 110;
+			if (colorChoice == 1)
+				return 111;
+
+		}
+		else
+		{
+			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
+			cout << "Choississez la couleur de votre +4 (1 = rouge par exemple) : ";
+			cin >> colorChoice;
+			if (colorChoice == 1)
+				return 112;
+			if (colorChoice == 2)
+				return 113;
+			if (colorChoice == 3)
+				return 114;
+			if (colorChoice == 1)
+				return 115;
+
+		}
+	}
 	return cardValue;
 }

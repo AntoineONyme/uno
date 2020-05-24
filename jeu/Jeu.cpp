@@ -53,24 +53,32 @@ void Jeu::lancementPartie()
 				En outre j'aimerais passe en argument la dernière carte jouée par l'adversaire
 				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
 			*/
-			//g.applyAction(derniereCarteJouee);
-			int carte = g.playCard(derniereCarteJouee);
-			if (carte != derniereCarteJouee)
+			int finTour = g.applyAction(derniereCarteJouee);
+			if (finTour == -1)
 			{
-				commJeu.declarerCarteJouee(carte);
+				commJeu.declarerCarteJouee(derniereCarteJouee);
+				commJeu.finTourAtt();
 			}
-			else 
+			else
 			{
-				int cartePiochee = 0; //Ici il faut le remplir avec une fonction de Game, par exemple :
-				cartePiochee = g.DrawCardtoHand();
-				commJeu.ajoutCartePioche(cartePiochee);
-				if (g.checkCard(cartePiochee, derniereCarteJouee) == true)
+				int carte = g.playCard(derniereCarteJouee);
+				if (carte != derniereCarteJouee)
 				{
-					g.placeCard(cartePiochee);
-					commJeu.declarerCarteJouee(cartePiochee);
+					commJeu.declarerCarteJouee(carte);
 				}
 				else
-					commJeu.declarerCarteJouee(carte);
+				{
+					int cartePiochee = 0; //Ici il faut le remplir avec une fonction de Game, par exemple :
+					cartePiochee = g.DrawCardtoHand();
+					commJeu.ajoutCartePioche(cartePiochee);
+					if (g.checkCard(cartePiochee, derniereCarteJouee) == true)
+					{
+						g.placeCard(cartePiochee);
+						commJeu.declarerCarteJouee(cartePiochee);
+					}
+					else
+						commJeu.declarerCarteJouee(carte);
+				}
 			}
 			
 			while (true) {
