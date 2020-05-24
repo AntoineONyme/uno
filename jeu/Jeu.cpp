@@ -14,7 +14,12 @@ void Jeu::lancementPartie()
 	cout << "Bienvenue dans le jeu :)\n" << endl;
 	cout << "Il y a " << nbJoueurs << " joueurs presents: ";
 	for (int i = 0; i < nbJoueurs; i++) {
-		cout << "[" << _salon->getJoueur(i) << "] ";
+		cout << "[";
+		if (_salon->getJoueurActuel() == i)
+		{
+			cout << "*";
+		}
+		cout << _salon->getJoueur(i) << "] ";
 	}
 	cout << endl;
 
@@ -24,7 +29,6 @@ void Jeu::lancementPartie()
 	while (_numManche != _salon->getNbManches())
 	{
 		Game g;
-		cout << "Jactuel: " << _salon->getJoueurActuel() << endl;
 
 		//	étape 1: on pioche les cartes
 		if (_salon->getJoueurActuel() != 0)
