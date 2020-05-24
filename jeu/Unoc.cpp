@@ -12,7 +12,7 @@ Unoc::Unoc()
 void Unoc::lancementApplication()
 {
 	cout << endl;
-	string pseudo = Fichier::lectureString("Merci de choisir un pseudo", 3, 10, "Titi");
+	string pseudo = Menu::lectureString("Merci de choisir un pseudo", 3, 10, "Titi");
 
 	bool continuer = true;
 
@@ -34,7 +34,7 @@ void Unoc::lancementApplication()
 	}
 
 	// A ce stade le jeu est termine donc on arrete tout :(
-	cout << endl << "A bientôt !" << endl;
+	cout << endl << "A bientot !" << endl;
 	return;
 }
 

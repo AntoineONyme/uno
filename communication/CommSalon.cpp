@@ -23,7 +23,7 @@ bool CommSalon::creation(Struct_Parametres_Salon parametres_salon, string pseudo
 	string nfic = parametres_salon.nom + ".salon.txt";
 
 	if (_fichier->fichierExiste(nfic, REPERTOIRE)) {
-		cout << "Ce salon existe déjà !\n";
+		cout << "Ce salon existe deja !\n";
 		return false;
 	}
 	_fichier = new Fichier(nfic, REPERTOIRE, true);
@@ -45,7 +45,7 @@ bool CommSalon::creation(Struct_Parametres_Salon parametres_salon, string pseudo
 		return true;
 	}
 
-	cout << "Impossible de créer le salon !\n";
+	cout << "Impossible de creer le salon !\n";
 	return false;
 }
 
@@ -141,7 +141,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 		if (lignes->size() >= 4) {
 			if (lignes->size() < nbLignes)
 			{
-				cout << "Problème de lecture\n";
+				cout << "Probleme de lecture\n";
 				return false;
 			}
 

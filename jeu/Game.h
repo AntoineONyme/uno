@@ -6,6 +6,7 @@
 #include"../cartes/Deck.h"
 #include"../cartes/Draw.h"
 #include"../cartes/StaticFunction.h"
+#include "Menu.h"
 
 class Game
 {

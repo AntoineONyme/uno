@@ -35,11 +35,11 @@ bool Salon::choixSalon(string pseudo)
 	if (choix == "new") {
 		Menu::affichageSection("Creation de salon");
 
-		parametres_salon.nom = Fichier::lectureString("nom", 3, 10, "test");
+		parametres_salon.nom = Menu::lectureString("nom", 3, 10, "test");
 
-		parametres_salon.nbManches = Fichier::lectureInt("Nombre de manches", 1, 10, 2);
+		parametres_salon.nbManches = Menu::lectureInt("Nombre de manches", 1, 10, 2);
 
-		parametres_salon.nbJoueurs = Fichier::lectureInt("Nombre de joueurs", 1, 3, 1);
+		parametres_salon.nbJoueurs = Menu::lectureInt("Nombre de joueurs", 1, 3, 1);
 
 		if (!comm.creation(parametres_salon, pseudo)) {
 			cout << "Erreur de creation de salon\n";
@@ -70,7 +70,7 @@ bool Salon::choixSalon(string pseudo)
 	else if (choix == "join") {
 		Menu::affichageSection("Rejoindre un salon");
 
-		parametres_salon.nom = Fichier::lectureString("nom", 3, 10, "test");
+		parametres_salon.nom = Menu::lectureString("nom", 3, 10, "test");
 
 		parametres_salon = comm.join(parametres_salon.nom, pseudo);
 		if (parametres_salon.erreur != "") {

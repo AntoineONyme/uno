@@ -32,7 +32,7 @@ void Game::show()
 int Game::selectCard() 
 {	
 	int positionCardinHand;
-	char answer;
+	bool answer;
 	bool selection = true;
 
 	list<int> l = draw_->getHand();
@@ -41,15 +41,17 @@ int Game::selectCard()
 
 	do
 	{
-		cout << "Selectionnez une carte dans votre main en indiquant sa position dans cette derniere svp : ";
-		cin >> positionCardinHand;
-		positionCardinHand--;
-		if ((positionCardinHand < 0) || (positionCardinHand >= l.size()))
+		// positionCardinHand est compris entre 0 et l.size(), sachant que j'ai laissé 0 pour permettre au joueur de ne rien sélectionner (pour piocher par exemple ?)
+		positionCardinHand = Menu::lectureInt("Selectionnez une carte dans votre main en indiquant sa position dans cette derniere svp", 0, l.size());
+		
+		if (positionCardinHand == 0)
 		{	
+			// ici ça aurait plus de sens de piocher 
 			cout << "\n" << "Cette carte n'existe pas " << "\n" << endl;
-			cout << "Voulez reessayez ? (y pour oui, autre sinon)" << endl;
-			cin >> answer;
-			if (answer != 'y')
+			answer = Menu::lectureBool("Voulez reessayez ? ");
+
+			// answer est un booléen et vaut soit vrai, soit faux.
+			if (!answer)
 			{
 				selection = false;
 			}
@@ -57,8 +59,10 @@ int Game::selectCard()
 		}
 		else
 		{
+			positionCardinHand--;
+
 			advance(it, positionCardinHand);
-			cout << "\n" <<"Votre carte a bien etee selectionnee." << endl;
+			//cout << "\n" <<"Votre carte a bien etee selectionnee." << endl;
 			return *it;
 		}
 	} while (selection != false);
@@ -83,9 +87,9 @@ int Game::playCard(int lastPlayedCard)
 		{
 			char answer;
 			cout << "Vous ne pouvez pas jouer cette carte" << endl;
-			cout << "Voulez vous reselectionner une carte ? (y pour oui, autre sinon) : ";
-			cin >> answer;
-			if (answer == 'y')
+			answer = Menu::lectureBool("Voulez-vous reselectionner une carte ? ", true);
+
+			if (answer)
 				Game::playCard(lastPlayedCard);
 			else
 			{
