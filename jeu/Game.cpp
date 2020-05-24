@@ -75,8 +75,8 @@ int Game::playCard(int lastPlayedCard)
 		if (checkCard(numCard, lastPlayedCard) == true)
 		{
 			
-			placeCard(numCard);
-			return numCard;
+			int cardToplay = placeCard(numCard);
+			return cardToplay;
 			
 		}
 		else
@@ -225,43 +225,81 @@ void Game::removeDrawnCards(vector<int>* cardsToSend)
 
 int Game::applyAction(int idPlayedCard)
 {
+	vector<Card*> deck = deck_->getDeck();
 	if (idPlayedCard < 0)
-		return 0;
+		return -1;
+	if (idPlayedCard > deck.size() - 9)
+		return -1;
 	else
 	{
-		vector<Card*> deck = deck_->getDeck();
+		
 		int specialType = deck[idPlayedCard]->getSpecialType();
 		string Type = deck[idPlayedCard]->getType();
 		if (Type == "no")
 		{
 			if (specialType == 0)
 			{
-				DrawCardtoHand();
-				DrawCardtoHand();
-				return 0;
+				Game::DrawCardtoHand();
+				Game::DrawCardtoHand();
+				return -1;
 			}
 
 			if (specialType == 1)
-				return -1;
+			{
+				int carte = 0;
+				if (deck[idPlayedCard]->getColor() == 1)
+					carte = placeCard(108);
+				if (deck[idPlayedCard]->getColor() == 2)
+					carte = placeCard(109);
+				if (deck[idPlayedCard]->getColor() == 3)
+					carte = placeCard(110);
+				if (deck[idPlayedCard]->getColor() == 4)
+					carte = placeCard(111);
+				return carte;
+			}
+
 
 			if (specialType == 2)
-				return -1;
+			{ 
+				int carte = 0;
+				if (deck[idPlayedCard]->getColor() == 1)
+				{
+					carte = placeCard(108);
+					return carte;
+				}
+				if (deck[idPlayedCard]->getColor() == 2)
+				{
+					carte = placeCard(109);
+					return carte;
+				}
+				if (deck[idPlayedCard]->getColor() == 3)
+				{
+					carte = placeCard(110);
+					return carte;
+				}
+				if (deck[idPlayedCard]->getColor() == 4) 
+				{
+					carte = placeCard(111);
+					return carte;
+				}
+					
+			}
 			else
-				return 0;
+				return -1;
 		}
 
 		else
 		{
 			if (deck[idPlayedCard]->getNumber() == -2)
 			{
-				DrawCardtoHand();
-				DrawCardtoHand();
-				DrawCardtoHand();
-				DrawCardtoHand();
-				return 0;
+				Game::DrawCardtoHand();
+				Game::DrawCardtoHand();
+				Game::DrawCardtoHand();
+				Game::DrawCardtoHand();
+				return -1;
 			}
 			else
-				return 0;
+				return -1;
 		}
 	}
 }
@@ -273,8 +311,10 @@ void Game::endTurn()
 
 int Game::placeCard(int cardValue)
 {
-	draw_->pullOutCard(cardValue, 1);
 	vector<Card*> deck = deck_->getDeck();
+	if (cardValue < deck.size() - 8)
+		draw_->pullOutCard(cardValue, 1);
+	
 	cout << " Vous avez jouer la carte suivant : " << endl;
 	deck[cardValue]->show();
 	if (cardValue < 8) 

@@ -43,13 +43,13 @@ void showCardName(int cardId)
 			if (cardId == deck.size()-4)
 				cout << "+4 rouge";
 			if (cardId == deck.size()-5)
-				cout << "joker vert";
+				cout << "vert";
 			if (cardId == deck.size()-6)
-				cout << "joker jaune";
+				cout << "jaune";
 			if (cardId == deck.size()-7)
-				cout << "joker bleu";
+				cout << "bleu";
 			if (cardId == deck.size()-8)
-				cout << "joker rouge";
+				cout << "rouge";
 			
 
 		}

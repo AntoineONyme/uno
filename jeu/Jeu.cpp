@@ -55,9 +55,9 @@ void Jeu::lancementPartie()
 				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
 			*/
 			int finTour = g.applyAction(derniereCarteJouee);
-			if (finTour == -1)
+			if (finTour != -1)
 			{
-				commJeu.declarerCarteJouee(derniereCarteJouee);
+				commJeu.declarerCarteJouee(finTour);
 				commJeu.finTourAtt();
 			}
 			else
