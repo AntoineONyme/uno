@@ -88,12 +88,12 @@ void Jeu::lancementPartie()
 				}
 				else if (choix == "contreUno")
 				{
-					int idJoueur = Fichier::lectureInt("joueur", 0, _salon->getNbJoueurs() - 1);
+					int idJoueur = Menu::lectureInt("joueur", 0, _salon->getNbJoueurs() - 1);
 					commJeu.declareContreUno(idJoueur);
 				}
 				if (choix == "msg")
 				{
-					string msg = Fichier::lectureString("message", 1, 30);
+					string msg = Menu::lectureString("message", 1, 30);
 					commJeu.declareMessage(msg);
 				}
 				else

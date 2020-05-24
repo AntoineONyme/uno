@@ -12,7 +12,7 @@ Unoc::Unoc()
 void Unoc::lancementApplication()
 {
 	cout << endl;
-	string pseudo = Fichier::lectureString("Merci de choisir un pseudo", 3, 10, "Titi");
+	string pseudo = Menu::lectureString("Merci de choisir un pseudo", 3, 10, "Titi");
 
 	bool continuer = true;
 
