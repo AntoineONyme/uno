@@ -1,5 +1,6 @@
 ﻿#include "Jeu.h"
-#include"../StaticFunction.h"
+#include"../cartes/StaticFunction.h"
+
 Jeu::Jeu(Salon* psalon)
 {
 	_salon = psalon;

@@ -1,5 +1,5 @@
 #include "CommJeu.h"
-#include "../StaticFunction.h"
+#include "../cartes/StaticFunction.h"
 
 
 bool CommJeu::initialiserTour()

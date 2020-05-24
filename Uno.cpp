@@ -2,7 +2,6 @@
 
 #include <thread>
 
-
 #include"jeu/Game.h"
 #include <iostream>
 /*void fctTestTiti() {

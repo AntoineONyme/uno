@@ -153,6 +153,7 @@
     <ClCompile Include="cartes\Draw.cpp" />
     <ClCompile Include="cartes\OpalCard.cpp" />
     <ClCompile Include="cartes\SpecialCard.cpp" />
+    <ClCompile Include="cartes\StaticFunction.cpp" />
     <ClCompile Include="communication\CommJeu.cpp" />
     <ClCompile Include="communication\CommSalon.cpp" />
     <ClCompile Include="communication\Fichier.cpp" />
@@ -162,7 +163,6 @@
     <ClCompile Include="jeu\Menu.cpp" />
     <ClCompile Include="jeu\Salon.cpp" />
     <ClCompile Include="jeu\Unoc.cpp" />
-    <ClCompile Include="StaticFunction.cpp" />
     <ClCompile Include="Uno.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +172,7 @@
     <ClInclude Include="cartes\Draw.h" />
     <ClInclude Include="cartes\OpalCard.h" />
     <ClInclude Include="cartes\SpecialCard.h" />
+    <ClInclude Include="cartes\StaticFunction.h" />
     <ClInclude Include="communication\CommJeu.h" />
     <ClInclude Include="communication\CommSalon.h" />
     <ClInclude Include="communication\Fichier.h" />
@@ -181,7 +182,6 @@
     <ClInclude Include="jeu\Menu.h" />
     <ClInclude Include="jeu\Salon.h" />
     <ClInclude Include="jeu\Unoc.h" />
-    <ClInclude Include="StaticFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
