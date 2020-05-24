@@ -73,7 +73,10 @@ int Game::playCard(int lastPlayedCard)
 {	
 	int numCard = selectCard();
 	if (numCard == -1)
+	{
 		cout << "Aucune carte selectionnee" << endl;
+		return -1;
+	}
 	else
 	{	
 		if (checkCard(numCard, lastPlayedCard) == true)
@@ -94,7 +97,7 @@ int Game::playCard(int lastPlayedCard)
 			else
 			{
 				cout << "Aucune carte selectionnee" << endl;
-				return lastPlayedCard;
+				return -1;
 			}
 			
 		}
@@ -118,11 +121,7 @@ bool Game::checkCard(int cardValue, int lastPlayedCard)
 	list<int>::iterator it;
 	if (lastPlayedCard == -1)
 		return true;
-	/*for (it = usedCards_.begin(); it != usedCards_.end(); it++)
-	{
-		if (*it == cardValue)
-			return false;
-	}*/
+
 	if (deck[cardValue]->getType() != "no")
 		return true;
 	else 
@@ -243,23 +242,32 @@ int Game::applyAction(int idPlayedCard)
 		{
 			if (specialType == 0)
 			{
-				Game::DrawCardtoHand();
-				Game::DrawCardtoHand();
-				return -1;
+				return -2;
 			}
 
 			if (specialType == 1)
 			{
 				int carte = 0;
 				if (deck[idPlayedCard]->getColor() == 1)
+				{
 					carte = placeCard(108);
+					return carte;
+				}
 				if (deck[idPlayedCard]->getColor() == 2)
+				{
 					carte = placeCard(109);
+					return carte;
+				}
 				if (deck[idPlayedCard]->getColor() == 3)
+				{
 					carte = placeCard(110);
+					return carte;
+				}
 				if (deck[idPlayedCard]->getColor() == 4)
+				{
 					carte = placeCard(111);
-				return carte;
+					return carte;
+				}
 			}
 
 
@@ -288,19 +296,14 @@ int Game::applyAction(int idPlayedCard)
 				}
 					
 			}
-			else
-				return -1;
+
 		}
 
 		else
 		{
 			if (deck[idPlayedCard]->getNumber() == -2)
 			{
-				Game::DrawCardtoHand();
-				Game::DrawCardtoHand();
-				Game::DrawCardtoHand();
-				Game::DrawCardtoHand();
-				return -1;
+				return -3;
 			}
 			else
 				return -1;
@@ -308,10 +311,7 @@ int Game::applyAction(int idPlayedCard)
 	}
 }
 
-void Game::endTurn()
-{
-	;
-}
+
 
 int Game::placeCard(int cardValue)
 {
@@ -319,8 +319,8 @@ int Game::placeCard(int cardValue)
 	if (cardValue < deck.size() - 8)
 		draw_->pullOutCard(cardValue, 1);
 	
-	cout << " Vous avez jouer la carte suivant : " << endl;
-	deck[cardValue]->show();
+	cout << " Vous avez jouer la carte suivante : ";
+	showCardName(cardValue);
 	if (cardValue < 8) 
 	{
 		int colorChoice;
@@ -329,15 +329,28 @@ int Game::placeCard(int cardValue)
 		
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
 			cout << "Choississez la couleur de votre joker (1 = rouge par exemple) : ";
-			cin >> colorChoice;
+			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) ", 1, 4);
+			//cin >> colorChoice;
 			if (colorChoice == 1)
-				return 108;
+			{
+				int carte = 108;
+				return carte;
+			}
 			if (colorChoice == 2)
-				return 109;
+			{
+				int carte = 109;
+				return carte;
+			}
 			if (colorChoice == 3)
-				return 110;
-			if (colorChoice == 1)
-				return 111;
+			{
+				int carte = 110;
+				return carte;
+			}
+			else
+			{
+				int carte = 111;
+				return carte;
+			}
 
 		}
 		else
@@ -345,14 +358,27 @@ int Game::placeCard(int cardValue)
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
 			cout << "Choississez la couleur de votre +4 (1 = rouge par exemple) : ";
 			cin >> colorChoice;
+			//colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) : ", 1, 4);
 			if (colorChoice == 1)
-				return 112;
+			{
+				int carte = 112;
+				return carte;
+			}
 			if (colorChoice == 2)
-				return 113;
+			{
+				int carte = 113;
+				return carte;
+			}
 			if (colorChoice == 3)
-				return 114;
-			if (colorChoice == 1)
-				return 115;
+			{
+				int carte = 114;
+				return carte;
+			}
+			else
+			{
+				int carte = 115;
+				return carte;
+			}
 
 		}
 	}

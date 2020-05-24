@@ -42,9 +42,9 @@ void Jeu::lancementPartie()
 
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
-		{
+		{	
 			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();
-			g.show();
+		
 			
 			/*
 				Il faudrait que cette fonction fasse piocher le le joueur si nécessaire, et retourne -1 si c'est le cas
@@ -55,15 +55,29 @@ void Jeu::lancementPartie()
 				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
 			*/
 			int finTour = g.applyAction(derniereCarteJouee);
-			if (finTour != -1)
+			if (finTour > 0)
 			{
 				commJeu.declarerCarteJouee(finTour);
-				commJeu.finTourAtt();
+				
 			}
 			else
 			{
+				if (finTour == -2)
+				{
+					commJeu.ajoutCartePioche(g.DrawCardtoHand());
+					commJeu.ajoutCartePioche(g.DrawCardtoHand());
+				}
+				if (finTour == -3)
+				{
+					commJeu.ajoutCartePioche(g.DrawCardtoHand());
+					commJeu.ajoutCartePioche(g.DrawCardtoHand());
+					commJeu.ajoutCartePioche(g.DrawCardtoHand());
+					commJeu.ajoutCartePioche(g.DrawCardtoHand());
+				}
+
+				g.show();
 				int carte = g.playCard(derniereCarteJouee);
-				if (carte != derniereCarteJouee)
+				if (carte != -1)
 				{
 					commJeu.declarerCarteJouee(carte);
 				}

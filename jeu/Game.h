@@ -30,7 +30,6 @@ public :
 	void removeDrawnCards(vector<int>* cardsToSend);
 	void generateHand() {draw_->generateHand(); }
 	int applyAction(int idPlayedCard);
-	void endTurn();
 	
 };
 
