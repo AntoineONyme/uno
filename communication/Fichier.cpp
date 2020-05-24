@@ -61,7 +61,6 @@ vector<string>* Fichier::lectureLignes()
 	// Lecture ligne par ligne jusqu'à la fin du fichier
 	while (getline(fileEchange, ligne))
 	{
-		// Si la ligne est de longueur non nulle, alors on l'ajoute
 		lignes->push_back(ligne);
 	}
 

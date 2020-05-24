@@ -35,70 +35,34 @@ void Jeu::lancementPartie()
 		{
 			commJeu.attenteTour();
 			//g.removeDrawCards(commJeu.cartesPiochees());
-		}
-		g.generateHand();
-		vector<int>* mainDepart = g.cardsToSend();
+		}		
+		vector<int>* mainDepart = g.generateHand();
 
 		cout << endl;
 		//g.show();
 		commJeu.setCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
+		delete mainDepart;
+
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{	
 			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();
-		
-			
-			/*
-				Il faudrait que cette fonction fasse piocher le le joueur si nécessaire, et retourne -1 si c'est le cas
-				→ si il est obligé d'après la dernière carte
-				→ si il ne peut pas jouer de carte
 
-				En outre j'aimerais passe en argument la dernière carte jouée par l'adversaire
-				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
-			*/
-			int finTour = g.applyAction(derniereCarteJouee);
-			if (finTour > 0)
-			{
-				commJeu.declarerCarteJouee(finTour);
-				
-			}
-			else
-			{
-				if (finTour == -2)
-				{
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-				}
-				if (finTour == -3)
-				{
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-				}
+			//	permet au joueur de subir l'effet de la carte précédente (pioche...), puis joue ou pioche si il ne peut pas jouer
+			StructAction structAction = g.play(derniereCarteJouee);
 
-				g.show();
-				int carte = g.playCard(derniereCarteJouee);
-				if (carte != -1)
+			if (structAction.drawnCards->size()>0)
+			{
+				for (int i = 0; i < structAction.drawnCards->size(); i++)
 				{
-					commJeu.declarerCarteJouee(carte);
-				}
-				else
-				{
-					int cartePiochee = 0; //Ici il faut le remplir avec une fonction de Game, par exemple :
-					cartePiochee = g.DrawCardtoHand();
-					commJeu.ajoutCartePioche(cartePiochee);
-					if (g.checkCard(cartePiochee, derniereCarteJouee) == true)
-					{
-						g.placeCard(cartePiochee);
-						commJeu.declarerCarteJouee(cartePiochee);
-					}
-					else
-						commJeu.declarerCarteJouee(carte);
+					cout << "loll\n";
+					commJeu.ajoutCartePioche(structAction.drawnCards->operator[](i));
 				}
 			}
+			commJeu.declarerCarteJouee(structAction.playedCardId);
+			delete structAction.drawnCards;		
 			
 			while (true) {
 				Menu menu("Choix de l'action");
