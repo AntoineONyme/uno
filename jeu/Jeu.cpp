@@ -43,8 +43,6 @@ void Jeu::lancementPartie()
 		commJeu.setCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
-		delete mainDepart;
-
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{	
@@ -55,14 +53,9 @@ void Jeu::lancementPartie()
 
 			if (structAction.drawnCards->size()>0)
 			{
-				for (int i = 0; i < structAction.drawnCards->size(); i++)
-				{
-					cout << "loll\n";
-					commJeu.ajoutCartePioche(structAction.drawnCards->operator[](i));
-				}
+				commJeu.setCartesPiochees(structAction.drawnCards);
 			}
 			commJeu.declarerCarteJouee(structAction.playedCardId);
-			delete structAction.drawnCards;		
 			
 			while (true) {
 				Menu menu("Choix de l'action");

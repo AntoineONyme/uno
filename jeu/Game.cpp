@@ -202,7 +202,6 @@ StructAction Game::play(int lastPlayedCardId, int lastPlayedCardData)
 		}
 	}
 
-
 	return structAction;
 }
 
