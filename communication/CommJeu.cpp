@@ -11,6 +11,7 @@ bool CommJeu::initialiserTour()
 	_joueurContreUno = -1;
 	_declarerUno = false;
 	_message = "";
+	_carteDejaSubie = false;
 
 	return true;
 }
@@ -52,7 +53,7 @@ void CommJeu::attenteTour()
 		cout << "attente...";
 
 		vector<string>* lignes = _fichier->lectureLignes();
-		if (lignes->size() > 7) {
+		if (lignes->size() > 8) {
 
 			//	On regarde si celui qui a envoyé ça n'est pas le même joueur
 			if (lignes->operator[](1) != std::to_string(_salon->getJoueurActuel()))
@@ -63,36 +64,48 @@ void CommJeu::attenteTour()
 				//	Carte Jouée
 				if (lignes->operator[](2).size() > 0)
 				{
-					cout << nomJoueur << " vient de jouer la carte ";
-					showCardName(std::stoi(lignes->operator[](2)));
-					cout <<endl;
-					//cout << nomJoueur << " vient de jouer la carte " << lignes->operator[](2) << endl;
 					_carteJoueeAdversaire = std::stoi(lignes->operator[](2));
+					cout <<endl;
+				}
+				//	Carte déja subie
+				if (lignes->operator[](3).size() > 0)
+				{
+					_carteDejaSubie = true;
+					cout << nomJoueur << " n'a pas joué de carte.\n";
+				}
+				else {
+					_carteDejaSubie = false;
+					if (_carteJoueeAdversaire>=0)
+					{
+						cout << nomJoueur << " vient de jouer la carte ";
+						showCardName(_carteJoueeAdversaire);
+						cout << "\n";
+					}					
 				}
 				//	Uno
-				if (lignes->operator[](3).size() > 0)
+				if (lignes->operator[](4).size() > 0)
 				{
 					cout << nomJoueur << " déclare un Uno." << endl;
 				}
 				//	Contre-Uno
-				if (lignes->operator[](4).size() > 0)
+				if (lignes->operator[](5).size() > 0)
 				{
 					cout << nomJoueur << " déclare un contre uno contre " << _salon->getJoueur(lignes->operator[](4)) << "." << endl;
 				}
 				//	Si c'est la fin de la manche
-				if (lignes->operator[](5).size() > 0)
+				if (lignes->operator[](6).size() > 0)
 				{
 					cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
 				}
 				//	Si pioche
-				if (lignes->operator[](6).size() > 0)
+				if (lignes->operator[](7).size() > 0)
 				{
 					cout << nomJoueur << " vient de piocher " << lignes->operator[](6) << endl;
 				}
 				//	Si pioche
-				if (lignes->operator[](7).size() > 0)
+				if (lignes->operator[](8).size() > 0)
 				{
-					cout << "[" << nomJoueur << "] " << lignes->operator[](7) << endl;
+					cout << "[" << nomJoueur << "] " << lignes->operator[](8) << endl;
 				}
 			}
 
@@ -169,25 +182,31 @@ bool CommJeu::finTourAtt(bool finPartie) {
 	else
 		lignes.push_back("");
 
-	//Ligne 4 : si un uno est déclaré
+	//Ligne 4 : si les effets de la carte ont déja été subits
+	if (_carteDejaSubie)
+		lignes.push_back("Deja subi");
+	else
+		lignes.push_back("");
+
+	//Ligne 5 : si un uno est déclaré
 	if (_declarerUno)
 		lignes.push_back("Uno");
 	else
 		lignes.push_back("");
 
-	//Ligne 5 : si un contre-uno est déclaré
+	//Ligne 6 : si un contre-uno est déclaré
 	if (_joueurContreUno != -1)
 		lignes.push_back(std::to_string(_joueurContreUno));
 	else
 		lignes.push_back("");
 
-	//Ligne 6 : si fin tour
+	//Ligne 7 : si fin tour
 	if (finPartie)
 		lignes.push_back("fin");
 	else
 		lignes.push_back("");
 
-	//Ligne 7 :
+	//Ligne 8 :
 	string cartesTirees = "";
 	for (int i = 0; i < _cartesPiochees->size(); i++)
 	{
@@ -195,7 +214,7 @@ bool CommJeu::finTourAtt(bool finPartie) {
 	}
 	lignes.push_back(cartesTirees);
 
-	//Ligne 8 : si fin tour
+	//Ligne 9 : si message à transmettre
 	lignes.push_back(_message);
 
 	//	On essaye d'écrire les lignes et on teste si il y a une erreur
@@ -214,12 +233,13 @@ bool CommJeu::finTourAtt(bool finPartie) {
 	return true;
 }
 
-bool CommJeu::declarerCarteJouee(int idCarte)
+bool CommJeu::declarerCarteJouee(int idCarte, bool carteDejaSubie)
 {
 	if (_carteJouee != -1)
 	{
 		return false;
 	}
+	_carteDejaSubie = carteDejaSubie;
 	_carteJouee = idCarte;		//On stocke cet id sous forme de string car c'est plus pratique
 	return true;
 }

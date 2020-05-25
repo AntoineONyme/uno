@@ -35,7 +35,7 @@ void Jeu::lancementPartie()
 		{
 			commJeu.attenteTour();
 			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());
-		}		
+		}
 		vector<int>* mainDepart = g.generateHand();
 
 		commJeu.setCartesPiochees(mainDepart);
@@ -44,20 +44,22 @@ void Jeu::lancementPartie()
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{
+			Menu::affichageSection("A vous de jouer !");
 			//	D'abord récupérer les infos sur ce qui a été fait durant l'attente
 			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());	//	Prise en compte des cartes piochées
 			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();	//	Puis la dernière carte jouée
 
 			//	permet au joueur de subir l'effet de la carte précédente (pioche...), puis joue ou pioche si il ne peut pas jouer
-			StructAction structAction = g.play(derniereCarteJouee);
+			StructAction structAction = g.play(derniereCarteJouee, commJeu.getCarteDejaSubie());
 
 
-			if (structAction.drawnCards->size()>0)
+			if (structAction.drawnCards->size() > 0)
 			{
 				commJeu.setCartesPiochees(structAction.drawnCards);
 			}
-			commJeu.declarerCarteJouee(structAction.playedCardId);
-			
+
+			commJeu.declarerCarteJouee(structAction.playedCardId, structAction.cardAlreadyPlayed);
+
 			while (true) {
 				Menu menu("Choix de l'action");
 				menu.ajoutOption("uno", "Uno");

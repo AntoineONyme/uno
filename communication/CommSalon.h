@@ -31,7 +31,7 @@ public:
 	static const int jeu_joueur = 2;
 
 	const string REPERTOIRE = "XXpussyEmpalle";
-	const string VERSION = "1.0.0";
+	const string VERSION = "1.0.1";
 
 	CommSalon();
 	bool creation(Struct_Parametres_Salon parametres_salon, string pseudo);
