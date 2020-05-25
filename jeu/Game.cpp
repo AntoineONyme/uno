@@ -357,8 +357,8 @@ int Game::placeCard(int cardValue)
 		{
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
 			cout << "Choississez la couleur de votre +4 (1 = rouge par exemple) : ";
-			cin >> colorChoice;
-			//colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) : ", 1, 4);
+			//cin >> colorChoice;
+			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) : ", 1, 4);
 			if (colorChoice == 1)
 			{
 				int carte = 112;

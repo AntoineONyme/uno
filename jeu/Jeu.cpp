@@ -96,7 +96,7 @@ void Jeu::lancementPartie()
 						commJeu.declarerCarteJouee(cartePiochee);
 					}
 					else
-						commJeu.declarerCarteJouee(carte);
+						commJeu.declarerCarteJouee(derniereCarteJouee);
 				}
 			}
 			
