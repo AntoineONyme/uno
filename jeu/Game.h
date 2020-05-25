@@ -11,8 +11,14 @@
 typedef struct {
 	int playedCardId = -1;
 	int cardData = -1;
+	bool cardAlreadyPlayed = false;
 	vector<int>* drawnCards = nullptr;
 } StructAction;
+
+typedef struct {
+	int nbCartsToDraw = 0;
+	bool allowedToPlay = true;
+} StructPossibilities;
 
 class Game
 {
@@ -26,8 +32,10 @@ class Game
 	void regenCards();
 	int selectCard();
 	int playCard(int lastPlayedCard);
-	vector<int>* cardsToSend();
-	int applyAction(int idPlayedCard);
+	vector<int>* cardsInHand();
+
+	//	détermine les actions à réaliser et le substitu à la dernière carte
+	StructPossibilities applyAction(int idPlayedCard, bool cardAlreadyPlayed = false);
 
 public :
 	Game();
@@ -38,7 +46,7 @@ public :
 	void removeDrawnCards(vector<int>* cardsToSend);
 
 	//	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
-	StructAction play(int lastPlayedCardId, int lastPlayedCardData = -1);
+	StructAction play(int lastPlayedCardId, bool cardAlreadyPlayed = false);
 
 	void counterUno(bool tokenUno, int idUno);
 	bool sayUno();

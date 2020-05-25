@@ -81,10 +81,7 @@ int Game::playCard(int lastPlayedCard)
 	{
 		if (checkCard(numCard, lastPlayedCard) == true)
 		{
-
-			int cardToplay = placeCard(numCard);
-			return cardToplay;
-
+			return numCard;
 		}
 		else
 		{
@@ -131,8 +128,6 @@ bool Game::checkCard(int cardValue, int lastPlayedCard)
 		else
 			return true;
 	}
-
-
 }
 
 
@@ -153,53 +148,70 @@ void Game::regenCards()
 
 }
 
-StructAction Game::play(int lastPlayedCardId, int lastPlayedCardData)
+StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 {
 	StructAction structAction;
 	structAction.drawnCards = new vector<int>;
 
-	//	Permet de retourner soit -2 / -3 si le joueur doit piocher, soit -1 si il n'y a aucune action à appliquer
-	int action = applyAction(lastPlayedCardId);
+	/*
+		Permet de gérer les différents cas possible des actions permises selon la dernière carte jouée
 
-	//	Si carte spéciale qui fait piocher
-	if (action == -3) {
-		structAction.drawnCards->push_back(DrawCardtoHand());
-		structAction.drawnCards->push_back(DrawCardtoHand());
-		structAction.drawnCards->push_back(DrawCardtoHand());
-		structAction.drawnCards->push_back(DrawCardtoHand());
+		action < 0 : le joueur subit la dernière carte et peut jouer une carte de sa main (par défault : action == -1 si carte standard)
+		action == 0: le joueur subit un +2, il pioche donc deux cartes et passe son tour
+		action > 0 : le joueur subit la dernière car et ne peut pas jouer (ex: passe tour, inv-tour)
+	*/
+
+	StructPossibilities structPossibilities = applyAction(lastPlayedCardId, cardAlreadyPlayed);
+
+	//	Si carte spéciale qui fait piocher (+2, +4)
+	if (structPossibilities.nbCartsToDraw>0)
+	{
+		cout << "Vous piochez " << structPossibilities.nbCartsToDraw << " cartes.\n";
 	}
-	else if (action == -2) {
-		structAction.drawnCards->push_back(DrawCardtoHand());
+	for (int i = 0; i < structPossibilities.nbCartsToDraw; i++)
+	{
 		structAction.drawnCards->push_back(DrawCardtoHand());
 	}
 
 	//	le joueur peut jouer
-	if (action < 0)
+	if (structPossibilities.allowedToPlay)
 	{
 		show();
-		int carte = playCard(lastPlayedCardId);
+		int cartePlayed = playCard(lastPlayedCardId);
 
 		//	le joueur a joué une carte
-		if (carte != -1)
+		if (cartePlayed != -1)
 		{
-			structAction.playedCardId = carte;
+			cartePlayed = placeCard(cartePlayed);
+			structAction.playedCardId = cartePlayed;
 		}
 
-		//	le joueur ne peut pas jouer : il pioche
+		//	le joueur ne peut pas jouer de carte : il pioche
 		else
 		{
 			//	Le joueur pioche une carte
-			int cartePiochee = DrawCardtoHand();
-			structAction.drawnCards->push_back(cartePiochee);
+			int cardDrawn = DrawCardtoHand();
+			structAction.drawnCards->push_back(cardDrawn);
 
-			if (checkCard(cartePiochee, lastPlayedCardId) == true)
+			if (checkCard(cardDrawn, lastPlayedCardId) == true)
 			{
-				placeCard(cartePiochee);
-				structAction.playedCardId = cartePiochee;
+				//	Le joueur peut jouer la carte piochée
+				cardDrawn = placeCard(cardDrawn);	// éventuellement cardDrawn peut être remplécée par un subtitu le cas échéant (carte spéciale)
+				structAction.playedCardId = cardDrawn;
 			}
-			else
-				structAction.playedCardId = lastPlayedCardId;	// TO DO : vérifier cette ligne
+			else {
+				structAction.playedCardId = lastPlayedCardId;
+				structAction.cardAlreadyPlayed = true;
+			}
 		}
+	}
+	//	Le joueur ne peut pas jouer
+	else {
+		show();
+		cout << "Vous ne pouvez pas jouer !" << endl;
+
+		structAction.playedCardId = lastPlayedCardId;
+		structAction.cardAlreadyPlayed = true;
 	}
 
 	return structAction;
@@ -242,27 +254,7 @@ bool Game::sayUno()
 		return true;
 }
 
-/*vector<int>* Game::cardsToSend(int sizeHandBeginTurn, int sendChoice)
-{
-	vector<int>* cardsToSend = new vector<int>;
-	list<int> hand = draw_->getHand();
-	list<int>::iterator it = hand.begin();
-	if (sendChoice == 0)
-	{
-		for (it; it != hand.end(); it++)
-			cardsToSend->push_back(*it);
-		return cardsToSend;
-	}
-	else
-	{
-		advance(it, sizeHandBeginTurn - 1);
-		for (it; it != hand.end(); it++)
-			cardsToSend->push_back(*it);
-		return cardsToSend;
-	}
-}*/
-
-vector<int>* Game::cardsToSend()
+vector<int>* Game::cardsInHand()
 {
 	list<int> hand = draw_->getHand();
 	vector<int>* cardsToSend = new vector<int>;
@@ -277,7 +269,7 @@ vector<int>* Game::generateHand()
 {
 	draw_->generateHand();
 
-	return cardsToSend();
+	return cardsInHand();
 }
 
 void Game::removeDrawnCards(vector<int>* cardsToSend)
@@ -286,88 +278,77 @@ void Game::removeDrawnCards(vector<int>* cardsToSend)
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
 }
 
-int Game::applyAction(int idPlayedCard)
+StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 {
+	StructPossibilities structPossibilities;
+
 	vector<Card*> deck = deck_->getDeck();
+
+	//	Aucune carte n'a été jouée
 	if (idPlayedCard < 0) {
-		return -1;
+		return structPossibilities;
 	}
-	if (idPlayedCard > deck.size() - 9)
-		return -1;
+	//	Si c'est une carte qui a déjà été jouée, aucun effet ne peut s'appliquer
+	if (cardAlreadyPlayed) {
+		return structPossibilities;
+	}
+	//	Sinon on regarde si un effet éventuel peut s'appliquer
 	else
 	{
-
 		int specialType = deck[idPlayedCard]->getSpecialType();
 		string Type = deck[idPlayedCard]->getType();
+
+		//	Carte de couleur (pas jocker / +4)
 		if (Type == "no")
 		{
+			//	+2
 			if (specialType == 0)
 			{
-				return -2;
+				structPossibilities.nbCartsToDraw = 2;
+				structPossibilities.allowedToPlay = false;
+				return structPossibilities;
 			}
 
+			//	Passe-tour
 			if (specialType == 1)
 			{
-				int carte = 0;
-				if (deck[idPlayedCard]->getColor() == 1)
+				if (cardAlreadyPlayed)
 				{
-					carte = placeCard(108);
-					return carte;
+					return structPossibilities;
 				}
-				if (deck[idPlayedCard]->getColor() == 2)
-				{
-					carte = placeCard(109);
-					return carte;
-				}
-				if (deck[idPlayedCard]->getColor() == 3)
-				{
-					carte = placeCard(110);
-					return carte;
-				}
-				if (deck[idPlayedCard]->getColor() == 4)
-				{
-					carte = placeCard(111);
-					return carte;
+				else {
+					structPossibilities.allowedToPlay = false;
+					return structPossibilities;
 				}
 			}
 
-
+			//	Inv-tour
 			if (specialType == 2)
 			{
-				int carte = 0;
-				if (deck[idPlayedCard]->getColor() == 1)
+				if (cardAlreadyPlayed)
 				{
-					carte = placeCard(108);
-					return carte;
+					return structPossibilities;
 				}
-				if (deck[idPlayedCard]->getColor() == 2)
-				{
-					carte = placeCard(109);
-					return carte;
+				else {
+					structPossibilities.allowedToPlay = false;
+					return structPossibilities;
 				}
-				if (deck[idPlayedCard]->getColor() == 3)
-				{
-					carte = placeCard(110);
-					return carte;
-				}
-				if (deck[idPlayedCard]->getColor() == 4)
-				{
-					carte = placeCard(111);
-					return carte;
-				}
-
 			}
-
 		}
 
+		//	Carte spéciales (jocker / +4)
 		else
 		{
+			//	Carte +4
 			if (deck[idPlayedCard]->getNumber() == -2)
 			{
-				return -3;
+				structPossibilities.nbCartsToDraw = 4;
+				return structPossibilities;
 			}
-			else
-				return -1;
+			//	Jocker
+			else {
+				return structPossibilities;
+			}
 		}
 	}
 }
@@ -380,18 +361,18 @@ int Game::placeCard(int cardValue)
 	if (cardValue < deck.size() - 8)
 		draw_->pullOutCard(cardValue, 1);
 
-	cout << " Vous avez jouer la carte suivante : ";
+	cout << " Vous avez joue la carte suivante : ";
 	showCardName(cardValue);
+	//	Cartes spéciale (jocker / +4)
 	if (cardValue < 8)
 	{
 		int colorChoice;
+		//	Jocker
 		if (cardValue < 4)
 		{
-
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
-			cout << "Choississez la couleur de votre joker (1 = rouge par exemple) : ";
-			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) ", 1, 4);
-			//cin >> colorChoice;
+			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple)", 1, 4);
+			
 			if (colorChoice == 1)
 			{
 				int carte = 108;
@@ -414,12 +395,11 @@ int Game::placeCard(int cardValue)
 			}
 
 		}
+		//	+4
 		else
 		{
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
-			cout << "Choississez la couleur de votre +4 (1 = rouge par exemple) : ";
-			cin >> colorChoice;
-			//colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) : ", 1, 4);
+			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple)", 1, 4);
 			if (colorChoice == 1)
 			{
 				int carte = 112;

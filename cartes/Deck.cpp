@@ -55,6 +55,7 @@ void Deck::generateColoredCards() {
 		}
 		
 	}
+	// substituts jocker
 	addCard(new ColoredCard(n, 1, -1));
 	n++;
 	addCard(new ColoredCard(n, 2, -1));
@@ -63,6 +64,7 @@ void Deck::generateColoredCards() {
 	n++;
 	addCard(new ColoredCard(n, 4, -1));
 	n++;
+	// substituts +4
 	addCard(new ColoredCard(n, 1, -2));
 	n++;
 	addCard(new ColoredCard(n, 2, -2));

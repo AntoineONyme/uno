@@ -30,23 +30,23 @@ void Jeu::lancementPartie()
 	{
 		Game g;
 
-		//	étape 1: on pioche les cartes
+		//	étape 1: on génère les mains des joueurs, chacun son tour
 		if (_salon->getJoueurActuel() != 0)
 		{
 			commJeu.attenteTour();
-			//g.removeDrawCards(commJeu.cartesPiochees());
+			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());
 		}		
 		vector<int>* mainDepart = g.generateHand();
 
-		cout << endl;
-		//g.show();
 		commJeu.setCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
-		{	
-			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();
+		{
+			//	D'abord récupérer les infos sur ce qui a été fait durant l'attente
+			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());	//	Prise en compte des cartes piochées
+			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();	//	Puis la dernière carte jouée
 
 			//	permet au joueur de subir l'effet de la carte précédente (pioche...), puis joue ou pioche si il ne peut pas jouer
 			StructAction structAction = g.play(derniereCarteJouee);
