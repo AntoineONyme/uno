@@ -111,6 +111,7 @@ void CommJeu::attenteTour()
 
 void CommJeu::setCartesPiochees(vector<int>* cartesPiochees)
 {
+
 	if (_cartesPiochees != nullptr)
 	{
 		delete _cartesPiochees;

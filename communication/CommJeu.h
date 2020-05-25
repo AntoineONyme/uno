@@ -8,6 +8,11 @@
 
 #include "../jeu/Salon.h"
 
+typedef struct {
+	int idCarte;
+	bool alreadyPlayed = false;
+} CarteJoueeStruct;
+
 class CommJeu
 {
 	int _etat = 0;
@@ -20,6 +25,8 @@ class CommJeu
 
 	int _carteJouee = -1;
 	int _carteJoueeAdversaire = -1;
+	bool _carteDejaSubie = false;
+
 	bool _declarerUno = false;
 	int _joueurContreUno = -1;
 	string _message;

@@ -130,6 +130,14 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 	}
 	int nbLignes = lignes->size();
 
+	// Si il y a assez de joueurs et le joueur héberge la partie (utile si partie de 1 joueur)
+	if (parametres_salon.joueurs->size() >= parametres_salon.nbJoueurs and heberge)
+	{
+		creationFichierJeu(parametres_salon);
+		_fichier->ajoutLigne("COMMENCE");
+		return true;
+	}
+
 	while (true)
 	{
 		cout << "attente... ";

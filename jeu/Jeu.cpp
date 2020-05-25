@@ -30,55 +30,28 @@ void Jeu::lancementPartie()
 	{
 		Game g;
 
-		//	étape 1: on pioche les cartes
+		//	étape 1: on génère les mains des joueurs, chacun son tour
 		if (_salon->getJoueurActuel() != 0)
 		{
 			commJeu.attenteTour();
-			//g.removeDrawCards(commJeu.cartesPiochees());
-		}
-		g.generateHand();
-		vector<int>* mainDepart = g.cardsToSend();
+			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());
+		}		
+		vector<int>* mainDepart = g.generateHand();
 
-		cout << endl;
-		//g.show();
 		commJeu.setCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
-		{	
-			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();
-		
-			
-			/*
-				Il faudrait que cette fonction fasse piocher le le joueur si nécessaire, et retourne -1 si c'est le cas
-				→ si il est obligé d'après la dernière carte
-				→ si il ne peut pas jouer de carte
+		{
+			//	D'abord récupérer les infos sur ce qui a été fait durant l'attente
+			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());	//	Prise en compte des cartes piochées
+			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();	//	Puis la dernière carte jouée
 
-				En outre j'aimerais passe en argument la dernière carte jouée par l'adversaire
-				int carte = g.selectCard(commJeu.getCarteJoueeAdversaire());
-			*/
-			int finTour = g.applyAction(derniereCarteJouee);
-			if (finTour > 0)
-			{
-				commJeu.declarerCarteJouee(finTour);
-				
-			}
-			else
-			{
-				if (finTour == -2)
-				{
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-				}
-				if (finTour == -3)
-				{
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-					commJeu.ajoutCartePioche(g.DrawCardtoHand());
-				}
+			//	permet au joueur de subir l'effet de la carte précédente (pioche...), puis joue ou pioche si il ne peut pas jouer
+			StructAction structAction = g.play(derniereCarteJouee);
 
+<<<<<<< HEAD
 				g.show();
 				int carte = g.playCard(derniereCarteJouee);
 				if (carte != -1)
@@ -98,7 +71,13 @@ void Jeu::lancementPartie()
 					else
 						commJeu.declarerCarteJouee(derniereCarteJouee);
 				}
+=======
+			if (structAction.drawnCards->size()>0)
+			{
+				commJeu.setCartesPiochees(structAction.drawnCards);
+>>>>>>> 09e1421116468dcf60af5f0f0acf8aacfd2b22ae
 			}
+			commJeu.declarerCarteJouee(structAction.playedCardId);
 			
 			while (true) {
 				Menu menu("Choix de l'action");
