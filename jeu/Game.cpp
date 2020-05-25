@@ -42,30 +42,23 @@ int Game::selectCard()
 	do
 	{
 		// positionCardinHand est compris entre 0 et l.size(), sachant que j'ai laissé 0 pour permettre au joueur de ne rien sélectionner (pour piocher par exemple ?)
-		positionCardinHand = Menu::lectureInt("Selectionnez une carte dans votre main en indiquant sa position dans cette derniere svp", 0, l.size());
+		cout << "Selectionnez une carte dans votre main en indiquant sa position dans cette derniere ou 0 pour piocher." << endl;
+		positionCardinHand = Menu::lectureInt("carte", 0, l.size());
 
+		//	Si le joueur décide de piocher
 		if (positionCardinHand == 0)
 		{
-			// ici ça aurait plus de sens de piocher 
-			cout << "\n" << "Cette carte n'existe pas " << "\n" << endl;
-			answer = Menu::lectureBool("Voulez reessayez ? ");
-
-			// answer est un booléen et vaut soit vrai, soit faux.
-			if (!answer)
-			{
-				selection = false;
-			}
-
+			selection = false;
 		}
 		else
 		{
 			positionCardinHand--;
 
 			advance(it, positionCardinHand);
-			//cout << "\n" <<"Votre carte a bien etee selectionnee." << endl;
 			return *it;
 		}
-	} while (selection != false);
+	} 
+	while (selection != false);
 	return -1;
 }
 
@@ -74,7 +67,6 @@ int Game::playCard(int lastPlayedCard)
 	int numCard = selectCard();
 	if (numCard == -1)
 	{
-		cout << "Aucune carte selectionnee" << endl;
 		return -1;
 	}
 	else
@@ -96,7 +88,6 @@ int Game::playCard(int lastPlayedCard)
 				cout << "Aucune carte selectionnee" << endl;
 				return -1;
 			}
-
 		}
 	}
 
@@ -170,12 +161,20 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	}
 	for (int i = 0; i < structPossibilities.nbCartsToDraw; i++)
 	{
-		structAction.drawnCards->push_back(DrawCardtoHand());
+		int drawnCard = DrawCardtoHand();
+		structAction.drawnCards->push_back(drawnCard);
+		cout << "Vous avez pioché la carte ";
+		showCardName(drawnCard);
+		cout << endl;
 	}
 
 	//	le joueur peut jouer
 	if (structPossibilities.allowedToPlay)
 	{
+		cout << "Derniere carte: ";
+		showCardName(lastPlayedCardId);
+		cout << endl;
+
 		show();
 		int cartePlayed = playCard(lastPlayedCardId);
 
@@ -192,6 +191,9 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 			//	Le joueur pioche une carte
 			int cardDrawn = DrawCardtoHand();
 			structAction.drawnCards->push_back(cardDrawn);
+			cout << "Vous avez pioché la carte ";
+			showCardName(cardDrawn);
+			cout << "." << endl;
 
 			if (checkCard(cardDrawn, lastPlayedCardId) == true)
 			{
@@ -284,7 +286,7 @@ StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 
 	vector<Card*> deck = deck_->getDeck();
 
-	//	Aucune carte n'a été jouée
+	//	Aucune carte n'a encore été jouée : le joueur joue celle qu'il veut
 	if (idPlayedCard < 0) {
 		return structPossibilities;
 	}

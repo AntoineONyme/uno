@@ -8,11 +8,6 @@
 
 #include "../jeu/Salon.h"
 
-typedef struct {
-	int idCarte;
-	bool alreadyPlayed = false;
-} CarteJoueeStruct;
-
 class CommJeu
 {
 	int _etat = 0;
@@ -34,7 +29,7 @@ class CommJeu
 	bool initialiserTour();
 
 	const string REPERTOIRE = "XXpussyEmpalle";
-	const string VERSION = "1.0.0";
+	const string VERSION = "1.0.1";
 
 public:
 
@@ -47,10 +42,11 @@ public:
 	bool ajoutCartePioche(int id);
 	bool declarerUno();
 	bool declareContreUno(int idJoueur);
-	bool declarerCarteJouee(int idCarte);
+	bool declarerCarteJouee(int idCarte, bool carteDejaSubie);
 	void declareMessage(string message) { _message = message; };
 
 	int getCarteJoueeAdversaire() const { return _carteJoueeAdversaire; };
 	vector<int>* getCartePiocheesAdversaire() const { return _cartesPiocheesAdversaire; };
 	int carteJouee() const { return _carteJouee; };
+	bool getCarteDejaSubie() const { return _carteDejaSubie; };
 };

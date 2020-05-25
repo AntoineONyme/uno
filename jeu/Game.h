@@ -10,7 +10,6 @@
 
 typedef struct {
 	int playedCardId = -1;
-	int cardData = -1;
 	bool cardAlreadyPlayed = false;
 	vector<int>* drawnCards = nullptr;
 } StructAction;
@@ -35,7 +34,7 @@ class Game
 	vector<int>* cardsInHand();
 
 	//	détermine les actions à réaliser et le substitu à la dernière carte
-	StructPossibilities applyAction(int idPlayedCard, bool cardAlreadyPlayed = false);
+	StructPossibilities applyAction(int idPlayedCard, bool cardAlreadyPlayed);
 
 public :
 	Game();
@@ -46,7 +45,7 @@ public :
 	void removeDrawnCards(vector<int>* cardsToSend);
 
 	//	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
-	StructAction play(int lastPlayedCardId, bool cardAlreadyPlayed = false);
+	StructAction play(int lastPlayedCardId, bool cardAlreadyPlayed);
 
 	void counterUno(bool tokenUno, int idUno);
 	bool sayUno();
