@@ -171,9 +171,11 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	//	le joueur peut jouer
 	if (structPossibilities.allowedToPlay)
 	{
-		cout << "Derniere carte: ";
-		showCardName(lastPlayedCardId);
-		cout << endl;
+		if (lastPlayedCardId != -1) {
+			cout << "Derniere carte: ";
+			showCardName(lastPlayedCardId);
+			cout << endl;
+		}
 
 		show();
 		int cartePlayed = playCard(lastPlayedCardId);
@@ -242,6 +244,7 @@ vector<int>* Game::counterUno(bool tokenUno, int idUno)
 			DrawCardtoHand();
 		}
 	}
+	return nullptr;
 }
 
 vector<int>* Game::sayUno()
