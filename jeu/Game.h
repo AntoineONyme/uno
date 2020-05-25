@@ -48,8 +48,8 @@ public :
 	//	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
 	StructAction play(int lastPlayedCardId, bool cardAlreadyPlayed = false);
 
-	void counterUno(bool tokenUno, int idUno);
-	bool sayUno();
+	vector<int>* counterUno(bool tokenUno, int idUno);
+	vector<int>* sayUno();
 
 
 	//void showCardName(int cardId);

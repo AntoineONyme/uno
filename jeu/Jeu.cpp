@@ -51,31 +51,10 @@ void Jeu::lancementPartie()
 			//	permet au joueur de subir l'effet de la carte précédente (pioche...), puis joue ou pioche si il ne peut pas jouer
 			StructAction structAction = g.play(derniereCarteJouee);
 
-<<<<<<< HEAD
-				g.show();
-				int carte = g.playCard(derniereCarteJouee);
-				if (carte != -1)
-				{
-					commJeu.declarerCarteJouee(carte);
-				}
-				else
-				{
-					int cartePiochee = 0; //Ici il faut le remplir avec une fonction de Game, par exemple :
-					cartePiochee = g.DrawCardtoHand();
-					commJeu.ajoutCartePioche(cartePiochee);
-					if (g.checkCard(cartePiochee, derniereCarteJouee) == true)
-					{
-						g.placeCard(cartePiochee);
-						commJeu.declarerCarteJouee(cartePiochee);
-					}
-					else
-						commJeu.declarerCarteJouee(derniereCarteJouee);
-				}
-=======
+
 			if (structAction.drawnCards->size()>0)
 			{
 				commJeu.setCartesPiochees(structAction.drawnCards);
->>>>>>> 09e1421116468dcf60af5f0f0acf8aacfd2b22ae
 			}
 			commJeu.declarerCarteJouee(structAction.playedCardId);
 			

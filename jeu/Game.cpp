@@ -217,7 +217,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	return structAction;
 }
 
-void Game::counterUno(bool tokenUno, int idUno)
+vector<int>* Game::counterUno(bool tokenUno, int idUno)
 {
 	int idCounterUno;
 	if (tokenUno == false)
@@ -242,16 +242,20 @@ void Game::counterUno(bool tokenUno, int idUno)
 	}
 }
 
-bool Game::sayUno()
+vector<int>* Game::sayUno()
 {
+	vector<int>* penaltyDrawnCards = new vector<int>;
 	list<int> hand = draw_->getHand();
 	if (hand.size() != 1)
 	{
-		DrawCardtoHand();
-		return false;
+		for (int i = 0; i < 2; i++)
+		{
+			penaltyDrawnCards->push_back(DrawCardtoHand());
+		}
+		return penaltyDrawnCards;
 	}
 	else
-		return true;
+		return penaltyDrawnCards;
 }
 
 vector<int>* Game::cardsInHand()
@@ -296,11 +300,11 @@ StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 	else
 	{
 		int specialType = deck[idPlayedCard]->getSpecialType();
-		string Type = deck[idPlayedCard]->getType();
+		
 
 		//	Carte de couleur (pas jocker / +4)
-		if (Type == "no")
-		{
+		
+		
 			//	+2
 			if (specialType == 0)
 			{
@@ -334,11 +338,11 @@ StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 					return structPossibilities;
 				}
 			}
-		}
+		
 
 		//	Carte spéciales (jocker / +4)
-		else
-		{
+		
+		
 			//	Carte +4
 			if (deck[idPlayedCard]->getNumber() == -2)
 			{
@@ -349,7 +353,7 @@ StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 			else {
 				return structPossibilities;
 			}
-		}
+		
 	}
 }
 
@@ -399,13 +403,8 @@ int Game::placeCard(int cardValue)
 		else
 		{
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
-<<<<<<< HEAD
-			cout << "Choississez la couleur de votre +4 (1 = rouge par exemple) : ";
-			//cin >> colorChoice;
-			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple) : ", 1, 4);
-=======
+
 			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple)", 1, 4);
->>>>>>> 09e1421116468dcf60af5f0f0acf8aacfd2b22ae
 			if (colorChoice == 1)
 			{
 				int carte = 112;
