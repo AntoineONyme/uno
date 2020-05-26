@@ -67,7 +67,7 @@ int Game::playCard(int lastPlayedCard)
 	int numCard = selectCard();
 	//Cas Cheat-Code, permet d'activer un code de triche pour faciliter l'implémentation de certaines méthodes.
 
-	if (numCard == 666 || numCard == -666)
+	if (numCard == -666)
 	{
 		CheatHandToOne();
 		return 108;
@@ -106,7 +106,7 @@ void Game::CheatHandToOne()
 {
 	list<int> hand = draw_->getHand();
 	list<int>::iterator it = hand.begin();
-	it++;
+	advance(it,1);
 	for (it; it != hand.end(); it++)
 		draw_->pullOutCard(*it,1);
 }
