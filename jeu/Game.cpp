@@ -65,6 +65,14 @@ int Game::selectCard()
 int Game::playCard(int lastPlayedCard)
 {
 	int numCard = selectCard();
+	//Cas Cheat-Code, permet d'activer un code de triche pour faciliter l'implémentation de certaines méthodes.
+
+	if (numCard == 666 || numCard == -666)
+	{
+		CheatHandToOne();
+		return 108;
+	}
+	//Cas  ou l'on décide de ne pas jouer de cartes.
 	if (numCard == -1)
 	{
 		return -1;
@@ -92,6 +100,15 @@ int Game::playCard(int lastPlayedCard)
 	}
 
 
+}
+
+void Game::CheatHandToOne()
+{
+	list<int> hand = draw_->getHand();
+	list<int>::iterator it = hand.begin();
+	it++;
+	for (it; it != hand.end(); it++)
+		draw_->pullOutCard(*it,1);
 }
 
 int Game::DrawCardtoHand()
@@ -124,18 +141,7 @@ bool Game::checkCard(int cardValue, int lastPlayedCard)
 
 void Game::regenCards()
 {
-	list<int> draw = draw_->getHand();
-	int lastPlayedCard = usedCards_.back();
-	list<int>::iterator it = draw.begin();
-	draw_->genDraw();
-
-	usedCards_.clear();
-	usedCards_.push_back(-1);
-	usedCards_.push_back(lastPlayedCard);
-	for (it; it != draw.end(); it++)
-	{
-		draw_->pullOutCard(*it, 0);
-	}
+	
 
 }
 
@@ -171,9 +177,11 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	//	le joueur peut jouer
 	if (structPossibilities.allowedToPlay)
 	{
-		cout << "Derniere carte: ";
-		showCardName(lastPlayedCardId);
-		cout << endl;
+		if (lastPlayedCardId != -1) {
+			cout << "Derniere carte: ";
+			showCardName(lastPlayedCardId);
+			cout << endl;
+		}
 
 		show();
 		int cartePlayed = playCard(lastPlayedCardId);
@@ -241,7 +249,9 @@ vector<int>* Game::counterUno(bool tokenUno, int idUno)
 			cout << "Pas de chance ce n'est pas le bon joueur...";
 			DrawCardtoHand();
 		}
-	}return nullptr;
+
+	}
+	return nullptr;
 }
 
 vector<int>* Game::sayUno()
