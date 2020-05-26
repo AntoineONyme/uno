@@ -112,19 +112,23 @@ int Menu::lectureInt(string label, int min, int max, int vdefault)
 		{
 			return -666;
 		}
-		if (!isInteger(valeur)) {
-			cout << "La valeur doit etre un nombre !" << endl;
+
+		if (valeur.size() == 0)
+		{
+			if (vdefault != -333) {
+				return vdefault;
+			}
+			else {
+				cout << "Erreur, la valeur doit etre non nulle.\n";
+				continue;
+			}
+		}
+		else if (!isInteger(valeur)) {
+			cout << "La valeur doit etre un entier." << endl;
 			continue;
-		}
-		else if (valeur.size() != 0){
-			data = stoi(valeur);
-		}
-		else if (vdefault != -333) {
-			return vdefault;
 		}
 		else {
-			cout << "Erreur, la valeur doit etre non nulle.\n";
-			continue;
+			data = stoi(valeur);
 		}
 		
 		if (data < min or data > max) {
