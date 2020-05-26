@@ -23,15 +23,22 @@ class Game
 {
 	Draw* draw_;
 	Deck* deck_;
-	list<int> usedCards_ = { -1 };
-
-	int DrawCardtoHand();
-	bool checkCard(int cardValue, int lastPlayedCard);
-	int placeCard(int cardValue);
-	void regenCards();
-	int selectCard();
-	int playCard(int lastPlayedCard);
 	vector<int>* cardsInHand();
+
+	// permet de piocher une carte et de la mettre dans la main
+	int DrawCardtoHand(); 
+	// vérifie que la carte selectionne peut etre jouer au dessus de la carte precedente
+	bool checkCard(int cardValue, int lastPlayedCard); 
+	// place la carte sur dans le jeu, effectue un switch de carte lorsqu'il s'agit d'un joker ou d'un +4
+	int placeCard(int cardValue); 
+	// regen la pioche du joueur 
+	void regenCards(); 
+	//permet de selectionner une carte dans la main 
+	int selectCard(); 
+	// macro méthode appelant checkCard, placeCard et selectCard.
+	int playCard(int lastPlayedCard); 
+	// permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0
+	void CheatHandToOne(); 
 
 	//	détermine les actions à réaliser et le substitu à la dernière carte
 	StructPossibilities applyAction(int idPlayedCard, bool cardAlreadyPlayed);
