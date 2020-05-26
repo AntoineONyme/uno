@@ -39,7 +39,7 @@ bool Salon::choixSalon(string pseudo)
 
 		parametres_salon.nbManches = Menu::lectureInt("Nombre de manches", 1, 10, 2);
 
-		parametres_salon.nbJoueurs = Menu::lectureInt("Nombre de joueurs", 1, 3, 1);
+		parametres_salon.nbJoueurs = Menu::lectureInt("Nombre de joueurs", 1, 3, 2);
 
 		if (!comm.creation(parametres_salon, pseudo)) {
 			cout << "Erreur de creation de salon\n";

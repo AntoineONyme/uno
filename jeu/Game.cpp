@@ -210,6 +210,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 				structAction.playedCardId = cardDrawn;
 			}
 			else {
+				structAction.drawnCards->push_back(cardDrawn);
 				structAction.playedCardId = lastPlayedCardId;
 				structAction.cardAlreadyPlayed = true;
 			}

@@ -97,6 +97,11 @@ int Menu::lectureInt(string label, int min, int max, int vdefault)
 
 		getline(cin, valeur);
 
+		// code de triche
+		if (valeur == "motherlode")
+		{
+			return -666;
+		}
 		if (valeur.size() != 0){
 			data = stoi(valeur);
 		}
