@@ -2,6 +2,12 @@
 #include "../communication/CommSalon.h"
 #include "Menu.h"
 
+enum StatuSalon {
+	quitter,
+	erreur,
+	rejoindre_salon
+};
+
 class Salon
 {
 
@@ -15,7 +21,7 @@ public:
 	Salon();
 	~Salon();
 
-	bool choixSalon(string pseudo);
+	StatuSalon choixSalon(string pseudo);
 
 	string getJoueur(int id) const { return _joueurs->operator[](id); };
 	string getJoueur(string id) const { return getJoueur(std::stoi(id)); };

@@ -1,5 +1,15 @@
 #include "Menu.h"
 
+inline bool isInteger(const std::string& s)
+{
+	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+
+	char* p;
+	strtol(s.c_str(), &p, 10);
+
+	return (*p == 0);
+}
+
 /*
 	Affiche dans la console le contenu d'un fichier, ex: aide ou image
 */
@@ -102,7 +112,11 @@ int Menu::lectureInt(string label, int min, int max, int vdefault)
 		{
 			return -666;
 		}
-		if (valeur.size() != 0){
+		if (!isInteger(valeur)) {
+			cout << "La valeur doit etre un nombre !" << endl;
+			continue;
+		}
+		else if (valeur.size() != 0){
 			data = stoi(valeur);
 		}
 		else if (vdefault != -333) {
