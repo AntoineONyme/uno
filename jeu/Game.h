@@ -12,6 +12,7 @@ typedef struct {
 	int playedCardId = -1;
 	bool cardAlreadyPlayed = false;
 	vector<int>* drawnCards = nullptr;
+	bool endRound = false;
 } StructAction;
 
 typedef struct {
@@ -24,7 +25,7 @@ class Game
 	Draw* draw_;
 	Deck* deck_;
 	vector<int>* cardsInHand();
-
+	bool sayUno_ = false;
 	// permet de piocher une carte et de la mettre dans la main
 	int DrawCardtoHand(); 
 	// vérifie que la carte selectionne peut etre jouer au dessus de la carte precedente
@@ -45,6 +46,7 @@ class Game
 
 public :
 	Game();
+	~Game();
 	virtual void show();
 
 	vector<int>* generateHand();
@@ -54,7 +56,7 @@ public :
 	//	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
 	StructAction play(int lastPlayedCardId, bool cardAlreadyPlayed);
 
-	vector<int>* counterUno(bool tokenUno, int idUno);
+	vector<int>* counterUno();
 	vector<int>* sayUno();
 
 

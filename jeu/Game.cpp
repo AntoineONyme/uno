@@ -14,6 +14,13 @@ Game::Game()
 
 }
 
+Game::~Game()
+{
+	delete deck_;
+	delete draw_;
+
+}
+
 void Game::show()
 {
 	cout << "Affichage de votre main : " << endl;
@@ -114,7 +121,7 @@ void Game::CheatHandToOne()
 int Game::DrawCardtoHand()
 {
 	int drawCard = draw_->DrawCardtoHand();
-
+	sayUno_ = false;
 	return drawCard;
 }
 
@@ -224,51 +231,56 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 		structAction.playedCardId = lastPlayedCardId;
 		structAction.cardAlreadyPlayed = true;
 	}
-
+	
+	if (draw_->getHand().size() == 0)
+	{
+		structAction.endRound = true;
+	}
 	return structAction;
 }
 
-vector<int>* Game::counterUno(bool tokenUno, int idUno)
+vector<int>* Game::counterUno()
 {
-	int idCounterUno;
-	if (tokenUno == false)
-	{
-		cout << "Pas de chance il ne reste qu'une carte à aucun joueur...";
-		DrawCardtoHand();
-	}
-	else
-	{
-		cout << "Contre qui voulez vous faire un contre-Uno ? (postition dans la liste de joueur) : ";
-		cin >> idCounterUno;
-		idCounterUno--;
-		if (idCounterUno == idUno)
-		{
-			cout << "Habile Bil ! Le joueur " << idUno + 1 << "doit piocher une carte !";
-		}
-		else
-		{
-			cout << "Pas de chance ce n'est pas le bon joueur...";
-			DrawCardtoHand();
-		}
-
-	}
-	return nullptr;
-}
-
-vector<int>* Game::sayUno()
-{
-	vector<int>* penaltyDrawnCards = new vector<int>;
+	
 	list<int> hand = draw_->getHand();
-	if (hand.size() != 1)
+	if (hand.size() == 1 && !sayUno_)
 	{
+		vector<int>* penaltyDrawnCards = new vector<int>;
 		for (int i = 0; i < 2; i++)
 		{
+			cout << " PAS DE CHANCE  NUL NUL NUL NUL >:( " << endl;
 			penaltyDrawnCards->push_back(DrawCardtoHand());
 		}
 		return penaltyDrawnCards;
 	}
-	else
+	else 
+	{
+		cout << " Habile BIL o:) " << endl;
+	
+		return nullptr;
+	}
+}
+
+vector<int>* Game::sayUno()
+{
+	
+	list<int> hand = draw_->getHand();
+	if (hand.size() != 1)
+	{
+		vector<int>* penaltyDrawnCards = new vector<int>;
+		for (int i = 0; i < 2; i++)
+		{
+			cout << " MENTEUR >:( " << endl;
+			penaltyDrawnCards->push_back(DrawCardtoHand());
+		}
 		return penaltyDrawnCards;
+	}
+	else 
+	{
+		cout << " OUA o:) " << endl;
+		sayUno_ = true;
+		return nullptr;
+	}
 }
 
 vector<int>* Game::cardsInHand()
