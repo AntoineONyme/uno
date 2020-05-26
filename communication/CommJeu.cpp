@@ -72,7 +72,7 @@ void CommJeu::attenteTour()
 				if (lignes->operator[](3).size() > 0)
 				{
 					_carteDejaSubie = true;
-					cout << nomJoueur << " n'a pas joué de carte.\n";
+					cout << nomJoueur << " n'a pas joue de carte.\n";
 				}
 				else {
 					_carteDejaSubie = false;
@@ -86,25 +86,25 @@ void CommJeu::attenteTour()
 				//	Uno
 				if (lignes->operator[](4).size() > 0)
 				{
-					cout << nomJoueur << " déclare un Uno." << endl;
+					cout << nomJoueur << " declare un Uno." << endl;
 				}
 				//	Contre-Uno
 				if (lignes->operator[](5).size() > 0)
 				{
-					cout << nomJoueur << " déclare un contre uno contre " << _salon->getJoueur(lignes->operator[](4)) << "." << endl;
+					cout << nomJoueur << " declare un contre uno contre " << _salon->getJoueur(lignes->operator[](4)) << "." << endl;
 				}
 				//	Si c'est la fin de la manche
 				if (lignes->operator[](6).size() > 0)
 				{
 					if (lignes->operator[](6) == "abandon")
 					{
-						cout << nomJoueur << " a abandonner la partie. Vous avez donc gagné !" << endl;
+						cout << nomJoueur << " a abandonne la partie. Vous avez donc gagne !" << endl;
 						_finManche = FinManche::manche_abandonnee;
 					}
 					else {
 						cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
 						_finManche = FinManche::manche_terminee;
-					}					
+					}
 				}
 				//	Si pioche
 				if (lignes->operator[](7).size() > 0)

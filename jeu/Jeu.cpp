@@ -85,10 +85,10 @@ void Jeu::lancementPartie()
 				}
 				if (choix == "abn")
 				{
-					bool confirm = Menu::lectureBool("Voulez-vous réellemnt abandonner ? ");
+					bool confirm = Menu::lectureBool("Voulez-vous reellemnt abandonner ? ");
 					if (confirm)
 					{
-						cout << "Vous décidez d'abandonner la partie, à bientôt !" << endl;
+						cout << "Vous decidez d'abandonner la partie, a bientot !" << endl;
 						commJeu.finTourAtt(FinManche::manche_abandonnee);
 						return;
 					}

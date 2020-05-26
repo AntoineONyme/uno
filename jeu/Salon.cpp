@@ -14,7 +14,7 @@ Salon::~Salon()
 }
 
 //	Crée un menu pour choisir son salon puis s'y connecter
-bool Salon::choixSalon(string pseudo)
+StatuSalon Salon::choixSalon(string pseudo)
 {
 	Menu menu("Choix du salon");
 	menu.ajoutOption("new", "Nouveau Salon");
@@ -24,7 +24,7 @@ bool Salon::choixSalon(string pseudo)
 	string choix = menu.affichageMenu();
 
 	if (choix == "quitter") {
-		return false;
+		return StatuSalon::quitter;
 	}
 
 	CommSalon comm;
@@ -43,7 +43,7 @@ bool Salon::choixSalon(string pseudo)
 
 		if (!comm.creation(parametres_salon, pseudo)) {
 			cout << "Erreur de creation de salon\n";
-			return false;
+			return StatuSalon::erreur;
 		}
 		cout << "Partie cree !" << endl;
 		_etat = 1;
@@ -57,13 +57,13 @@ bool Salon::choixSalon(string pseudo)
 		Menu::affichageSection("Attente debut");
 		if (!comm.attenteSalonComplet(parametres_salon, true)) {
 			cout << "Problème de salon\n";
-			return false;
+			return StatuSalon::erreur;
 		}
 
 		cout << "La partie peut maintenant commencer !\n";
 		_etat = 2;
 
-		return true;
+		return StatuSalon::rejoindre_salon;
 	}
 
 	// On rejoint un salon
@@ -75,7 +75,7 @@ bool Salon::choixSalon(string pseudo)
 		parametres_salon = comm.join(parametres_salon.nom, pseudo);
 		if (parametres_salon.erreur != "") {
 			cout << "Erreur pour rejoindre un salon: " << parametres_salon.erreur << endl;
-			return false;
+			return StatuSalon::erreur;
 		}
 
 		_nom = parametres_salon.nom;
@@ -88,12 +88,12 @@ bool Salon::choixSalon(string pseudo)
 		Menu::affichageSection("Attente debut");
 		if (!comm.attenteSalonComplet(parametres_salon, false)) {
 			cout << "Problème de salon\n";
-			return false;
+			return StatuSalon::erreur;
 		}
 		cout << "La partie peut maintenant commencer !\n";
 		_etat = 2;
 
-		return true;
+		return StatuSalon::rejoindre_salon;
 	}
 	else if (choix == "delete")
 	{
@@ -102,7 +102,7 @@ bool Salon::choixSalon(string pseudo)
 		cin >> parametres_salon.nom;
 		comm.supprimerSalon(parametres_salon.nom);
 	}
-	return false;
+	return StatuSalon::erreur;
 }
 
 int Salon::idNextPlayer()

@@ -21,10 +21,12 @@ void Unoc::lancementApplication()
 	{
 		//	La classe salon permet de gérer la mise en relation des joueurs (création ou rejoindre un salon existant)
 		_salon = new Salon();
-		if (!_salon->choixSalon(pseudo)) {
+		
+		StatuSalon statuSalon = _salon->choixSalon(pseudo);
+		if (statuSalon == StatuSalon::quitter){
 			continuer = false;
 		}
-		else {
+		else if (statuSalon == StatuSalon::rejoindre_salon) {
 			//	A cette étape, les joueurs sont mis en relation et la partie peut commencer
 			_jeu = new Jeu(_salon);
 			_jeu->lancementPartie();
