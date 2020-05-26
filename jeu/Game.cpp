@@ -44,7 +44,12 @@ int Game::selectCard()
 		// positionCardinHand est compris entre 0 et l.size(), sachant que j'ai laissé 0 pour permettre au joueur de ne rien sélectionner (pour piocher par exemple ?)
 		cout << "Selectionnez une carte dans votre main en indiquant sa position dans cette derniere ou 0 pour piocher." << endl;
 		positionCardinHand = Menu::lectureInt("carte", 0, l.size());
-
+		if (positionCardinHand == -666)
+		{
+			//Cas Cheat-Code, permet d'activer un code de triche pour faciliter l'implémentation de certaines méthodes.
+			CheatHandToOne();
+			return -1;
+		}
 		//	Si le joueur décide de piocher
 		if (positionCardinHand == 0)
 		{
@@ -65,13 +70,8 @@ int Game::selectCard()
 int Game::playCard(int lastPlayedCard)
 {
 	int numCard = selectCard();
-	//Cas Cheat-Code, permet d'activer un code de triche pour faciliter l'implémentation de certaines méthodes.
+	
 
-	if (numCard == -666)
-	{
-		CheatHandToOne();
-		return 108;
-	}
 	//Cas  ou l'on décide de ne pas jouer de cartes.
 	if (numCard == -1)
 	{
@@ -106,7 +106,7 @@ void Game::CheatHandToOne()
 {
 	list<int> hand = draw_->getHand();
 	list<int>::iterator it = hand.begin();
-	advance(it,1);
+	
 	for (it; it != hand.end(); it++)
 		draw_->pullOutCard(*it,1);
 }
