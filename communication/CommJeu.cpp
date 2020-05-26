@@ -12,6 +12,7 @@ bool CommJeu::initialiserTour()
 	_declarerUno = false;
 	_message = "";
 	_carteDejaSubie = false;
+	_finManche = FinManche::manche_en_cours;
 
 	return true;
 }
@@ -95,7 +96,15 @@ void CommJeu::attenteTour()
 				//	Si c'est la fin de la manche
 				if (lignes->operator[](6).size() > 0)
 				{
-					cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
+					if (lignes->operator[](6) == "abandon")
+					{
+						cout << nomJoueur << " a abandonner la partie. Vous avez donc gagné !" << endl;
+						_finManche = FinManche::manche_abandonnee;
+					}
+					else {
+						cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
+						_finManche = FinManche::manche_terminee;
+					}					
 				}
 				//	Si pioche
 				if (lignes->operator[](7).size() > 0)
@@ -167,7 +176,7 @@ bool CommJeu::declareContreUno(int idJoueur) {
 }
 
 //	Permet d'envoyer les actions du tour
-bool CommJeu::finTourAtt(bool finPartie) {
+bool CommJeu::finTourAtt(FinManche finManche) {
 	vector<string> lignes;
 
 	//Ligne 1 : on donne l'id du joueur suivant
@@ -200,9 +209,11 @@ bool CommJeu::finTourAtt(bool finPartie) {
 	else
 		lignes.push_back("");
 
-	//Ligne 7 : si fin tour
-	if (finPartie)
+	//Ligne 7 : si fin tour ou abandon
+	if (finManche == FinManche::manche_terminee)
 		lignes.push_back("fin");
+	else if (finManche == FinManche::manche_abandonnee)
+		lignes.push_back("abandon");
 	else
 		lignes.push_back("");
 
@@ -227,8 +238,11 @@ bool CommJeu::finTourAtt(bool finPartie) {
 	//On réinitialiser les attribus de jeu
 	initialiserTour();
 
-	//On va maintenant attendre que ce soit notre tour avant de débloquer
-	attenteTour();
+	//On va maintenant attendre que ce soit notre tour avant de débloquer, sauf si abandon
+	if (finManche != FinManche::manche_abandonnee)
+	{
+		attenteTour();
+	}	
 
 	return true;
 }

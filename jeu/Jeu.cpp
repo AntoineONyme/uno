@@ -65,6 +65,7 @@ void Jeu::lancementPartie()
 				menu.ajoutOption("uno", "Uno");
 				menu.ajoutOption("contreUno", "Contre-Uno");
 				menu.ajoutOption("msg", "Envoyer un message");
+				menu.ajoutOption("abn", "Abandonner la partie");
 				menu.ajoutOption("exit", "Terminer son tour");
 				string choix = menu.affichageMenu();
 				if (choix == "uno")
@@ -82,6 +83,16 @@ void Jeu::lancementPartie()
 					string msg = Menu::lectureString("message", 1, 30);
 					commJeu.declareMessage(msg);
 				}
+				if (choix == "abn")
+				{
+					bool confirm = Menu::lectureBool("Voulez-vous réellemnt abandonner ? ");
+					if (confirm)
+					{
+						cout << "Vous décidez d'abandonner la partie, à bientôt !" << endl;
+						commJeu.finTourAtt(FinManche::manche_abandonnee);
+						return;
+					}
+				}
 				else
 				{
 					break;
@@ -90,6 +101,11 @@ void Jeu::lancementPartie()
 
 			//	On termine par transmettre les infos et attendre
 			commJeu.finTourAtt();
+
+			if (commJeu.getStatusManche() == FinManche::manche_abandonnee)
+			{
+				return;
+			}
 		}
 
 		//Ici on ne joue qu'une manche, pas encore fini

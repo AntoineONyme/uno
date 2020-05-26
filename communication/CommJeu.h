@@ -8,6 +8,12 @@
 
 #include "../jeu/Salon.h"
 
+enum FinManche {
+	manche_en_cours,
+	manche_terminee,
+	manche_abandonnee
+};
+
 class CommJeu
 {
 	int _etat = 0;
@@ -21,6 +27,7 @@ class CommJeu
 	int _carteJouee = -1;
 	int _carteJoueeAdversaire = -1;
 	bool _carteDejaSubie = false;
+	enum FinManche _finManche = FinManche::manche_en_cours;
 
 	bool _declarerUno = false;
 	int _joueurContreUno = -1;
@@ -37,7 +44,7 @@ public:
 	~CommJeu();
 	void attenteTour();
 	void setCartesPiochees(vector<int>* cartesPiochees);
-	bool finTourAtt(bool finPartie = false);
+	bool finTourAtt(FinManche finManche = FinManche::manche_en_cours);
 
 	bool ajoutCartePioche(int id);
 	bool declarerUno();
@@ -49,4 +56,5 @@ public:
 	vector<int>* getCartePiocheesAdversaire() const { return _cartesPiocheesAdversaire; };
 	int carteJouee() const { return _carteJouee; };
 	bool getCarteDejaSubie() const { return _carteDejaSubie; };
+	FinManche getStatusManche() const { return _finManche; };
 };
