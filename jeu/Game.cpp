@@ -241,7 +241,7 @@ vector<int>* Game::counterUno(bool tokenUno, int idUno)
 			cout << "Pas de chance ce n'est pas le bon joueur...";
 			DrawCardtoHand();
 		}
-	}
+	}return nullptr;
 }
 
 vector<int>* Game::sayUno()
