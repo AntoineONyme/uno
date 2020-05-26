@@ -29,7 +29,8 @@ class Game
 	int DrawCardtoHand(); 
 	// vérifie que la carte selectionne peut etre jouer au dessus de la carte precedente
 	bool checkCard(int cardValue, int lastPlayedCard); 
-	
+	// place la carte sur dans le jeu, effectue un switch de carte lorsqu'il s'agit d'un joker ou d'un +4
+	int placeCard(int cardValue); 
 	// regen la pioche du joueur 
 	void regenCards(); 
 	//permet de selectionner une carte dans la main 
@@ -45,8 +46,7 @@ class Game
 public :
 	Game();
 	virtual void show();
-	// place la carte sur dans le jeu, effectue un switch de carte lorsqu'il s'agit d'un joker ou d'un +4
-	int placeCard(int cardValue);
+
 	vector<int>* generateHand();
 
 	void removeDrawnCards(vector<int>* cardsToSend);
