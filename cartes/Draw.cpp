@@ -4,25 +4,26 @@ Draw::Draw() {
 	genDraw();
 }
 
+// Permet de piocher aléatoirement une carte dans la pioche
 int Draw::drawCard() {
-	srand(time(NULL));
-	//Dec var
+	srand(time(NULL)); // on utilise la package random et time pour générer continuellement et aléatoirement 
 	int rd;
 	int valCard;
 	list<int>::iterator it = draw_.begin();
 
-	//Def var
+	
 
-	rd = rand() % draw_.size();
+	rd = rand() % draw_.size(); //on génére un entier aléatoire compris entre 0 et la taille de la pioche
 	advance(it, rd);
 	valCard = *it;
 	pullOutCard(valCard,0);
 	return valCard;
 }
 
+// Permet de retirer une carte de la main ou de la pioche en fonction d'un indicateur. 
 bool Draw::pullOutCard(int IdCard, int listChoice) {
 
-		if (listChoice == 0)
+		if (listChoice == 0) // ici on parcours la pioche pour supprimer la valeur de la carte désirée
 		{
 			list<int>::iterator it1;
 			for (it1 = draw_.begin(); it1 != draw_.end(); it1++) {
@@ -33,12 +34,12 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 			}
 		}
 
-		else
+		else // ici on parcours lamain  pour supprimer la valeur de la carte désirée
 		{
-			list<int>::iterator it;
-			for (it = hand_.begin(); it != hand_.end(); it++) {
-				if (*it == IdCard) {
-					hand_.erase(it);
+			list<int>::iterator it2;
+			for (it2 = hand_.begin(); it2 != hand_.end(); it2++) {
+				if (*it2 == IdCard) {
+					hand_.erase(it2);
 					return true;
 				}
 			}
@@ -48,18 +49,21 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 	
 }
 
+// genere la main de départ du joueur 
 void Draw::generateHand()
 {
 	
-	while(hand_.size() < 7)
+	while(hand_.size() < 7) //Tant que la main ne fait pas 7 cartes on en ajoute 
 		hand_.push_back(drawCard());
 }
 
+// Getter de la main du joueur
 list<int> Draw::getHand()
 {
 	return hand_;
 }
 
+//Methode permettant d'ajouter une unique carte dans la main et de retourner son id
 int Draw::DrawCardtoHand()
 {
 	int drawnCard = drawCard();
@@ -67,6 +71,7 @@ int Draw::DrawCardtoHand()
 	return drawnCard;
 }
 
+// permet de générer la liste de carte piochable (les 107 premières cartes du Deck)
 void Draw::genDraw()
 {
 	for (int i = 0; i < 108; i++)

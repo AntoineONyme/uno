@@ -10,7 +10,7 @@ Deck::Deck(const string& name) {
 void Deck::addCard(Card* c) {
 	deck_.push_back(c);
 }
-
+//méthode permettant d'afficher le deck complet de carte 
 void Deck::showDeck() {
 	for (int i = 0; i < deck_.size() - 8 ; i++)
 	{
@@ -19,9 +19,10 @@ void Deck::showDeck() {
 	}
 }
 
+//Généer tous les joker et +4 
 void Deck::generateOpalCards() {
-	for (int i = 0; i < 4; i++)
-		addCard(new OpalCard(i, "joker"));
+	for (int i = 0; i < 4; i++) // utilise une boucle pour générer automatiquement des cartes
+		addCard(new OpalCard(i, "joker")); 
 		
 	for(int j = 4; j < 8;j++)
 		addCard(new OpalCard(j, "+4"));
@@ -55,6 +56,7 @@ void Deck::generateColoredCards() {
 		}
 		
 	}
+	//on génére des substituts de cartes joker et +4 que l'on paramètre manuellement car ayant des propriétés spécifiques.
 	// substituts jocker
 	addCard(new ColoredCard(n, 1, -1));
 	n++;

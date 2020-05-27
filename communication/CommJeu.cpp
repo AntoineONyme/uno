@@ -109,7 +109,7 @@ void CommJeu::attenteTour()
 				//	Si pioche
 				if (lignes->operator[](7).size() > 0)
 				{
-					cout << nomJoueur << " vient de piocher " << lignes->operator[](6) << endl;
+					cout << nomJoueur << " vient de piocher " << lignes->operator[](7) << endl;
 				}
 				//	Si pioche
 				if (lignes->operator[](8).size() > 0)

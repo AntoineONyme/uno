@@ -7,7 +7,9 @@
 #include<time.h>
 
 
-
+/*==================================
+Classe permettant de gérer la pioche des cartes dans la main du joueur et leur suppression après au cours du jeu
+====================================*/
 using namespace std;
 class Draw {
     list<int> draw_;

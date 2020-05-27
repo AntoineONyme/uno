@@ -1,9 +1,5 @@
 #include "Game.h"
 
-
-
-
-
 Game::Game()
 {
 	deck_ = new Deck("Deck");
@@ -20,7 +16,7 @@ Game::~Game()
 	delete draw_;
 
 }
-
+//Permet d'afficher les cartes de la main dans la console
 void Game::show()
 {
 	cout << "Affichage de votre main : " << endl;
@@ -36,6 +32,7 @@ void Game::show()
 
 }
 
+//permet de selectionner une carte dans la main 
 int Game::selectCard()
 {
 	int positionCardinHand;
@@ -74,6 +71,8 @@ int Game::selectCard()
 	return -1;
 }
 
+
+// macro méthode appelant checkCard, placeCard et selectCard.
 int Game::playCard(int lastPlayedCard)
 {
 	int numCard = selectCard();
@@ -109,6 +108,7 @@ int Game::playCard(int lastPlayedCard)
 
 }
 
+// permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0
 void Game::CheatHandToOne()
 {
 	list<int> hand = draw_->getHand();
@@ -118,6 +118,7 @@ void Game::CheatHandToOne()
 		draw_->pullOutCard(*it,1);
 }
 
+// permet de piocher une carte et de la mettre dans la main
 int Game::DrawCardtoHand()
 {
 	int drawCard = draw_->DrawCardtoHand();
@@ -125,6 +126,7 @@ int Game::DrawCardtoHand()
 	return drawCard;
 }
 
+// vérifie que la carte selectionne peut etre jouer au dessus de la carte precedente
 bool Game::checkCard(int cardValue, int lastPlayedCard)
 {
 	vector<Card*> deck = deck_->getDeck();
@@ -145,13 +147,14 @@ bool Game::checkCard(int cardValue, int lastPlayedCard)
 	}
 }
 
-
+// regen la pioche du joueur 
 void Game::regenCards()
 {
 	
 
 }
 
+//	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
 StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 {
 	StructAction structAction;
@@ -239,11 +242,12 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	return structAction;
 }
 
+//permet d'empêcher un Uno si il a était dit
 vector<int>* Game::counterUno()
 {
 	
 	list<int> hand = draw_->getHand();
-	if (hand.size() == 1 && !sayUno_)
+	if (hand.size() == 1 && !sayUno_) //si la condition du uno n'est pas respectée, pioche de deux cartes
 	{
 		vector<int>* penaltyDrawnCards = new vector<int>;
 		for (int i = 0; i < 2; i++)
@@ -253,7 +257,7 @@ vector<int>* Game::counterUno()
 		}
 		return penaltyDrawnCards;
 	}
-	else 
+	else // sinon il s'en sort sans rien. 
 	{
 		cout << " Habile BIL o:) " << endl;
 	
@@ -261,11 +265,12 @@ vector<int>* Game::counterUno()
 	}
 }
 
+//permet d'envoyer l'état uno si le joueur le peut
 vector<int>* Game::sayUno()
 {
 	
 	list<int> hand = draw_->getHand();
-	if (hand.size() != 1)
+	if (hand.size() != 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
 	{
 		vector<int>* penaltyDrawnCards = new vector<int>;
 		for (int i = 0; i < 2; i++)
@@ -275,7 +280,7 @@ vector<int>* Game::sayUno()
 		}
 		return penaltyDrawnCards;
 	}
-	else 
+	else // sinon on change l'état de uno en true.
 	{
 		cout << " OUA o:) " << endl;
 		sayUno_ = true;
@@ -283,6 +288,7 @@ vector<int>* Game::sayUno()
 	}
 }
 
+//Permet d'envoyer les cartes dans sa main au joueur adverse
 vector<int>* Game::cardsInHand()
 {
 	list<int> hand = draw_->getHand();
@@ -294,6 +300,7 @@ vector<int>* Game::cardsInHand()
 	return cardsToSend;
 }
 
+//Génère la main de départ d'un joueur
 vector<int>* Game::generateHand()
 {
 	draw_->generateHand();
@@ -301,12 +308,15 @@ vector<int>* Game::generateHand()
 	return cardsInHand();
 }
 
+//Permet de supprimer de la pioche les cartes reçus par un joueur
 void Game::removeDrawnCards(vector<int>* cardsToSend)
 {
 	for (int i = 0; i < cardsToSend->size(); i++)
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
 }
 
+
+//Permet d'interprêter et d'appliquer l'effet d'une carte si elle en a un.
 StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 {
 	StructPossibilities structPossibilities;
@@ -383,7 +393,7 @@ StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
 }
 
 
-
+// place la carte sur dans le jeu, effectue un switch de carte lorsqu'il s'agit d'un joker ou d'un +4
 int Game::placeCard(int cardValue)
 {
 	vector<Card*> deck = deck_->getDeck();
