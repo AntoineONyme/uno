@@ -48,10 +48,13 @@ void Jeu::lancementPartie()
 			//	D'abord récupérer les infos sur ce qui a été fait durant l'attente
 			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());	//	Prise en compte des cartes piochées
 			int derniereCarteJouee = commJeu.getCarteJoueeAdversaire();	//	Puis la dernière carte jouée
+			if (commJeu.isContreUno())
+			{
+				commJeu.declareCartesPiochees(g.counterUno());
+			}
 
 			//	permet au joueur de subir l'effet de la carte précédente (pioche...), puis joue ou pioche si il ne peut pas jouer
 			StructAction structAction = g.play(derniereCarteJouee, commJeu.getCarteDejaSubie());
-
 
 			if (structAction.drawnCards->size() > 0)
 			{
@@ -99,6 +102,13 @@ void Jeu::lancementPartie()
 				}
 			}
 
+			//	Si le joueur vient de jouer sa dernière carte
+			if (structAction.endRound)
+			{
+				commJeu.finTourAtt(FinManche::manche_terminee);
+				break;
+			}
+
 			//	On termine par transmettre les infos et attendre
 			commJeu.finTourAtt();
 
@@ -106,10 +116,15 @@ void Jeu::lancementPartie()
 			{
 				return;
 			}
+			else if (commJeu.getStatusManche() == FinManche::manche_terminee)
+			{
+				cout << "Manche terminee ! " << endl;
+				break;
+			}
 		}
 
-		//Ici on ne joue qu'une manche, pas encore fini
-		break;
+		//	Fin de la manche : on appelle le destructeur
+		g.~Game();
 	}
 
 	cout << "Partie terminee ! merci d'avoir participe <3" << endl;

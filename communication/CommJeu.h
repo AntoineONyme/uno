@@ -30,18 +30,10 @@ class CommJeu
 
 	//	attributs concernant le joueur actuel
 	DonneesCommJeu _donneesJoueur;
-	vector<int>* _cartesPiochees = nullptr;
-	int _carteJouee = -1;
-	bool _declarerUno = false;
-	int _joueurContreUno = -1;
-	string _message;
 
 	//	attributs concernant le(s) adversaire(s)
 	DonneesCommJeu _donneesAdversaires;
-	vector<int>* _cartesPiocheesAdversaire = nullptr;
-	int _carteJoueeAdversaire = -1;
-	bool _carteDejaSubie = false;
-	bool _aSubitContreUno = false;
+
 	enum FinManche _finManche = FinManche::manche_en_cours;
 
 	bool initialiserTour();
@@ -62,16 +54,17 @@ public:
 	bool declarerUno();
 	bool declareContreUno(int idJoueur);
 	bool declarerCarteJouee(int idCarte, bool carteDejaSubie);
-	void declareMessage(string message) { _message = message; };
+	void declareMessage(string message) { _donneesJoueur.message = message; };
 
 	//	Permet d'envoyer les infos "déclarées" puis attend que ce soit à son tour de jouer
 	bool finTourAtt(FinManche finManche = FinManche::manche_en_cours);
 
 	//	Fonctions pour récupérer les infos de l'adversaire, récupérées avec
-	int getCarteJoueeAdversaire() const { return _carteJoueeAdversaire; };
-	vector<int>* getCartePiocheesAdversaire() const { return _cartesPiocheesAdversaire; };
-	int carteJouee() const { return _carteJouee; };
-	bool getCarteDejaSubie() const { return _carteDejaSubie; };
-	bool getASubitContreUno() const { return _aSubitContreUno; };
+	int getCarteJoueeAdversaire() const { return _donneesAdversaires.carteJouee; };
+	bool getCarteDejaSubie() const { return _donneesAdversaires.carteDejaSubie; };
+	vector<int>* getCartePiocheesAdversaire() const { return _donneesAdversaires.cartesPiochees; };
+	int carteJouee() const { return _donneesAdversaires.carteJouee; };
+	bool getASubitContreUno() const { return _donneesAdversaires.joueurContreUno; };
 	FinManche getStatusManche() const { return _finManche; };
+	bool isContreUno() const { return _donneesAdversaires.joueurContreUno == 1; };
 };

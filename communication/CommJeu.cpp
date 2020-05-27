@@ -4,15 +4,14 @@
 
 bool CommJeu::initialiserTour()
 {
-	_cartesPiochees->clear();
-	_cartesPiocheesAdversaire->clear();
-	_carteJouee = -1;
-	_carteJoueeAdversaire = -1;
-	_joueurContreUno = -1;
-	_declarerUno = false;
-	_message = "";
-	_carteDejaSubie = false;
-	_aSubitContreUno = false;
+	_donneesJoueur.cartesPiochees->clear();
+	DonneesCommJeu donneesJoueur;
+	_donneesJoueur = donneesJoueur;
+
+	_donneesAdversaires.cartesPiochees->clear();
+	DonneesCommJeu donneesAdversaires;
+	_donneesAdversaires = donneesAdversaires;
+
 	_finManche = FinManche::manche_en_cours;
 
 	return true;
@@ -28,18 +27,13 @@ CommJeu::CommJeu(Salon* psalon)
 	if (!_fichier->fichierExiste(nfic, REPERTOIRE)) {
 		cout << "Ce salon n'existe pas !\n";
 	}
-
-	_cartesPiochees = new vector<int>;
-	_cartesPiocheesAdversaire = new vector<int>;
 }
 
 //	On libère les aggrégations
 CommJeu::~CommJeu()
 {
-	if (_cartesPiochees != nullptr)
-		delete _cartesPiochees;
-	if (_cartesPiocheesAdversaire != nullptr)
-		delete _cartesPiocheesAdversaire;
+	delete _donneesJoueur.cartesPiochees;
+	delete _donneesAdversaires.cartesPiochees;
 	if (_fichier != nullptr)
 		delete _fichier;
 }
@@ -66,21 +60,21 @@ void CommJeu::attenteTour()
 				//	Carte Jouée
 				if (lignes->operator[](2).size() > 0)
 				{
-					_carteJoueeAdversaire = std::stoi(lignes->operator[](2));
+					_donneesAdversaires.carteJouee = std::stoi(lignes->operator[](2));
 					cout <<endl;
 				}
 				//	Carte déja subie
 				if (lignes->operator[](3).size() > 0)
 				{
-					_carteDejaSubie = true;
+					_donneesAdversaires.carteDejaSubie = true;
 					cout << nomJoueur << " n'a pas joue de carte.\n";
 				}
 				else {
-					_carteDejaSubie = false;
-					if (_carteJoueeAdversaire>=0)
+					_donneesAdversaires.carteDejaSubie = false;
+					if (_donneesAdversaires.carteJouee>=0)
 					{
 						cout << nomJoueur << " vient de jouer la carte ";
-						showCardName(_carteJoueeAdversaire);
+						showCardName(_donneesAdversaires.carteJouee);
 						cout << "\n";
 					}					
 				}
@@ -96,7 +90,7 @@ void CommJeu::attenteTour()
 					cout << nomJoueur << " declare un contre uno contre " << _salon->getJoueur(joueur) << "." << endl;
 					if (joueur == _salon->getJoueurActuel())
 					{
-						_aSubitContreUno = true;
+						_donneesAdversaires.joueurContreUno = 1;
 					}
 				}
 				//	Si c'est la fin de la manche
@@ -115,9 +109,9 @@ void CommJeu::attenteTour()
 				//	Si pioche
 				if (lignes->operator[](7).size() > 0)
 				{
-					cout << nomJoueur << " vient de piocher " << lignes->operator[](6) << endl;
+					cout << nomJoueur << " vient de piocher " << lignes->operator[](7) << endl;
 				}
-				//	Si pioche
+				//	Si message
 				if (lignes->operator[](8).size() > 0)
 				{
 					cout << "[" << nomJoueur << "] " << lignes->operator[](8) << endl;
@@ -139,33 +133,32 @@ void CommJeu::attenteTour()
 
 void CommJeu::declareCartesPiochees(vector<int>* cartesPiochees)
 {
-
-	if (_cartesPiochees == nullptr)
+	if (cartesPiochees != nullptr)
 	{
-		_cartesPiochees->empty();
-		return;
+		for (int i = 0; i < cartesPiochees->size(); i++)
+		{
+			_donneesJoueur.cartesPiochees->push_back(cartesPiochees->operator[](i));
+		}
+		delete cartesPiochees;
 	}
-
-	delete _cartesPiochees;
-	_cartesPiochees = cartesPiochees;
 
 }
 
 bool CommJeu::declarerUno() {
-	if (!_declarerUno)
+	if (_donneesJoueur.declareUno)
 	{
 		return false;
 	}
-	_declarerUno = true;
+	_donneesJoueur.declareUno = true;
 	return true;
 }
 
 bool CommJeu::declareContreUno(int idJoueur) {
-	if (_joueurContreUno==-1)
+	if (_donneesJoueur.joueurContreUno!=-1)
 	{
 		return false;
 	}
-	_joueurContreUno = idJoueur;
+	_donneesJoueur.joueurContreUno = idJoueur;
 	return true;
 }
 
@@ -180,26 +173,26 @@ bool CommJeu::finTourAtt(FinManche finManche) {
 	lignes.push_back(std::to_string(_salon->getJoueurActuel()));
 
 	//Ligne 3 : id carte jouée, vide si passé son tour (+ pioche dans ce cas)
-	if (_carteJouee != -1)
-		lignes.push_back(std::to_string(_carteJouee));
+	if (_donneesJoueur.carteJouee != -1)
+		lignes.push_back(std::to_string(_donneesJoueur.carteJouee));
 	else
 		lignes.push_back("");
 
 	//Ligne 4 : si les effets de la carte ont déja été subits
-	if (_carteDejaSubie)
+	if (_donneesJoueur.carteDejaSubie)
 		lignes.push_back("Deja subi");
 	else
 		lignes.push_back("");
 
 	//Ligne 5 : si un uno est déclaré
-	if (_declarerUno)
+	if (_donneesJoueur.declareUno)
 		lignes.push_back("Uno");
 	else
 		lignes.push_back("");
 
 	//Ligne 6 : si un contre-uno est déclaré
-	if (_joueurContreUno != -1)
-		lignes.push_back(std::to_string(_joueurContreUno));
+	if (_donneesJoueur.joueurContreUno != -1)
+		lignes.push_back(std::to_string(_donneesJoueur.joueurContreUno));
 	else
 		lignes.push_back("");
 
@@ -213,14 +206,14 @@ bool CommJeu::finTourAtt(FinManche finManche) {
 
 	//Ligne 8 :
 	string cartesTirees = "";
-	for (int i = 0; i < _cartesPiochees->size(); i++)
+	for (int i = 0; i < _donneesJoueur.cartesPiochees->size(); i++)
 	{
-		cartesTirees += std::to_string(_cartesPiochees->operator[](i)) + " ";
+		cartesTirees += std::to_string(_donneesJoueur.cartesPiochees->operator[](i)) + " ";
 	}
 	lignes.push_back(cartesTirees);
 
 	//Ligne 9 : si message à transmettre
-	lignes.push_back(_message);
+	lignes.push_back(_donneesJoueur.message);
 
 	//	On essaye d'écrire les lignes et on teste si il y a une erreur
 	if (!_fichier->ecritureLignes(lignes)) {
@@ -243,11 +236,11 @@ bool CommJeu::finTourAtt(FinManche finManche) {
 
 bool CommJeu::declarerCarteJouee(int idCarte, bool carteDejaSubie)
 {
-	if (_carteJouee != -1)
+	if (_donneesJoueur.carteJouee != -1)
 	{
 		return false;
 	}
-	_carteDejaSubie = carteDejaSubie;
-	_carteJouee = idCarte;		//On stocke cet id sous forme de string car c'est plus pratique
+	_donneesJoueur.carteJouee = idCarte;
+	_donneesJoueur.carteDejaSubie = carteDejaSubie;		//On stocke cet id sous forme de string car c'est plus pratique
 	return true;
 }
