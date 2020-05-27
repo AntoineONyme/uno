@@ -21,5 +21,6 @@ public:
     bool pullOutCard(int idCard, int listChoice );
     int DrawCardtoHand();
     void genDraw();
+    void clearHand() { hand_.clear(); };
    
 };

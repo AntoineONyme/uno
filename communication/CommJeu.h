@@ -8,7 +8,7 @@
 
 #include "../jeu/Salon.h"
 
-enum FinManche {
+enum class FinManche {
 	manche_en_cours,
 	manche_terminee,
 	manche_abandonnee
@@ -26,6 +26,7 @@ typedef struct {
 class CommJeu
 {
 	Fichier* _fichier = nullptr;
+	Fichier _fichier2;
 	Salon* _salon = nullptr;
 
 	//	attributs concernant le joueur actuel
@@ -34,7 +35,7 @@ class CommJeu
 	//	attributs concernant le(s) adversaire(s)
 	DonneesCommJeu _donneesAdversaires;
 
-	enum FinManche _finManche = FinManche::manche_en_cours;
+	enum class FinManche _finManche = FinManche::manche_en_cours;
 
 	bool initialiserTour();
 
@@ -65,6 +66,9 @@ public:
 	vector<int>* getCartePiocheesAdversaire() const { return _donneesAdversaires.cartesPiochees; };
 	int carteJouee() const { return _donneesAdversaires.carteJouee; };
 	bool getASubitContreUno() const { return _donneesAdversaires.joueurContreUno; };
-	FinManche getStatusManche() const { return _finManche; };
+	FinManche getStatusManche();
 	bool isContreUno() const { return _donneesAdversaires.joueurContreUno == 1; };
+
+	//	Permet d'envoyer une confirmation avant de relancer la partie
+	bool finTour(FinManche finManche = FinManche::manche_en_cours);
 };

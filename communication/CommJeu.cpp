@@ -43,7 +43,8 @@ void CommJeu::attenteTour()
 {
 	_fichier->synchroniser(REPERTOIRE);
 
-	//system("pause");
+	//	On commence par lire le fichier au cas où on joue tout seul / si la syncronisation a mis bcp de temps
+	//	Normalement ce sont les données du joueur actuel qui devraient être visibles la première fois
 	while (true)
 	{
 		cout << "attente...";
@@ -118,11 +119,21 @@ void CommJeu::attenteTour()
 				}
 			}
 
+			if (_finManche == FinManche::manche_terminee)
+			{
+				cout << "Tu vois !" << endl;
+			}
 
 			//	On regarde si le joueur précédent appelle le joueur actuel à jouer
 			if (lignes->operator[](0) == std::to_string(_salon->getJoueurActuel()))
 			{
 				//	Dans ce cas, attente initiale terminée : c'est au joueur de jouer
+				return;
+			}
+
+			//	Si fin de la manche, on peut sortir du fichier pour attendre son tour (utile si plus de 2 joueurs)
+			if (_finManche == FinManche::manche_terminee)
+			{
 				return;
 			}
 		}
@@ -164,6 +175,31 @@ bool CommJeu::declareContreUno(int idJoueur) {
 
 //	Permet d'envoyer les actions du tour, puis attente de son tour
 bool CommJeu::finTourAtt(FinManche finManche) {
+	//On écrit les données
+	if (!finTour(finManche))
+		return false;
+
+	//On réinitialiser les attribus de jeu
+	initialiserTour();
+
+	//On va maintenant attendre que ce soit notre tour avant de débloquer, sauf si abandon
+	if (finManche != FinManche::manche_abandonnee)
+	{
+		attenteTour();
+	}	
+
+	return true;
+}
+
+FinManche CommJeu::getStatusManche()
+{
+	return _finManche;
+}
+
+bool CommJeu::finTour(FinManche finManche)
+{
+	if (finManche == FinManche::manche_terminee)
+		cout << "LOOOOLLL";
 	vector<string> lignes;
 
 	//Ligne 1 : on donne l'id du joueur suivant
@@ -221,15 +257,6 @@ bool CommJeu::finTourAtt(FinManche finManche) {
 		return false;
 	}
 	cout << "Informations transmises !" << endl;
-
-	//On réinitialiser les attribus de jeu
-	initialiserTour();
-
-	//On va maintenant attendre que ce soit notre tour avant de débloquer, sauf si abandon
-	if (finManche != FinManche::manche_abandonnee)
-	{
-		attenteTour();
-	}	
 
 	return true;
 }
