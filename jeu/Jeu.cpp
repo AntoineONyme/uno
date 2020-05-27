@@ -38,7 +38,7 @@ void Jeu::lancementPartie()
 		}
 		vector<int>* mainDepart = g.generateHand();
 
-		commJeu.setCartesPiochees(mainDepart);
+		commJeu.declareCartesPiochees(mainDepart);
 		commJeu.finTourAtt();
 
 		//	étape 2: on joue, boucle de jeu de la manche
@@ -55,7 +55,7 @@ void Jeu::lancementPartie()
 
 			if (structAction.drawnCards->size() > 0)
 			{
-				commJeu.setCartesPiochees(structAction.drawnCards);
+				commJeu.declareCartesPiochees(structAction.drawnCards);
 			}
 
 			commJeu.declarerCarteJouee(structAction.playedCardId, structAction.cardAlreadyPlayed);
@@ -78,12 +78,12 @@ void Jeu::lancementPartie()
 					int idJoueur = Menu::lectureInt("joueur", 0, _salon->getNbJoueurs() - 1);
 					commJeu.declareContreUno(idJoueur);
 				}
-				if (choix == "msg")
+				else if (choix == "msg")
 				{
 					string msg = Menu::lectureString("message", 1, 30);
 					commJeu.declareMessage(msg);
 				}
-				if (choix == "abn")
+				else if (choix == "abn")
 				{
 					bool confirm = Menu::lectureBool("Voulez-vous reellemnt abandonner ? ");
 					if (confirm)

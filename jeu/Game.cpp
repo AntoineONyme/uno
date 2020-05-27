@@ -122,6 +122,11 @@ int Game::DrawCardtoHand()
 {
 	int drawCard = draw_->DrawCardtoHand();
 	sayUno_ = false;
+
+	cout << "Vous avez pioche la carte ";
+	showCardName(drawCard);
+	cout << endl;
+
 	return drawCard;
 }
 
@@ -176,19 +181,17 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	{
 		int drawnCard = DrawCardtoHand();
 		structAction.drawnCards->push_back(drawnCard);
-		cout << "Vous avez pioché la carte ";
-		showCardName(drawnCard);
+	}
+
+	if (lastPlayedCardId != -1) {
+		cout << "Derniere carte: ";
+		showCardName(lastPlayedCardId);
 		cout << endl;
 	}
 
 	//	le joueur peut jouer
 	if (structPossibilities.allowedToPlay)
 	{
-		if (lastPlayedCardId != -1) {
-			cout << "Derniere carte: ";
-			showCardName(lastPlayedCardId);
-			cout << endl;
-		}
 
 		show();
 		int cartePlayed = playCard(lastPlayedCardId);
@@ -206,9 +209,6 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 			//	Le joueur pioche une carte
 			int cardDrawn = DrawCardtoHand();
 			structAction.drawnCards->push_back(cardDrawn);
-			cout << "Vous avez pioché la carte ";
-			showCardName(cardDrawn);
-			cout << "." << endl;
 
 			if (checkCard(cardDrawn, lastPlayedCardId) == true)
 			{

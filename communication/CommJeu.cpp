@@ -12,6 +12,7 @@ bool CommJeu::initialiserTour()
 	_declarerUno = false;
 	_message = "";
 	_carteDejaSubie = false;
+	_aSubitContreUno = false;
 	_finManche = FinManche::manche_en_cours;
 
 	return true;
@@ -32,7 +33,7 @@ CommJeu::CommJeu(Salon* psalon)
 	_cartesPiocheesAdversaire = new vector<int>;
 }
 
-//	On supprime les aggrégations
+//	On libère les aggrégations
 CommJeu::~CommJeu()
 {
 	if (_cartesPiochees != nullptr)
@@ -91,7 +92,12 @@ void CommJeu::attenteTour()
 				//	Contre-Uno
 				if (lignes->operator[](5).size() > 0)
 				{
-					cout << nomJoueur << " declare un contre uno contre " << _salon->getJoueur(lignes->operator[](4)) << "." << endl;
+					int joueur = std::stoi(lignes->operator[](5));
+					cout << nomJoueur << " declare un contre uno contre " << _salon->getJoueur(joueur) << "." << endl;
+					if (joueur == _salon->getJoueurActuel())
+					{
+						_aSubitContreUno = true;
+					}
 				}
 				//	Si c'est la fin de la manche
 				if (lignes->operator[](6).size() > 0)
@@ -131,29 +137,23 @@ void CommJeu::attenteTour()
 	}
 }
 
-void CommJeu::setCartesPiochees(vector<int>* cartesPiochees)
+void CommJeu::declareCartesPiochees(vector<int>* cartesPiochees)
 {
 
-	if (_cartesPiochees != nullptr)
+	if (_cartesPiochees == nullptr)
 	{
-		delete _cartesPiochees;
+		_cartesPiochees->empty();
+		return;
 	}
-	_cartesPiochees = cartesPiochees;
-}
 
-bool CommJeu::ajoutCartePioche(int id)
-{
-	// Vérification que la phase de jeu permet de piocher
-	if (_etat != 1) {
-		return false;
-	}
-	_cartesPiochees->push_back(id);
-	return true;
+	delete _cartesPiochees;
+	_cartesPiochees = cartesPiochees;
+
 }
 
 bool CommJeu::declarerUno() {
-	// Vérification que la phase de jeu permet de déclarer un uno
-	if (_etat != 1) {
+	if (!_declarerUno)
+	{
 		return false;
 	}
 	_declarerUno = true;
@@ -161,21 +161,15 @@ bool CommJeu::declarerUno() {
 }
 
 bool CommJeu::declareContreUno(int idJoueur) {
-	// Vérification que la phase de jeu permet de déclarer un uno
-	if (_etat != 1) {
+	if (_joueurContreUno==-1)
+	{
 		return false;
 	}
-	/*
-	// Vérification que le joueur existe et est un adversaire
-	if (!_salon->joueurEstAdversaire(idJoueur)) {
-		return false;
-	}*/
-
 	_joueurContreUno = idJoueur;
 	return true;
 }
 
-//	Permet d'envoyer les actions du tour
+//	Permet d'envoyer les actions du tour, puis attente de son tour
 bool CommJeu::finTourAtt(FinManche finManche) {
 	vector<string> lignes;
 
