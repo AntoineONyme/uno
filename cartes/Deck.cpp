@@ -79,5 +79,5 @@ void Deck::generateColoredCards() {
 
 vector<Card*> Deck::getDeck()
 {
-	return deck_;
+	return deck_; //retourne le deck de carte
 }

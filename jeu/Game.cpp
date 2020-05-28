@@ -32,7 +32,7 @@ void Game::show()
 
 }
 
-//permet de selectionner une carte dans la main 
+//permet de selectionner une carte dans la main et la retourne 
 int Game::selectCard()
 {
 	int positionCardinHand;
@@ -52,8 +52,7 @@ int Game::selectCard()
 		{
 			//Cas Cheat-Code, permet d'activer un code de triche pour faciliter l'implémentation de certaines méthodes.
 			cout << "Motherlode" << endl;
-			CheatHandToOne();
-			return 108;
+			return CheatHandToOne();
 		}
 		//	Si le joueur décide de piocher
 		if (positionCardinHand == 0)
@@ -74,7 +73,7 @@ int Game::selectCard()
 
 
 // macro méthode appelant checkCard, placeCard et selectCard.
-int Game::playCard(int lastPlayedCard)
+int Game::playCard(int lastPlayedCard) // prend entrée l'id de la dernière carte jouée
 {
 	int numCard = selectCard();
 	
@@ -109,10 +108,30 @@ int Game::playCard(int lastPlayedCard)
 
 }
 
-// permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0
-void Game::CheatHandToOne()
+// permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0 et revoie l'un des substituts du joker.
+int Game::CheatHandToOne()
 {
+	int colorChoice;
+
 	draw_->clearHand();
+	cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
+	colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple)", 1, 4);
+
+	if (colorChoice == 1)
+	{
+		int carte = 108;
+		return carte;
+	}
+	if (colorChoice == 2)
+	{
+		int carte = 109;
+		return carte;
+	}
+	if (colorChoice == 3)
+	{
+		int carte = 110;
+		return carte;
+	}
 	/*
 	list<int> hand = draw_->getHand();
 	list<int>::iterator it = hand.begin();
@@ -134,8 +153,8 @@ int Game::DrawCardtoHand()
 	return drawCard;
 }
 
-// vérifie que la carte selectionne peut etre jouer au dessus de la carte precedente
-bool Game::checkCard(int cardValue, int lastPlayedCard)
+// vérifie que la carte selectionne peut etre jouer au dessus de la carte precedente en renvoyant un booleen
+bool Game::checkCard(int cardValue, int lastPlayedCard) //prend en entrée l'id de la carte qu'on a selectionné ainsi que l'id de la carte jouée avant
 {
 	vector<Card*> deck = deck_->getDeck();
 
@@ -163,7 +182,7 @@ void Game::regenCards()
 }
 
 //	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
-StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
+StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend en entrée l'id de la dernière carte jouée ainsi que le bool indiquant si la carte a déjà été jouée
 {
 	StructAction structAction;
 	structAction.drawnCards = new vector<int>;
@@ -245,7 +264,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed)
 	return structAction;
 }
 
-//permet d'empêcher un Uno si il a était dit
+//permet d'empêcher un Uno si il a était dit et revoie vector<int>* des cartes piochées en cas de pénalité
 vector<int>* Game::counterUno()
 {
 	
@@ -268,7 +287,7 @@ vector<int>* Game::counterUno()
 	}
 }
 
-//permet d'envoyer l'état uno si le joueur le peut
+//permet d'envoyer l'état uno si le joueur le peut revoie vector<int>* des cartes piochées en cas de pénalité
 vector<int>* Game::sayUno()
 {
 	
@@ -291,7 +310,7 @@ vector<int>* Game::sayUno()
 	}
 }
 
-//Permet d'envoyer les cartes dans sa main au joueur adverse
+//Permet d'envoyer les cartes dans sa main au joueur adverse sous la forme d'un vector<int>*
 vector<int>* Game::cardsInHand()
 {
 	list<int> hand = draw_->getHand();
@@ -303,7 +322,7 @@ vector<int>* Game::cardsInHand()
 	return cardsToSend;
 }
 
-//Génère la main de départ d'un joueur
+//Génère la main de départ d'un joueur et la revoie sous la forme d'un vector<int>*
 vector<int>* Game::generateHand()
 {
 	draw_->generateHand();
@@ -312,15 +331,15 @@ vector<int>* Game::generateHand()
 }
 
 //Permet de supprimer de la pioche les cartes reçus par un joueur
-void Game::removeDrawnCards(vector<int>* cardsToSend)
+void Game::removeDrawnCards(vector<int>* cardsToSend) //prend un entrée un vector<int>* des cartes jouées par la joueur précédent.
 {
 	for (int i = 0; i < cardsToSend->size(); i++)
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
 }
 
 
-//Permet d'interprêter et d'appliquer l'effet d'une carte si elle en a un.
-StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed)
+//Permet d'interprêter et d'appliquer l'effet d'une carte si elle en a un et met à jour la struct 
+StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed) // 
 {
 	StructPossibilities structPossibilities;
 
@@ -403,7 +422,7 @@ int Game::placeCard(int cardValue)
 	if (cardValue < deck.size() - 8)
 		draw_->pullOutCard(cardValue, 1);
 
-	cout << " Vous avez joue la carte suivante : ";
+	cout << " Vous avez joue la carte suivante : " << endl;
 	showCardName(cardValue);
 	//	Cartes spéciale (jocker / +4)
 	if (cardValue < 8)
