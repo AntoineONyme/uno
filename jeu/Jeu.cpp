@@ -26,16 +26,13 @@ void Jeu::lancementPartie()
 	// Instanciation de l'objet de communication
 	CommJeu commJeu(_salon);
 
-	//	Compteur pour savoir qui commence la manche
-	int premierJoueur = 0;
-
-	while (_numManche != _salon->getNbManches())
+	while (_salon->getNumManche() != _salon->getNbManches())
 	{
-		cout << "Bienvenue dans la manche num " << _numManche << " !" << endl << endl;
+		cout << "Bienvenue dans la manche num " << _salon->getNumManche() << " !" << endl << endl;
 		Game g;
 
 		//	étape 1: on génère les mains des joueurs, chacun son tour
-		if (_salon->getJoueurActuel() != premierJoueur)
+		if (_salon->getJoueurActuel() != _salon->idNextPlayerFirst())
 		{
 			commJeu.attenteTour();
 			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());
@@ -48,6 +45,27 @@ void Jeu::lancementPartie()
 		//	étape 2: on joue, boucle de jeu de la manche
 		while (true)
 		{
+			//	On commence par vérifier que le joueur précédent continue de jouer
+			if (commJeu.getStatusManche() == CommJeu::manche_en_cours)
+			{
+				cout << "yep" << endl;
+			}
+			else if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
+			{
+				cout << "on y arrive, abandon" << endl;
+				return;
+			}
+			else if (commJeu.getStatusManche() == CommJeu::manche_terminee)
+			{
+				cout << "Manche terminee ! " << endl;
+				commJeu.finTourAtt(CommJeu::manche_terminee);
+				break;
+			}
+			else {
+				cout << "LA GRO PB !!!!! ;( " << endl;
+			}
+
+			//	Ici la partie est tjs en cours et c'est au joueur actuel de jouer
 			Menu::affichageSection("A vous de jouer !");
 			//	D'abord récupérer les infos sur ce qui a été fait durant l'attente
 			g.removeDrawnCards(commJeu.getCartePiocheesAdversaire());	//	Prise en compte des cartes piochées
@@ -97,6 +115,7 @@ void Jeu::lancementPartie()
 					{
 						cout << "Vous decidez d'abandonner la partie, a bientot !" << endl;
 						commJeu.finTourAtt(CommJeu::manche_abandonnee);
+						_salon->resetEtat();
 						return;
 					}
 				}
@@ -115,28 +134,10 @@ void Jeu::lancementPartie()
 
 			//	On termine par transmettre les infos et attendre
 			commJeu.finTourAtt();
-
-			if (commJeu.getStatusManche() == CommJeu::manche_en_cours)
-			{
-				cout << "yep" << endl;
-			}
-			else if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
-			{
-				return;
-			}
-			else if (commJeu.getStatusManche() == CommJeu::manche_terminee)
-			{
-				cout << "Manche terminee ! " << endl;
-				commJeu.finTourAtt(CommJeu::manche_terminee);
-				break;
-			}
-			else {
-				cout << "LA GRO PB !!!!! ;( " << endl;
-			}
 		}
 
 		//	Fin de la manche : le destructeur est automatiquement appelé
-		_numManche++;
+		_salon->nextManche();
 	}
 
 	cout << "Partie terminee ! merci d'avoir participe <3" << endl;

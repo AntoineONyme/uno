@@ -13,6 +13,7 @@ class Salon
 
 	int _etat = 0;	//0: pas de salon, 1: en attente, 2: en jeu, 3: termine
 	int _nbManches = 0;
+	int _numMancheActuelle = 0;
 	vector<string>* _joueurs = nullptr;
 	int _idJoueurActuel = 0;	// Joueur de ce client
 	string _nom;
@@ -28,8 +29,14 @@ public:
 	bool joueurEstAdversaire(int id) const { return id != _idJoueurActuel and 0 <= id < _joueurs->size(); };
 
 	int idNextPlayer();
+	int idNextPlayerFirst();
 	int getJoueurActuel() const { return _idJoueurActuel; };
 	int getNbJoueurs() const { return _joueurs->size(); };
 	int getNbManches() const { return _nbManches; };
 	string getNomSalon() const { return _nom; };
+	void nextManche() { _numMancheActuelle++; };
+	int getNumManche() const { return _numMancheActuelle; };
+
+	//	Utile notemment pour empécher la suppression des fichiers en fin de partie
+	void resetEtat() { _etat = 0; };
 };

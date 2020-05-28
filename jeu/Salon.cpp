@@ -108,3 +108,9 @@ int Salon::idNextPlayer()
 {
 	return _joueurs->size() <= _idJoueurActuel + 1 ? 0 : _idJoueurActuel + 1;	//Condition binaire de vérification
 }
+
+int Salon::idNextPlayerFirst()
+{
+
+	return _numMancheActuelle%_joueurs->size();
+}

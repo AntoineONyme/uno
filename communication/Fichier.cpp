@@ -141,7 +141,14 @@ bool Fichier::supprimerFichier()
 	return true;
 }
 
-void Fichier::synchroniser(string repertoir) {
+void Fichier::synchroniser(string repertoir, bool bloquant) {
 	ODrive odrive;
-	odrive.refresh(repertoir + "/");
+	if (bloquant)
+	{
+		odrive.refresh(repertoir + "/");
+	}
+	else {
+		odrive.sync(repertoir + "/");
+	}
+	
 }

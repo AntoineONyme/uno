@@ -8,7 +8,6 @@
 class Jeu
 {
 	Salon* _salon = nullptr;
-	int _numManche = 0;
 	//Deck* _deck = nullptr;
 
 public:

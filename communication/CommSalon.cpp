@@ -186,5 +186,6 @@ bool CommSalon::supprimerSalon(string nom)
 	Fichier fichier1(nom + ".salon.txt", REPERTOIRE, false);
 	Fichier fichier2(nom + ".jeu.txt", REPERTOIRE, false);
 
+	fichier1.synchroniser(REPERTOIRE, false);
 	return fichier1.supprimerFichier() and fichier2.supprimerFichier();
 }
