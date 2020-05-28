@@ -135,7 +135,10 @@ bool Fichier::fichierExiste(string nom, string repertoir)
 
 bool Fichier::supprimerFichier()
 {
-	_odrive.delFile(_repertoir + "/" + _nom);
+	string chemin = getFilePath();
+	const char *filename = chemin.c_str();
+	remove(filename);
+	synchroniser(_repertoir);
 	return true;
 }
 

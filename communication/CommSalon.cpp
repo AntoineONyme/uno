@@ -184,7 +184,8 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 bool CommSalon::supprimerSalon(string nom)
 {
 	string nfic = nom + ".salon.txt";
-	Fichier _fichier(nfic, REPERTOIRE, false);
+	Fichier fichier1(nom + ".salon.txt", REPERTOIRE, false);
+	Fichier fichier2(nom + ".jeu.txt", REPERTOIRE, false);
 
-	return _fichier.supprimerFichier();
+	return fichier1.supprimerFichier() and fichier2.supprimerFichier();
 }

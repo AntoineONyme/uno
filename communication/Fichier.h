@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <chrono>
+#include <cstdio>
 #include "odrive.h"
 
 using namespace std;
