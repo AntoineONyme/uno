@@ -13,7 +13,7 @@ class Salon
 
 	int _etat = 0;	//0: pas de salon, 1: en attente, 2: en jeu, 3: termine
 	int _nbManches = 0;
-	vector<string>* _joueurs;
+	vector<string>* _joueurs = nullptr;
 	int _idJoueurActuel = 0;	// Joueur de ce client
 	string _nom;
 

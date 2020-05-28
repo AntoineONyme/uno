@@ -8,12 +8,6 @@
 
 #include "../jeu/Salon.h"
 
-enum class FinManche {
-	manche_en_cours,
-	manche_terminee,
-	manche_abandonnee
-};
-
 typedef struct {
 	int carteJouee = -1;
 	bool carteDejaSubie = false;
@@ -35,7 +29,6 @@ class CommJeu
 	//	attributs concernant le(s) adversaire(s)
 	DonneesCommJeu _donneesAdversaires;
 
-	enum class FinManche _finManche = FinManche::manche_en_cours;
 
 	bool initialiserTour();
 
@@ -43,6 +36,7 @@ class CommJeu
 	const string VERSION = "1.0.1";
 
 public:
+	enum FinManche { manche_en_cours, manche_terminee, manche_abandonnee };
 
 	CommJeu(Salon* psalon);
 	~CommJeu();
@@ -58,7 +52,7 @@ public:
 	void declareMessage(string message) { _donneesJoueur.message = message; };
 
 	//	Permet d'envoyer les infos "déclarées" puis attend que ce soit à son tour de jouer
-	bool finTourAtt(FinManche finManche = FinManche::manche_en_cours);
+	bool finTourAtt(FinManche finManche = manche_en_cours);
 
 	//	Fonctions pour récupérer les infos de l'adversaire, récupérées avec
 	int getCarteJoueeAdversaire() const { return _donneesAdversaires.carteJouee; };
@@ -70,5 +64,9 @@ public:
 	bool isContreUno() const { return _donneesAdversaires.joueurContreUno == 1; };
 
 	//	Permet d'envoyer une confirmation avant de relancer la partie
-	bool finTour(FinManche finManche = FinManche::manche_en_cours);
+	bool finTour(FinManche finManche = manche_en_cours);
+
+private:
+	//	Je redéclare ici ce champ privé comme l'énum est public
+	FinManche _finManche = manche_en_cours;
 };

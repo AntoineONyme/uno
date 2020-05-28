@@ -96,7 +96,7 @@ void Jeu::lancementPartie()
 					if (confirm)
 					{
 						cout << "Vous decidez d'abandonner la partie, a bientot !" << endl;
-						commJeu.finTourAtt(FinManche::manche_abandonnee);
+						commJeu.finTourAtt(CommJeu::manche_abandonnee);
 						return;
 					}
 				}
@@ -109,25 +109,25 @@ void Jeu::lancementPartie()
 			//	Si le joueur vient de jouer sa dernière carte, on termine la manche
 			if (structAction.endRound)
 			{
-				commJeu.finTourAtt(FinManche::manche_terminee);
+				commJeu.finTourAtt(CommJeu::manche_terminee);
 				break;
 			}
 
 			//	On termine par transmettre les infos et attendre
 			commJeu.finTourAtt();
 
-			if (commJeu.getStatusManche() == FinManche::manche_en_cours)
+			if (commJeu.getStatusManche() == CommJeu::manche_en_cours)
 			{
 				cout << "yep" << endl;
 			}
-			else if (commJeu.getStatusManche() == FinManche::manche_abandonnee)
+			else if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
 			{
 				return;
 			}
-			else if (commJeu.getStatusManche() == FinManche::manche_terminee)
+			else if (commJeu.getStatusManche() == CommJeu::manche_terminee)
 			{
 				cout << "Manche terminee ! " << endl;
-				commJeu.finTourAtt(FinManche::manche_terminee);
+				commJeu.finTourAtt(CommJeu::manche_terminee);
 				break;
 			}
 			else {

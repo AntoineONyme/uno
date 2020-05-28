@@ -98,9 +98,8 @@ StatuSalon Salon::choixSalon(string pseudo)
 	else if (choix == "delete")
 	{
 		Menu::affichageSection("Supprimer un salon");
-		parametres_salon.nom = Menu::lectureString("nom", 3, 10, "test");
-		cin >> parametres_salon.nom;
-		comm.supprimerSalon(parametres_salon.nom);
+		string nom = Menu::lectureString("nom", 3, 10, "test");
+		comm.supprimerSalon(nom);
 	}
 	return StatuSalon::erreur;
 }

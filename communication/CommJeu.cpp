@@ -191,7 +191,7 @@ bool CommJeu::finTourAtt(FinManche finManche) {
 	return true;
 }
 
-FinManche CommJeu::getStatusManche()
+CommJeu::FinManche CommJeu::getStatusManche()
 {
 	return _finManche;
 }

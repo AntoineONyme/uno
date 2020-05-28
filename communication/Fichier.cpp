@@ -138,7 +138,6 @@ bool Fichier::supprimerFichier()
 	string chemin = getFilePath();
 	const char *filename = chemin.c_str();
 	remove(filename);
-	synchroniser(_repertoir);
 	return true;
 }
 
