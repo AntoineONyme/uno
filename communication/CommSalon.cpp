@@ -173,6 +173,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				if (parametres_salon.joueurs->size() >= parametres_salon.nbJoueurs and heberge)
 				{
 					creationFichierJeu(parametres_salon);
+					_fichier->synchroniser(REPERTOIRE);
 					_fichier->ajoutLigne("COMMENCE");
 					return true;
 				}

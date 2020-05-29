@@ -43,6 +43,7 @@ CommJeu::CommJeu(Salon* psalon)
 	while (true)
 	{
 		_fichier->synchroniser(REPERTOIRE);
+		_fichier->synchroniser(REPERTOIRE, false);
 
 		if (!_fichier->fichierExiste(nfic, REPERTOIRE)) {
 			cout << "Ce salon n'existe pas encore...\n";

@@ -82,7 +82,7 @@ string Menu::lectureString(string label, int min, int max, string vdefault)
 			return vdefault;
 		}
 		if (data.size() < min or data.size() > max) {
-			cout << "Erreur, la lougueur doit etre comprise entre " << min << " et " << max << ".\n";
+			cout << "Erreur, la longueur doit etre comprise entre " << min << " et " << max << ".\n";
 		}
 		else {
 			return data;
