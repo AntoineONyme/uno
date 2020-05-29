@@ -56,6 +56,11 @@ vector<string>* Fichier::lectureLignes()
 	string ligne;
 
 	getline(fileEchange, ligne);
+	if (ligne.size()==0)
+	{
+		_erreur = true;
+		return lignes;	//Si le fichier n'est pas nette, on arrete
+	}
 	_lastTimestamp = std::stoi(ligne);	//Lecture de la première ligne
 
 	// Lecture ligne par ligne jusqu'à la fin du fichier

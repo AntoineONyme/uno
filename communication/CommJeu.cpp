@@ -1,6 +1,21 @@
 #include "CommJeu.h"
 #include "../cartes/StaticFunction.h"
 
+void split(std::string const& str, const char delim, vector<int>* out)
+{
+	size_t start;
+	size_t end = 0;
+
+	while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
+	{
+		end = str.find(delim, start);
+		string subs = str.substr(start, end - start);
+		if (subs.size()>0)
+		{
+			out->push_back(std::stoi(subs));
+		}		
+	}
+}
 
 bool CommJeu::initialiserTour()
 {
@@ -113,6 +128,7 @@ void CommJeu::attenteTour()
 				if (lignes->operator[](7).size() > 0)
 				{
 					cout << nomJoueur << " vient de piocher " << lignes->operator[](7) << endl;
+					split(lignes->operator[](7), ' ', _donneesAdversaires.cartesPiochees);
 				}
 				//	Si message
 				if (lignes->operator[](8).size() > 0)

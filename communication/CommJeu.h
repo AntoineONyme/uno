@@ -1,10 +1,4 @@
 #pragma once
-/*
-#include <vector>
-#include <string>
-#include <iostream>
-
-#include "Fichier.h"*/
 
 #include "../jeu/Salon.h"
 
