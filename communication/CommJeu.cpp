@@ -10,10 +10,10 @@ void split(std::string const& str, const char delim, vector<int>* out)
 	{
 		end = str.find(delim, start);
 		string subs = str.substr(start, end - start);
-		if (subs.size()>0)
+		if (subs.size() > 0)
 		{
 			out->push_back(std::stoi(subs));
-		}		
+		}
 	}
 }
 
@@ -39,10 +39,19 @@ CommJeu::CommJeu(Salon* psalon)
 
 	_fichier = new Fichier(nfic, REPERTOIRE, false);
 
-	_fichier->synchroniser(REPERTOIRE);
 
-	if (!_fichier->fichierExiste(nfic, REPERTOIRE)) {
-		cout << "Ce salon n'existe pas !\n";
+	while (true)
+	{
+		_fichier->synchroniser(REPERTOIRE);
+
+		if (!_fichier->fichierExiste(nfic, REPERTOIRE)) {
+			cout << "Ce salon n'existe pas encore...\n";
+		}
+		else
+		{
+			break;
+		}
+
 	}
 }
 
@@ -79,7 +88,7 @@ void CommJeu::attenteTour()
 				if (lignes->operator[](2).size() > 0)
 				{
 					_donneesAdversaires.carteJouee = std::stoi(lignes->operator[](2));
-					cout <<endl;
+					cout << endl;
 				}
 				//	Carte déja subie
 				if (lignes->operator[](3).size() > 0)
@@ -89,12 +98,12 @@ void CommJeu::attenteTour()
 				}
 				else {
 					_donneesAdversaires.carteDejaSubie = false;
-					if (_donneesAdversaires.carteJouee>=0)
+					if (_donneesAdversaires.carteJouee >= 0)
 					{
 						cout << nomJoueur << " vient de jouer la carte ";
 						showCardName(_donneesAdversaires.carteJouee);
 						cout << "\n";
-					}					
+					}
 				}
 				//	Uno
 				if (lignes->operator[](4).size() > 0)
@@ -127,8 +136,8 @@ void CommJeu::attenteTour()
 				//	Si pioche
 				if (lignes->operator[](7).size() > 0)
 				{
-					cout << nomJoueur << " vient de piocher " << lignes->operator[](7) << endl;
 					split(lignes->operator[](7), ' ', _donneesAdversaires.cartesPiochees);
+					cout << nomJoueur << " vient de piocher " << _donneesAdversaires.cartesPiochees->size() << " carte(s)" << endl;
 				}
 				//	Si message
 				if (lignes->operator[](8).size() > 0)
@@ -183,7 +192,7 @@ bool CommJeu::declarerUno() {
 }
 
 bool CommJeu::declareContreUno(int idJoueur) {
-	if (_donneesJoueur.joueurContreUno!=-1)
+	if (_donneesJoueur.joueurContreUno != -1)
 	{
 		return false;
 	}
