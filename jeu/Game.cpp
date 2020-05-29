@@ -264,7 +264,7 @@ vector<int>* Game::counterUno()
 	}
 	else // sinon il s'en sort sans rien. 
 	{
-		cout << " Habile BIL o:) " << endl;
+		cout << " Un contre Uno a ete declaree " << endl;
 	
 		return nullptr;
 	}
@@ -275,19 +275,20 @@ vector<int>* Game::sayUno()
 {
 	
 	list<int> hand = draw_->getHand();
-	if (hand.size() != 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
+	if (hand.size() <=1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
 	{
+		cout << " Contre Uno non valide  >:( " << endl;
 		vector<int>* penaltyDrawnCards = new vector<int>;
 		for (int i = 0; i < 2; i++)
 		{
-			cout << " MENTEUR >:( " << endl;
+			
 			penaltyDrawnCards->push_back(DrawCardtoHand());
 		}
 		return penaltyDrawnCards;
 	}
 	else // sinon on change l'état de uno en true.
 	{
-		cout << " OUA o:) " << endl;
+		cout << " Uno valide o:) " << endl;
 		sayUno_ = true;
 		return nullptr;
 	}
