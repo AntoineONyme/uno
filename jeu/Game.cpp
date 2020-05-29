@@ -66,8 +66,7 @@ int Game::selectCard()
 			advance(it, positionCardinHand);
 			return *it;
 		}
-	} 
-	while (selection != false);
+	} while (selection != false);
 	return -1;
 }
 
@@ -76,7 +75,7 @@ int Game::selectCard()
 int Game::playCard(int lastPlayedCard) // prend entrée l'id de la dernière carte jouée
 {
 	int numCard = selectCard();
-	
+
 
 	//Cas  ou l'on décide de ne pas jouer de cartes.
 	if (numCard == -1)
@@ -111,10 +110,10 @@ int Game::playCard(int lastPlayedCard) // prend entrée l'id de la dernière carte
 // permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0 et revoie l'un des substituts du joker.
 void Game::CheatHandToOne()
 {
-	
+
 
 	draw_->clearHand();
-	
+
 	/*
 	list<int> hand = draw_->getHand();
 	list<int>::iterator it = hand.begin();
@@ -169,6 +168,9 @@ void Game::regenCards()
 
 	}
 
+
+
+
 }
 
 //	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
@@ -189,7 +191,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 	StructPossibilities structPossibilities = applyAction(lastPlayedCardId, cardAlreadyPlayed);
 
 	//	Si carte spéciale qui fait piocher (+2, +4)
-	if (structPossibilities.nbCartsToDraw>0)
+	if (structPossibilities.nbCartsToDraw > 0)
 	{
 		cout << "Vous piochez " << structPossibilities.nbCartsToDraw << " cartes.\n";
 	}
@@ -247,7 +249,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 		structAction.playedCardId = lastPlayedCardId;
 		structAction.cardAlreadyPlayed = true;
 	}
-	
+
 	if (draw_->getHand().size() == 0)
 	{
 		structAction.endRound = true;
@@ -258,7 +260,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 //permet d'empêcher un Uno si il a était dit et revoie vector<int>* des cartes piochées en cas de pénalité
 vector<int>* Game::counterUno()
 {
-	
+
 	list<int> hand = draw_->getHand();
 	if (hand.size() == 1 && !sayUno_) //si la condition du uno n'est pas respectée, pioche de deux cartes
 	{
@@ -272,8 +274,8 @@ vector<int>* Game::counterUno()
 	}
 	else // sinon il s'en sort sans rien. 
 	{
-		cout << " Un contre Uno a ete declaree " << endl;
-	
+		cout << " Habile BIL o:) " << endl;
+
 		return nullptr;
 	}
 }
@@ -281,22 +283,21 @@ vector<int>* Game::counterUno()
 //permet d'envoyer l'état uno si le joueur le peut revoie vector<int>* des cartes piochées en cas de pénalité
 vector<int>* Game::sayUno()
 {
-	
+
 	list<int> hand = draw_->getHand();
-	if (hand.size() <=1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
+	if (hand.size() != 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
 	{
-		cout << " Contre Uno non valide  >:( " << endl;
 		vector<int>* penaltyDrawnCards = new vector<int>;
 		for (int i = 0; i < 2; i++)
 		{
-			
+			cout << " MENTEUR >:( " << endl;
 			penaltyDrawnCards->push_back(DrawCardtoHand());
 		}
 		return penaltyDrawnCards;
 	}
 	else // sinon on change l'état de uno en true.
 	{
-		cout << " Uno valide o:) " << endl;
+		cout << " OUA o:) " << endl;
 		sayUno_ = true;
 		return nullptr;
 	}
@@ -325,8 +326,9 @@ vector<int>* Game::generateHand()
 //Permet de supprimer de la pioche les cartes reçus par un joueur
 void Game::removeDrawnCards(vector<int>* cardsToSend) //prend un entrée un vector<int>* des cartes jouées par la joueur précédent.
 {
-	for (int i = 0; i < cardsToSend->size(); i++)
+	for (int i = 0; i < cardsToSend->size(); i++) {
 		draw_->pullOutCard(cardsToSend->operator[](i), 0);
+	}
 }
 
 
@@ -349,60 +351,60 @@ StructPossibilities Game::applyAction(int idPlayedCard, bool cardAlreadyPlayed) 
 	else
 	{
 		int specialType = deck[idPlayedCard]->getSpecialType();
-		
+
 
 		//	Carte de couleur (pas jocker / +4)
-		
-		
+
+
 			//	+2
-			if (specialType == 0)
+		if (specialType == 0)
+		{
+			structPossibilities.nbCartsToDraw = 2;
+			structPossibilities.allowedToPlay = false;
+			return structPossibilities;
+		}
+
+		//	Passe-tour
+		if (specialType == 1)
+		{
+			if (cardAlreadyPlayed)
 			{
-				structPossibilities.nbCartsToDraw = 2;
+				return structPossibilities;
+			}
+			else {
 				structPossibilities.allowedToPlay = false;
 				return structPossibilities;
 			}
+		}
 
-			//	Passe-tour
-			if (specialType == 1)
+		//	Inv-tour
+		if (specialType == 2)
+		{
+			if (cardAlreadyPlayed)
 			{
-				if (cardAlreadyPlayed)
-				{
-					return structPossibilities;
-				}
-				else {
-					structPossibilities.allowedToPlay = false;
-					return structPossibilities;
-				}
+				return structPossibilities;
 			}
+			else {
+				structPossibilities.allowedToPlay = false;
+				return structPossibilities;
+			}
+		}
 
-			//	Inv-tour
-			if (specialType == 2)
-			{
-				if (cardAlreadyPlayed)
-				{
-					return structPossibilities;
-				}
-				else {
-					structPossibilities.allowedToPlay = false;
-					return structPossibilities;
-				}
-			}
-		
 
 		//	Carte spéciales (jocker / +4)
-		
-		
+
+
 			//	Carte +4
-			if (deck[idPlayedCard]->getNumber() == -2)
-			{
-				structPossibilities.nbCartsToDraw = 4;
-				return structPossibilities;
-			}
-			//	Jocker
-			else {
-				return structPossibilities;
-			}
-		
+		if (deck[idPlayedCard]->getNumber() == -2)
+		{
+			structPossibilities.nbCartsToDraw = 4;
+			return structPossibilities;
+		}
+		//	Jocker
+		else {
+			return structPossibilities;
+		}
+
 	}
 }
 
@@ -425,7 +427,7 @@ int Game::placeCard(int cardValue)
 		{
 			cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
 			colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple)", 1, 4);
-			
+
 			if (colorChoice == 1)
 			{
 				int carte = 108;
