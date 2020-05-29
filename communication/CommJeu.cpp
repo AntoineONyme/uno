@@ -146,11 +146,6 @@ void CommJeu::attenteTour()
 				}
 			}
 
-			if (_finManche == FinManche::manche_terminee)
-			{
-				cout << "Tu vois !" << endl;
-			}
-
 			//	On regarde si le joueur précédent appelle le joueur actuel à jouer
 			if (lignes->operator[](0) == std::to_string(_salon->getJoueurActuel()))
 			{
