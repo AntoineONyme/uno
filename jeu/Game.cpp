@@ -110,8 +110,6 @@ int Game::playCard(int lastPlayedCard) // prend entrée l'id de la dernière carte
 // permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0 et revoie l'un des substituts du joker.
 void Game::CheatHandToOne()
 {
-
-
 	draw_->clearHand();
 
 	/*
@@ -165,17 +163,18 @@ void Game::regenCards()
 		delete draw_;
 		draw_ = new Draw();
 		removeDrawnCards(cardsInHand());
-
 	}
-
-
-
-
 }
 
 //	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
 StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend en entrée l'id de la dernière carte jouée ainsi que le bool indiquant si la carte a déjà été jouée
 {
+	//	Si on est le premier à jouer, on retourne la première carte de la pioche
+	if (lastPlayedCardId == -1)
+	{
+		lastPlayedCardId = draw_->drawCard();
+	}
+
 	regenCards();
 	StructAction structAction;
 	structAction.drawnCards = new vector<int>;
@@ -201,11 +200,9 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 		structAction.drawnCards->push_back(drawnCard);
 	}
 
-	if (lastPlayedCardId != -1) {
-		cout << "Derniere carte: ";
-		showCardName(lastPlayedCardId);
-		cout << endl;
-	}
+	cout << "Derniere carte: ";
+	showCardName(lastPlayedCardId);
+	cout << endl;
 
 	//	le joueur peut jouer
 	if (structPossibilities.allowedToPlay)
@@ -228,9 +225,8 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 			int cardDrawn = DrawCardtoHand();
 			structAction.drawnCards->push_back(cardDrawn);
 
-			if (checkCard(cardDrawn, lastPlayedCardId) == true)
+			if (checkCard(cardDrawn, lastPlayedCardId) == true and Menu::lectureBool("Voulez-vous jouer la carte piochée ?", true))
 			{
-				//	Le joueur peut jouer la carte piochée
 				cardDrawn = placeCard(cardDrawn);	// éventuellement cardDrawn peut être remplécée par un subtitu le cas échéant (carte spéciale)
 				structAction.playedCardId = cardDrawn;
 			}
@@ -289,16 +285,16 @@ vector<int>* Game::sayUno()
 	if (hand.size() != 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
 	{
 		vector<int>* penaltyDrawnCards = new vector<int>;
+		cout << "Désolé, MENTEUR >:( " << endl;
 		for (int i = 0; i < 2; i++)
 		{
-			cout << " MENTEUR >:( " << endl;
 			penaltyDrawnCards->push_back(DrawCardtoHand());
 		}
 		return penaltyDrawnCards;
 	}
 	else // sinon on change l'état de uno en true.
 	{
-		cout << " OUA o:) " << endl;
+		cout << "Uno, OUA o:) " << endl;
 		sayUno_ = true;
 		return nullptr;
 	}
