@@ -52,7 +52,8 @@ int Game::selectCard()
 		{
 			//Cas Cheat-Code, permet d'activer un code de triche pour faciliter l'implémentation de certaines méthodes.
 			cout << "Motherlode" << endl;
-			return CheatHandToOne();
+			CheatHandToOne();
+			return 0;
 		}
 		//	Si le joueur décide de piocher
 		if (positionCardinHand == 0)
@@ -109,29 +110,12 @@ int Game::playCard(int lastPlayedCard) // prend entrée l'id de la dernière carte
 }
 
 // permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0 et revoie l'un des substituts du joker.
-int Game::CheatHandToOne()
+void Game::CheatHandToOne()
 {
-	int colorChoice;
+	
 
 	draw_->clearHand();
-	cout << "Voici le tableau de couleur : [R,B,J,V]" << endl;
-	colorChoice = Menu::lectureInt("Selectionnez une couleur pour la carte svp (1 = rouge par exemple)", 1, 4);
-
-	if (colorChoice == 1)
-	{
-		int carte = 108;
-		return carte;
-	}
-	if (colorChoice == 2)
-	{
-		int carte = 109;
-		return carte;
-	}
-	if (colorChoice == 3)
-	{
-		int carte = 110;
-		return carte;
-	}
+	
 	/*
 	list<int> hand = draw_->getHand();
 	list<int>::iterator it = hand.begin();

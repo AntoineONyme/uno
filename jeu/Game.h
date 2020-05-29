@@ -37,7 +37,7 @@ class Game
 	void regenCards(); 
 	int selectCard(); 
 	int playCard(int lastPlayedCard); 
-	int CheatHandToOne(); 
+	void CheatHandToOne(); 
 
 	
 	StructPossibilities applyAction(int idPlayedCard, bool cardAlreadyPlayed);
