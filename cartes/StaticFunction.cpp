@@ -1,7 +1,7 @@
 #include "StaticFunction.h"
 
 //Méthode permettant de changer la couleur d'affichage du texte console
-void Color(int color)
+void Color(int color) // prend en entrée la valeur de la couleur que l'on veut appliquer
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }

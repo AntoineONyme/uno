@@ -231,7 +231,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 			if (checkCard(cardDrawn, lastPlayedCardId) == true)
 			{
 				//	Le joueur peut jouer la carte piochée
-				cardDrawn = placeCard(cardDrawn);	// éventuellement cardDrawn peut être remplécée par un subtitu le cas échéant (carte spéciale)
+				cardDrawn = placeCard(cardDrawn);	// éventuellement cardDrawn peut être remplécée par un subtitut le cas échéant (carte spéciale)
 				structAction.playedCardId = cardDrawn;
 			}
 			else {
@@ -286,7 +286,7 @@ vector<int>* Game::sayUno()
 {
 
 	list<int> hand = draw_->getHand();
-	if (hand.size() != 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
+	if (hand.size() <= 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
 	{
 		vector<int>* penaltyDrawnCards = new vector<int>;
 		for (int i = 0; i < 2; i++)
