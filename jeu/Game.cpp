@@ -251,7 +251,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 	if (draw_->getHand().size() == 0)
 	{
 		structAction.endRound = true;
-		cout << "Vous avez gagné la manche, bravo !" << endl;
+		cout << "Vous avez gagne la manche, bravo !" << endl;
 	}
 	return structAction;
 }

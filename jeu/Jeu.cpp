@@ -48,12 +48,16 @@ void Jeu::lancementPartie()
 			//	On commence par vérifier que le joueur précédent continue de jouer
 			if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
 			{
+				Color(12);
 				cout << "Un abandon vient d'avoir lieu." << endl;
+				Color(7);
 				return;
 			}
 			else if (commJeu.getStatusManche() == CommJeu::manche_terminee)
 			{
+				Color(12);
 				cout << "Manche terminee ! " << endl;
+				Color(7);
 				break;
 			}
 
@@ -105,7 +109,9 @@ void Jeu::lancementPartie()
 					bool confirm = Menu::lectureBool("Voulez-vous reellemnt abandonner ? ");
 					if (confirm)
 					{
+						Color(12);
 						cout << "Vous decidez d'abandonner la partie, a bientot !" << endl;
+						Color(7);
 						commJeu.finTourAtt(CommJeu::manche_abandonnee);
 						_salon->resetEtat();
 						return;

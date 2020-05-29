@@ -124,6 +124,7 @@ void CommJeu::attenteTour()
 				//	Si c'est la fin de la manche
 				if (lignes->operator[](6).size() > 0)
 				{
+					Color(12);
 					if (lignes->operator[](6) == "abandon")
 					{
 						cout << nomJoueur << " a abandonne la partie. Vous avez donc gagne !" << endl;
@@ -133,6 +134,7 @@ void CommJeu::attenteTour()
 						cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
 						_finManche = FinManche::manche_terminee;
 					}
+					Color(7);
 				}
 				//	Si pioche
 				if (lignes->operator[](7).size() > 0)
@@ -143,7 +145,9 @@ void CommJeu::attenteTour()
 				//	Si message
 				if (lignes->operator[](8).size() > 0)
 				{
+					Color(11);
 					cout << "[" << nomJoueur << "] " << lignes->operator[](8) << endl;
+					Color(7);
 				}
 			}
 
