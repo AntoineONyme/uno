@@ -28,7 +28,7 @@ void Jeu::lancementPartie()
 
 	while (_salon->getNumManche() != _salon->getNbManches())
 	{
-		cout << "Bienvenue dans la manche num " << _salon->getNumManche() << " !" << endl << endl;
+		cout << "Bienvenue dans la manche num " << _salon->getNumManche() + 1 << " !" << endl << endl;
 		Game g;
 
 		//	étape 1: on génère les mains des joueurs, chacun son tour
@@ -46,23 +46,15 @@ void Jeu::lancementPartie()
 		while (true)
 		{
 			//	On commence par vérifier que le joueur précédent continue de jouer
-			if (commJeu.getStatusManche() == CommJeu::manche_en_cours)
+			if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
 			{
-				cout << "yep" << endl;
-			}
-			else if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
-			{
-				cout << "on y arrive, abandon" << endl;
+				cout << "Un abandon vient d'avoir lieu." << endl;
 				return;
 			}
 			else if (commJeu.getStatusManche() == CommJeu::manche_terminee)
 			{
 				cout << "Manche terminee ! " << endl;
-				commJeu.finTourAtt(CommJeu::manche_terminee);
 				break;
-			}
-			else {
-				cout << "LA GRO PB !!!!! ;( " << endl;
 			}
 
 			//	Ici la partie est tjs en cours et c'est au joueur actuel de jouer

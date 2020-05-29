@@ -14,7 +14,6 @@ Game::~Game()
 {
 	delete deck_;
 	delete draw_;
-	cout << "deleted\n";
 }
 //Permet d'afficher les cartes de la main dans la console
 void Game::show()
