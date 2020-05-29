@@ -185,10 +185,10 @@ bool CommJeu::finTourAtt(FinManche finManche) {
 	initialiserTour();
 
 	//On va maintenant attendre que ce soit notre tour avant de débloquer, sauf si abandon
-	if (finManche != FinManche::manche_abandonnee)
+	if (finManche == FinManche::manche_en_cours)
 	{
 		attenteTour();
-	}	
+	}
 
 	return true;
 }
@@ -200,8 +200,6 @@ CommJeu::FinManche CommJeu::getStatusManche()
 
 bool CommJeu::finTour(FinManche finManche)
 {
-	if (finManche == FinManche::manche_terminee)
-		cout << "LOOOOLLL";
 	vector<string> lignes;
 
 	//Ligne 1 : on donne l'id du joueur suivant
