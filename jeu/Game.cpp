@@ -123,6 +123,7 @@ void Game::CheatHandToOne()
 // permet de piocher une carte et de la mettre dans la main
 int Game::DrawCardtoHand()
 {
+	regenCards();
 	int drawCard = draw_->DrawCardtoHand();
 	sayUno_ = false;
 
@@ -175,7 +176,6 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 		lastPlayedCardId = draw_->drawCard();
 	}
 
-	regenCards();
 	StructAction structAction;
 	structAction.drawnCards = new vector<int>;
 
