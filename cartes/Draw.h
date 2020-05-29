@@ -24,5 +24,6 @@ public:
     int DrawCardtoHand();
     void genDraw();
     void clearHand() { hand_.clear(); };
+    list<int>getDraw() { return draw_; }
    
 };

@@ -160,13 +160,21 @@ bool Game::checkCard(int cardValue, int lastPlayedCard) //prend en entrée l'id d
 // regen la pioche du joueur 
 void Game::regenCards()
 {
-	
+	list<int> draw = draw_->getDraw();
+	if (draw.size() <= 4)
+	{
+		delete draw_;
+		draw_ = new Draw();
+		removeDrawnCards(cardsInHand());
+
+	}
 
 }
 
 //	selon les cartes précédentes, amène le joueur à piocher / choisir une carte et la jouer
 StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend en entrée l'id de la dernière carte jouée ainsi que le bool indiquant si la carte a déjà été jouée
 {
+	regenCards();
 	StructAction structAction;
 	structAction.drawnCards = new vector<int>;
 
