@@ -253,6 +253,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 	if (draw_->getHand().size() == 0)
 	{
 		structAction.endRound = true;
+		cout << "Vous avez gagné la manche, bravo !" << endl;
 	}
 	return structAction;
 }
@@ -416,8 +417,10 @@ int Game::placeCard(int cardValue)
 	if (cardValue < deck.size() - 8)
 		draw_->pullOutCard(cardValue, 1);
 
-	cout << " Vous avez joue la carte suivante : " << endl;
+	cout << "Vous avez joue la carte :";
 	showCardName(cardValue);
+	cout << endl;
+
 	//	Cartes spéciale (jocker / +4)
 	if (cardValue < 8)
 	{
