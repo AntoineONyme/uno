@@ -4,10 +4,6 @@ Game::Game()
 {
 	deck_ = new Deck("Deck");
 	draw_ = new Draw();
-	deck_->generateOpalCards();
-	deck_->generateColoredCards();
-	//deck_->showDeck();
-
 }
 
 Game::~Game()
@@ -107,17 +103,10 @@ int Game::playCard(int lastPlayedCard) // prend entrée l'id de la dernière carte
 
 }
 
-// permet de mettre la main du joueur à une carte en supprimant les cartes de position > 0 et revoie l'un des substituts du joker.
+// permet de mettre la main du joueur à 0 en supprimant  toutes les cartes et revoie l'un des substituts du joker.
 void Game::CheatHandToOne()
 {
 	draw_->clearHand();
-
-	/*
-	list<int> hand = draw_->getHand();
-	list<int>::iterator it = hand.begin();
-	it++;
-	for (it; it != hand.end(); it++)
-		draw_->pullOutCard(*it,1);*/
 }
 
 // permet de piocher une carte et de la mettre dans la main

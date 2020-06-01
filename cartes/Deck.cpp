@@ -6,6 +6,8 @@
 Deck::Deck(const string& name) {
 	
 	name_ = name;
+	generateOpalCards();
+	generateColoredCards();
 }
 void Deck::addCard(Card* c) {
 	deck_.push_back(c);
