@@ -2,7 +2,7 @@
 
 #include "../jeu/Salon.h"
 
-typedef struct {
+typedef struct DonneesCommJeu {
 	int carteJouee = -1;
 	bool carteDejaSubie = false;
 	bool declareUno = false;
@@ -34,20 +34,20 @@ public:
 	CommJeu(Salon* psalon);
 	~CommJeu();
 
-	//	Permet d'attendre que ce soit à son tour au début de la partie (car rien à transmettre initialement)
+	//	Permet d'attendre que ce soit ï¿½ son tour au dï¿½but de la partie (car rien ï¿½ transmettre initialement)
 	void attenteTour();
 
-	//	Fonctions pour paramétrer les infos à transmettre, qui seront transmises avec l'appel de finTourAtt()
+	//	Fonctions pour paramï¿½trer les infos ï¿½ transmettre, qui seront transmises avec l'appel de finTourAtt()
 	void declareCartesPiochees(vector<int>* cartesPiochees);
 	bool declarerUno();
 	bool declareContreUno(int idJoueur);
 	bool declarerCarteJouee(int idCarte, bool carteDejaSubie);
 	void declareMessage(string message) { _donneesJoueur.message = message; };
 
-	//	Permet d'envoyer les infos "déclarées" puis attend que ce soit à son tour de jouer
+	//	Permet d'envoyer les infos "dï¿½clarï¿½es" puis attend que ce soit ï¿½ son tour de jouer
 	bool finTourAtt(FinManche finManche = manche_en_cours);
 
-	//	Fonctions pour récupérer les infos de l'adversaire, récupérées avec
+	//	Fonctions pour rï¿½cupï¿½rer les infos de l'adversaire, rï¿½cupï¿½rï¿½es avec
 	int getCarteJoueeAdversaire() const { return _donneesAdversaires.carteJouee; };
 	bool getCarteDejaSubie() const { return _donneesAdversaires.carteDejaSubie; };
 	vector<int>* getCartePiocheesAdversaire() const { return _donneesAdversaires.cartesPiochees; };
@@ -60,6 +60,6 @@ public:
 	bool finTour(FinManche finManche = manche_en_cours);
 
 private:
-	//	Je redéclare ici ce champ privé comme l'énum est public
+	//	Je redï¿½clare ici ce champ privï¿½ comme l'ï¿½num est public
 	FinManche _finManche = manche_en_cours;
 };

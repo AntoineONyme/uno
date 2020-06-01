@@ -9,17 +9,17 @@
 #include "Menu.h"
 
 /*==================================
-Classe gérant toute la phase de jeu d'une partie de uno
+Classe gerant toute la phase de jeu d'une partie de uno
 ====================================*/
 
-typedef struct {
+typedef struct StructAction {
 	int playedCardId = -1;
 	bool cardAlreadyPlayed = false;
 	vector<int>* drawnCards = nullptr;
 	bool endRound = false;
 } StructAction;
 
-typedef struct {
+typedef struct StructPossibilities {
 	int nbCartsToDraw = 0;
 	bool allowedToPlay = true;
 } StructPossibilities;

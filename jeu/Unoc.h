@@ -4,7 +4,7 @@
 #include "Jeu.h"
 
 /*
-	Permet de choisir un salon, vérifier qu'il convient et alors de lancer le jeu
+	Permet de choisir un salon, vï¿½rifier qu'il convient et alors de lancer le jeu
 */
 class Unoc
 {

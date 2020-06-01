@@ -4,16 +4,16 @@ Draw::Draw() {
 	genDraw();
 }
 
-// Permet de piocher aléatoirement une carte dans la pioche
+// Permet de piocher alï¿½atoirement une carte dans la pioche
 int Draw::drawCard() {
-	srand(time(NULL)); // on utilise la package random et time pour générer continuellement et aléatoirement 
+	srand(time(NULL)); // on utilise la package random et time pour gï¿½nï¿½rer continuellement et alï¿½atoirement 
 	int rd;
 	int valCard;
 	list<int>::iterator it = draw_.begin();
 
 	
 
-	rd = rand() % draw_.size(); //on génére un entier aléatoire compris entre 0 et la taille de la pioche
+	rd = rand() % draw_.size(); //on gï¿½nï¿½re un entier alï¿½atoire compris entre 0 et la taille de la pioche
 	advance(it, rd);
 	valCard = *it;
 	pullOutCard(valCard,0);
@@ -23,7 +23,7 @@ int Draw::drawCard() {
 // Permet de retirer une carte de la main ou de la pioche en fonction d'un indicateur. 
 bool Draw::pullOutCard(int IdCard, int listChoice) {
 
-		if (listChoice == 0) // ici on parcours la pioche pour supprimer la valeur de la carte désirée
+		if (listChoice == 0) // ici on parcours la pioche pour supprimer la valeur de la carte dï¿½sirï¿½e
 		{
 			list<int>::iterator it1;
 			for (it1 = draw_.begin(); it1 != draw_.end(); it1++) {
@@ -34,7 +34,7 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 			}
 		}
 
-		else // ici on parcours lamain  pour supprimer la valeur de la carte désirée
+		else // ici on parcours lamain  pour supprimer la valeur de la carte dï¿½sirï¿½e
 		{
 			list<int>::iterator it2;
 			for (it2 = hand_.begin(); it2 != hand_.end(); it2++) {
@@ -49,7 +49,7 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 	
 }
 
-// genere la main de départ du joueur 
+// genere la main de dï¿½part du joueur 
 void Draw::generateHand()
 {
 	
@@ -71,7 +71,7 @@ int Draw::DrawCardtoHand()
 	return drawnCard;
 }
 
-// permet de générer la liste de carte piochable (les 107 premières cartes du Deck)
+// permet de gï¿½nï¿½rer la liste de carte piochable (les 107 premiï¿½res cartes du Deck)
 void Draw::genDraw()
 {
 	for (int i = 0; i < 108; i++)

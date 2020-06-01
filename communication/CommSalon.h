@@ -8,7 +8,7 @@
 
 using namespace std;
 
-typedef struct {
+typedef struct Struct_Parametres_Salon {
 	string nom;
 	int nbManches;
 	int nbJoueurs;

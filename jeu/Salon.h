@@ -37,6 +37,6 @@ public:
 	void nextManche() { _numMancheActuelle++; };
 	int getNumManche() const { return _numMancheActuelle; };
 
-	//	Utile notemment pour empécher la suppression des fichiers en fin de partie
+	//	Utile notemment pour empï¿½cher la suppression des fichiers en fin de partie
 	void resetEtat() { _etat = 0; };
 };
