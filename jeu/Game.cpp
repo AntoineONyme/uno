@@ -225,7 +225,7 @@ StructAction Game::play(int lastPlayedCardId, bool cardAlreadyPlayed) // prend e
 			int cardDrawn = DrawCardtoHand();
 			structAction.drawnCards->push_back(cardDrawn);
 
-			if (checkCard(cardDrawn, lastPlayedCardId) == true and Menu::lectureBool("Voulez-vous jouer la carte piochee ?", true))
+			if (checkCard(cardDrawn, lastPlayedCardId) == true and Menu::lectureBool("Voulez-vous jouer la carte piochée ?", true))
 			{
 				//	Le joueur peut jouer la carte piochée
 				cardDrawn = placeCard(cardDrawn);	// éventuellement cardDrawn peut être remplécée par un subtitut le cas échéant (carte spéciale)
@@ -287,7 +287,7 @@ vector<int>* Game::sayUno()
 	if (hand.size() <= 1) //si le joueur a plus d'une carte dans sa main, il pioche deux cartes. 
 	{
 		vector<int>* penaltyDrawnCards = new vector<int>;
-		cout << "Desole, MENTEUR >:( " << endl;
+		cout << "Désolé, MENTEUR >:( " << endl;
 		for (int i = 0; i < 2; i++)
 		{
 			penaltyDrawnCards->push_back(DrawCardtoHand());
