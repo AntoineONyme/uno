@@ -14,7 +14,6 @@ typedef struct {
 class CommJeu
 {
 	Fichier* _fichier = nullptr;
-	Fichier _fichier2;
 	Salon* _salon = nullptr;
 
 	//	attributs concernant le joueur actuel

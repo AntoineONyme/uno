@@ -134,7 +134,7 @@ void Jeu::lancementPartie()
 			commJeu.finTourAtt();
 		}
 
-		//	Fin de la manche : le destructeur est automatiquement appelé
+		//	Fin de la manche : le destructeur de Game est automatiquement appelé (variable locale)
 		_salon->nextManche();
 	}
 
