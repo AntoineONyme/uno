@@ -8,10 +8,12 @@
 class Jeu
 {
 	Salon* _salon = nullptr;
-	//Deck* _deck = nullptr;
 
 public:
+	//	permet d'afficher l'image de lancement du jeu
 	Jeu(Salon* psalon);
+
+	//	Permet de lancer la boucle infinie de fonctionnement (menu principal)
 	void lancementPartie();
 };
 

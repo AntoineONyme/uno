@@ -8,6 +8,7 @@
 
 using namespace std;
 
+//	Permet d'échanger les paramètres du salon
 typedef struct Struct_Parametres_Salon {
 	string nom;
 	int nbManches;
@@ -19,23 +20,28 @@ typedef struct Struct_Parametres_Salon {
 
 class CommSalon
 {
-	int _etat = 0;
-
 	Fichier* _fichier = nullptr;
 
+	//	Utilisé pour générer le fichier utilisé par la classe Jeu
 	void creationFichierJeu(Struct_Parametres_Salon parametres_salon);
 
 public:
-	static const int non_initialise = 0;
-	static const int attente_autres_joueurs = 1;
-	static const int jeu_joueur = 2;
+	enum class StatutSalon { non_initialise, attente_autres_joueurs, jeu_joueur };
 
 	const string REPERTOIRE = "XXpussyEmpalle";
 	const string VERSION = "1.0.1";
 
 	CommSalon();
+
+	//	Pour créer un nouveau salon
 	bool creation(Struct_Parametres_Salon parametres_salon, string pseudo);
+	//	Pour rejoindre un salon existant
 	Struct_Parametres_Salon join(string nom, string pseudo);
+	//	Pour attendre le début de la partie une fois le salon rejoint
 	bool attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bool heberge);
+	//	Pour supprimer les fichiers du salon une fois la partie finie / nettoyage forcé
 	bool supprimerSalon(string nom);
+
+private:
+	StatutSalon _etat = StatutSalon::non_initialise;
 };

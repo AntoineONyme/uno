@@ -6,18 +6,18 @@ Fichier::Fichier(string nom, string repertoir, bool createIfNonExist)
 	_repertoir = repertoir;
 	_erreur = false;
 
-	if (createIfNonExist && !_odrive.isDir(_repertoir)) {	//Crée le répertoir de jeu
+	if (createIfNonExist && !_odrive.isDir(_repertoir)) {	//Crï¿½e le rï¿½pertoir de jeu
 		_odrive.mkDir(_repertoir);
 	}
 
-	_odrive.sync(_repertoir + "/" + _nom);	//Si le fichier existe il est synchronisé 
+	_odrive.sync(_repertoir + "/" + _nom);	//Si le fichier existe il est synchronisï¿½ 
 
 	if (!ifstream(getFilePath()).good() and createIfNonExist) {
 		if (!createIfNonExist) {
 			throw "Impossible de lire le fichier !";
 		}
 
-		// On crée le fichier comme on a le droit
+		// On crï¿½e le fichier comme on a le droit
 		ofstream fichier(getFilePath());
 		fichier.close();
 	}
@@ -35,11 +35,11 @@ bool Fichier::detecteChangement()
 	}
 
 	int timestamp;
-	fileEchange >> timestamp;	//Lecture de la première ligne et vérification
+	fileEchange >> timestamp;	//Lecture de la premiï¿½re ligne et vï¿½rification
 
 	fileEchange.close();
 
-	return timestamp != _lastTimestamp;	//Retourne vrai si les timestamp sont différents => il y a un changement
+	return timestamp != _lastTimestamp;	//Retourne vrai si les timestamp sont diffï¿½rents => il y a un changement
 }
 
 vector<string>* Fichier::lectureLignes()
@@ -50,7 +50,7 @@ vector<string>* Fichier::lectureLignes()
 
 	if (!fileEchange.is_open() or !fileEchange) {
 		_erreur = true;
-		return lignes;	//Si il n'a pas été possible d'ouvrir le fichier, on retourne une liste vide
+		return lignes;	//Si il n'a pas ï¿½tï¿½ possible d'ouvrir le fichier, on retourne une liste vide
 	}
 
 	string ligne;
@@ -61,9 +61,9 @@ vector<string>* Fichier::lectureLignes()
 		_erreur = true;
 		return lignes;	//Si le fichier n'est pas nette, on arrete
 	}
-	_lastTimestamp = std::stoi(ligne);	//Lecture de la première ligne
+	_lastTimestamp = std::stoi(ligne);	//Lecture de la premiï¿½re ligne
 
-	// Lecture ligne par ligne jusqu'à la fin du fichier
+	// Lecture ligne par ligne jusqu'ï¿½ la fin du fichier
 	while (getline(fileEchange, ligne))
 	{
 		lignes->push_back(ligne);
@@ -84,7 +84,7 @@ bool Fichier::ecritureLignes(vector<string>& lignes)
 	}
 
 	time_t t = time(0);
-	fileEchange << t << endl;	//Remplie la première ligne avec le timestamp actuel (ici une approche apparament pas cross compatible mais bon)
+	fileEchange << t << endl;	//Remplie la premiï¿½re ligne avec le timestamp actuel (ici une approche apparament pas cross compatible mais bon)
 
 	for (int i = 0; i < lignes.size(); i++)
 	{

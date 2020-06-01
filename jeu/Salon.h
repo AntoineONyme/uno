@@ -10,8 +10,9 @@ enum StatuSalon {
 
 class Salon
 {
+	enum class Etat {indefini, en_attente, en_jeu, termine};
 
-	int _etat = 0;	//0: pas de salon, 1: en attente, 2: en jeu, 3: termine
+	Etat _etat = Etat::indefini;	//0: pas de salon, 1: en attente, 2: en jeu, 3: termine
 	int _nbManches = 0;
 	int _numMancheActuelle = 0;
 	vector<string>* _joueurs = nullptr;
@@ -38,5 +39,5 @@ public:
 	int getNumManche() const { return _numMancheActuelle; };
 
 	//	Utile notemment pour emp�cher la suppression des fichiers en fin de partie
-	void resetEtat() { _etat = 0; };
+	void resetEtat() { _etat = Etat::indefini; };
 };

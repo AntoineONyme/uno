@@ -12,8 +12,13 @@ class Unoc
 	Salon* _salon = nullptr;
 
 public:
+	//	Gère l'affichage de l'image de lancement présente une seule fois
 	Unoc();
+
+	//	Gère le menu principal
 	void lancementApplication();
+
+	//	Non utilisé car les agrégats sont déjà supprimé dans lancementApplication() 
 	~Unoc();
 };
 

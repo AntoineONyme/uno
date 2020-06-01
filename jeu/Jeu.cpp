@@ -46,14 +46,14 @@ void Jeu::lancementPartie()
 		while (true)
 		{
 			//	On commence par vérifier que le joueur précédent continue de jouer
-			if (commJeu.getStatusManche() == CommJeu::manche_abandonnee)
+			if (commJeu.getStatusManche() == CommJeu::FinManche::manche_abandonnee)
 			{
 				Color(12);
 				cout << "Un abandon vient d'avoir lieu." << endl;
 				Color(7);
 				return;
 			}
-			else if (commJeu.getStatusManche() == CommJeu::manche_terminee)
+			else if (commJeu.getStatusManche() == CommJeu::FinManche::manche_terminee)
 			{
 				Color(12);
 				cout << "Manche terminee ! " << endl;
@@ -112,7 +112,7 @@ void Jeu::lancementPartie()
 						Color(12);
 						cout << "Vous decidez d'abandonner la partie, a bientot !" << endl;
 						Color(7);
-						commJeu.finTourAtt(CommJeu::manche_abandonnee);
+						commJeu.finTourAtt(CommJeu::FinManche::manche_abandonnee);
 						_salon->resetEtat();
 						return;
 					}
@@ -126,7 +126,7 @@ void Jeu::lancementPartie()
 			//	Si le joueur vient de jouer sa dernière carte, on termine la manche
 			if (structAction.endRound)
 			{
-				commJeu.finTourAtt(CommJeu::manche_terminee);
+				commJeu.finTourAtt(CommJeu::FinManche::manche_terminee);
 				break;
 			}
 

@@ -15,15 +15,17 @@ class Menu
 	vector<string> _optionsText;
 
 public:
+
+	//	Méthodes de classe pour gérer la création d'un menu et son affichage
+	Menu(string nom);
+	void ajoutOption(string nom, string text);
+	string affichageMenu();
+
+	//	Méthodes d'aides pour effectuer des affichages formatés
 	static void affichageImageConsole(string fichier);
 	static void affichageSection(string nom);
 
-	Menu(string nom);
-	string affichageMenu();
-
-	void ajoutOption(string nom, string text);
-
-
+	//	Méthodes statiques d'aides pour gérer les inputs utilisateurs
 	static string lectureString(string label, int min, int max, string vdefault = "-333");
 	static int lectureInt(string label, int min, int max, int vdefault = -333);
 	static bool lectureBool(string label, bool vdefault = false);

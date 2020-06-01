@@ -16,10 +16,10 @@ void Unoc::lancementApplication()
 
 	bool continuer = true;
 
-	//	Boucle pour redémarer une partie une fois qu'elle est finie
+	//	Boucle pour redï¿½marer une partie une fois qu'elle est finie
 	while (continuer)
 	{
-		//	La classe salon permet de gérer la mise en relation des joueurs (création ou rejoindre un salon existant)
+		//	La classe salon permet de gï¿½rer la mise en relation des joueurs (crï¿½ation ou rejoindre un salon existant)
 		_salon = new Salon();
 		
 		StatuSalon statuSalon = _salon->choixSalon(pseudo);
@@ -27,7 +27,7 @@ void Unoc::lancementApplication()
 			continuer = false;
 		}
 		else if (statuSalon == StatuSalon::rejoindre_salon) {
-			//	A cette étape, les joueurs sont mis en relation et la partie peut commencer
+			//	A cette ï¿½tape, les joueurs sont mis en relation et la partie peut commencer
 			_jeu = new Jeu(_salon);
 			_jeu->lancementPartie();
 			delete _jeu;

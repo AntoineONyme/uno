@@ -56,7 +56,7 @@ CommJeu::CommJeu(Salon* psalon)
 	}
 }
 
-//	On libère les aggrégations
+//	On libï¿½re les aggrï¿½gations
 CommJeu::~CommJeu()
 {
 	delete _donneesJoueur.cartesPiochees;
@@ -70,8 +70,8 @@ void CommJeu::attenteTour()
 {
 	_fichier->synchroniser(REPERTOIRE);
 
-	//	On commence par lire le fichier au cas où on joue tout seul / si la syncronisation a mis bcp de temps
-	//	Normalement ce sont les données du joueur actuel qui devraient être visibles la première fois
+	//	On commence par lire le fichier au cas oï¿½ on joue tout seul / si la syncronisation a mis bcp de temps
+	//	Normalement ce sont les donnï¿½es du joueur actuel qui devraient ï¿½tre visibles la premiï¿½re fois
 	while (true)
 	{
 		cout << "attente...";
@@ -79,19 +79,19 @@ void CommJeu::attenteTour()
 		vector<string>* lignes = _fichier->lectureLignes();
 		if (lignes->size() > 8) {
 
-			//	On regarde si celui qui a envoyé ça n'est pas le même joueur
+			//	On regarde si celui qui a envoyï¿½ ï¿½a n'est pas le mï¿½me joueur
 			if (lignes->operator[](1) != std::to_string(_salon->getJoueurActuel()))
 			{
 
 				string nomJoueur = _salon->getJoueur(lignes->operator[](1));
 
-				//	Carte Jouée
+				//	Carte Jouï¿½e
 				if (lignes->operator[](2).size() > 0)
 				{
 					_donneesAdversaires.carteJouee = std::stoi(lignes->operator[](2));
 					cout << endl;
 				}
-				//	Carte déja subie
+				//	Carte dï¿½ja subie
 				if (lignes->operator[](3).size() > 0)
 				{
 					_donneesAdversaires.carteDejaSubie = true;
@@ -131,7 +131,7 @@ void CommJeu::attenteTour()
 						_finManche = FinManche::manche_abandonnee;
 					}
 					else {
-						cout << nomJoueur << " vient de jouer sa dernière carte, il remporte donc la manche !" << endl;
+						cout << nomJoueur << " vient de jouer sa derniï¿½re carte, il remporte donc la manche !" << endl;
 						_finManche = FinManche::manche_terminee;
 					}
 					Color(7);
@@ -151,10 +151,10 @@ void CommJeu::attenteTour()
 				}
 			}
 
-			//	On regarde si le joueur précédent appelle le joueur actuel à jouer
+			//	On regarde si le joueur prï¿½cï¿½dent appelle le joueur actuel ï¿½ jouer
 			if (lignes->operator[](0) == std::to_string(_salon->getJoueurActuel()))
 			{
-				//	Dans ce cas, attente initiale terminée : c'est au joueur de jouer
+				//	Dans ce cas, attente initiale terminï¿½e : c'est au joueur de jouer
 				return;
 			}
 
@@ -202,14 +202,14 @@ bool CommJeu::declareContreUno(int idJoueur) {
 
 //	Permet d'envoyer les actions du tour, puis attente de son tour
 bool CommJeu::finTourAtt(FinManche finManche) {
-	//On écrit les données
+	//On ï¿½crit les donnï¿½es
 	if (!finTour(finManche))
 		return false;
 
-	//On réinitialiser les attribus de jeu
+	//On rï¿½initialiser les attribus de jeu
 	initialiserTour();
 
-	//On va maintenant attendre que ce soit notre tour avant de débloquer, sauf si abandon
+	//On va maintenant attendre que ce soit notre tour avant de dï¿½bloquer, sauf si abandon
 	if (finManche == FinManche::manche_en_cours)
 	{
 		attenteTour();
@@ -233,25 +233,25 @@ bool CommJeu::finTour(FinManche finManche)
 	//Ligne 2 : on donne l'id du joueur actuel
 	lignes.push_back(std::to_string(_salon->getJoueurActuel()));
 
-	//Ligne 3 : id carte jouée, vide si passé son tour (+ pioche dans ce cas)
+	//Ligne 3 : id carte jouï¿½e, vide si passï¿½ son tour (+ pioche dans ce cas)
 	if (_donneesJoueur.carteJouee != -1)
 		lignes.push_back(std::to_string(_donneesJoueur.carteJouee));
 	else
 		lignes.push_back("");
 
-	//Ligne 4 : si les effets de la carte ont déja été subits
+	//Ligne 4 : si les effets de la carte ont dï¿½ja ï¿½tï¿½ subits
 	if (_donneesJoueur.carteDejaSubie)
 		lignes.push_back("Deja subi");
 	else
 		lignes.push_back("");
 
-	//Ligne 5 : si un uno est déclaré
+	//Ligne 5 : si un uno est dï¿½clarï¿½
 	if (_donneesJoueur.declareUno)
 		lignes.push_back("Uno");
 	else
 		lignes.push_back("");
 
-	//Ligne 6 : si un contre-uno est déclaré
+	//Ligne 6 : si un contre-uno est dï¿½clarï¿½
 	if (_donneesJoueur.joueurContreUno != -1)
 		lignes.push_back(std::to_string(_donneesJoueur.joueurContreUno));
 	else
@@ -273,10 +273,10 @@ bool CommJeu::finTour(FinManche finManche)
 	}
 	lignes.push_back(cartesTirees);
 
-	//Ligne 9 : si message à transmettre
+	//Ligne 9 : si message ï¿½ transmettre
 	lignes.push_back(_donneesJoueur.message);
 
-	//	On essaye d'écrire les lignes et on teste si il y a une erreur
+	//	On essaye d'ï¿½crire les lignes et on teste si il y a une erreur
 	if (!_fichier->ecritureLignes(lignes)) {
 		cout << "Erreur de transmission :(\n";
 		return false;

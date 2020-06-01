@@ -7,13 +7,14 @@ Salon::Salon()
 
 Salon::~Salon()
 {
-	if (_etat != 0) {
+	//	Si on a abouti Ã  la crÃ©ation d'un salon, on peut le supprimer
+	if (_etat != Etat::indefini) {
 		CommSalon comm;
 		comm.supprimerSalon(_nom);
 	}
 }
 
-//	Crée un menu pour choisir son salon puis s'y connecter
+//	Crï¿½e un menu pour choisir son salon puis s'y connecter
 StatuSalon Salon::choixSalon(string pseudo)
 {
 	Menu menu("Choix du salon");
@@ -31,7 +32,7 @@ StatuSalon Salon::choixSalon(string pseudo)
 	Struct_Parametres_Salon parametres_salon;
 	parametres_salon.nbJoueurs = 2;	
 
-	// On crée le salon
+	// On crï¿½e le salon
 	if (choix == "new") {
 		Menu::affichageSection("Creation de salon");
 
@@ -46,7 +47,7 @@ StatuSalon Salon::choixSalon(string pseudo)
 			return StatuSalon::erreur;
 		}
 		cout << "Partie cree !" << endl;
-		_etat = 1;
+		_etat = Etat::en_attente;
 
 		_nom = parametres_salon.nom;
 		_nbManches = parametres_salon.nbManches;
@@ -56,12 +57,12 @@ StatuSalon Salon::choixSalon(string pseudo)
 
 		Menu::affichageSection("Attente debut");
 		if (!comm.attenteSalonComplet(parametres_salon, true)) {
-			cout << "Problème de salon\n";
+			cout << "Problï¿½me de salon\n";
 			return StatuSalon::erreur;
 		}
 
 		cout << "La partie peut maintenant commencer !\n";
-		_etat = 2;
+		_etat = Etat::en_jeu;
 
 		return StatuSalon::rejoindre_salon;
 	}
@@ -83,15 +84,15 @@ StatuSalon Salon::choixSalon(string pseudo)
 		_idJoueurActuel = parametres_salon.idJoueurActuel;
 		_joueurs = parametres_salon.joueurs;
 		cout << "Partie rejointe !" << endl;
-		_etat = 1;
+		_etat = Etat::en_attente;
 
 		Menu::affichageSection("Attente debut");
 		if (!comm.attenteSalonComplet(parametres_salon, false)) {
-			cout << "Problème de salon\n";
+			cout << "Problï¿½me de salon\n";
 			return StatuSalon::erreur;
 		}
 		cout << "La partie peut maintenant commencer !\n";
-		_etat = 2;
+		_etat = Etat::en_jeu;
 
 		return StatuSalon::rejoindre_salon;
 	}
@@ -106,7 +107,7 @@ StatuSalon Salon::choixSalon(string pseudo)
 
 int Salon::idNextPlayer()
 {
-	return _joueurs->size() <= _idJoueurActuel + 1 ? 0 : _idJoueurActuel + 1;	//Condition binaire de vérification
+	return _joueurs->size() <= _idJoueurActuel + 1 ? 0 : _idJoueurActuel + 1;	//Condition binaire de vï¿½rification
 }
 
 int Salon::idNextPlayerFirst()

@@ -8,7 +8,7 @@ void CommSalon::creationFichierJeu(Struct_Parametres_Salon parametres_salon)
 	Fichier fichier(nfic, REPERTOIRE, true);
 	vector<string> lignes;
 
-	// Ligne1 : ligne vide pour empécher les erreurs de fichies
+	// Ligne1 : ligne vide pour empï¿½cher les erreurs de fichies
 	lignes.push_back("vide");
 
 	fichier.ecritureLignes(lignes);
@@ -38,10 +38,11 @@ bool CommSalon::creation(Struct_Parametres_Salon parametres_salon, string pseudo
 	//ligne3 : nbJoueurs
 	lignes.push_back(std::to_string(parametres_salon.nbJoueurs));
 
-	//ligne4 : pseudo joueur qui crée la partie
+	//ligne4 : pseudo joueur qui crï¿½e la partie
 	lignes.push_back(pseudo);
 
 	if (_fichier->ecritureLignes(lignes)) {
+		_etat = StatutSalon::attente_autres_joueurs;
 		return true;
 	}
 
@@ -95,10 +96,12 @@ Struct_Parametres_Salon CommSalon::join(string nom, string pseudo)
 		joueurs->push_back(lignes->operator[](i));
 	}
 
-	//La déclaration est compatible, il reste à enregistrer ce nouveau joueur
+	//La dï¿½claration est compatible, il reste ï¿½ enregistrer ce nouveau joueur
 	_fichier->ajoutLigne(pseudo);
 	parametres_salon.joueurs = new vector<string>;
 	parametres_salon.idJoueurActuel = lignes->size() - 3;
+
+	_etat = StatutSalon::attente_autres_joueurs;
 
 	return parametres_salon;
 }
@@ -107,6 +110,11 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 {
 	if (_fichier == nullptr) {
 		cout << "Fichier d'echange non trouve\n";
+		return false;
+	}
+
+	if (_etat != StatutSalon::attente_autres_joueurs)
+	{
 		return false;
 	}
 
@@ -120,6 +128,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 	{
 		// joueur actuel est le dernier joueur et a ete detecte
 		if (lignes->operator[](i) == "COMMENCE") {
+			_etat = StatutSalon::jeu_joueur;
 			return true;
 		}
 		if (lignes->operator[](i).size() > 0) {
@@ -130,11 +139,12 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 	}
 	int nbLignes = lignes->size();
 
-	// Si il y a assez de joueurs et le joueur héberge la partie (utile si partie de 1 joueur)
+	// Si il y a assez de joueurs et le joueur hï¿½berge la partie (utile si partie de 1 joueur)
 	if (parametres_salon.joueurs->size() >= parametres_salon.nbJoueurs and heberge)
 	{
 		creationFichierJeu(parametres_salon);
 		_fichier->ajoutLigne("COMMENCE");
+		_etat = StatutSalon::jeu_joueur;
 		return true;
 	}
 
@@ -143,7 +153,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 		cout << "attente... ";
 		_fichier->detecteChangement();
 
-		// On va lire les données et attendre qu'il y ait assez de joueurs
+		// On va lire les donnï¿½es et attendre qu'il y ait assez de joueurs
 		vector<string>* lignes = _fichier->lectureLignes();
 
 		if (lignes->size() >= 4) {
@@ -159,6 +169,7 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				for (int i = nbLignes; i < lignes->size(); i++)
 				{
 					if (lignes->operator[](i) == "COMMENCE") {
+						_etat = StatutSalon::jeu_joueur;
 						return true;
 					}
 					else if(lignes->operator[](i).size() > 0) {
@@ -169,12 +180,13 @@ bool CommSalon::attenteSalonComplet(Struct_Parametres_Salon parametres_salon, bo
 				}
 				nbLignes = lignes->size();
 
-				// Si il y a assez de joueurs et le joueur héberge la partie
+				// Si il y a assez de joueurs et le joueur hï¿½berge la partie
 				if (parametres_salon.joueurs->size() >= parametres_salon.nbJoueurs and heberge)
 				{
 					creationFichierJeu(parametres_salon);
 					_fichier->synchroniser(REPERTOIRE);
 					_fichier->ajoutLigne("COMMENCE");
+					_etat = StatutSalon::jeu_joueur;
 					return true;
 				}
 			}
