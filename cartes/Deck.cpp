@@ -14,7 +14,7 @@ void Deck::addCard(Card* c) {
 }
 //méthode permettant d'afficher le deck complet de carte 
 void Deck::showDeck() {
-	for (int i = 0; i < deck_.size() - 8 ; i++)
+	for (int i = 0; i < deck_.size() - 8 ; i++) // longueur du deck moins les 8 cartes substituts 
 	{
 		deck_[i]->show();
 		cout << "      " << endl;

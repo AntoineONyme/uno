@@ -13,11 +13,11 @@ class Card
 public :
 	Card( int id = -1 );
 	int getId() { return id_; }
-	virtual string getType() const { string no = "no"; return no; } //le type correspond ici à si la carte est un +4 ou un joker.  
-	virtual int getColor()const { return 0; }
-	virtual int getNumber() const { return-1; }
-	virtual int getSpecialType() const { return-1; }
-	virtual void show()const { cout << "Identifiant carte : " << id_ << endl; }
+	virtual string getType() const { string no = "no"; return no; } // méthode virtuelle renvoyant la "joker" et "+4"  de la carte si elle l'est, "no" sinon.
+	virtual int getColor()const { return 0; } // méthode virtuelle renvoyant la couleur de la carte si elle en a une, 0 sinon.
+	virtual int getNumber() const { return-1; } // méthode virtuelle renvoyant la valeur de la carte si elle en a une, -1 sinon.
+	virtual int getSpecialType() const { return-1; } // méthode virtuelle renvoyant le type d'action de la carte si elle en a une 0 sinon.
+	virtual void show()const { cout << "Identifiant carte : " << id_ << endl; } // méthode virtuelle renvoyant toutes les caractéristiques d'une carte.
 
 };
 

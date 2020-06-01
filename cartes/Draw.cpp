@@ -4,16 +4,16 @@ Draw::Draw() {
 	genDraw();
 }
 
-// Permet de piocher al�atoirement une carte dans la pioche
+// Permet de piocher aleatoirement une carte dans la pioche
 int Draw::drawCard() {
-	srand(time(NULL)); // on utilise la package random et time pour g�n�rer continuellement et al�atoirement 
+	srand(time(NULL)); // on utilise la package random et time pour generer continuellement et al�atoirement 
 	int rd;
 	int valCard;
 	list<int>::iterator it = draw_.begin();
 
 	
 
-	rd = rand() % draw_.size(); //on g�n�re un entier al�atoire compris entre 0 et la taille de la pioche
+	rd = rand() % draw_.size(); //on genere un entier al�atoire compris entre 0 et la taille de la pioche
 	advance(it, rd);
 	valCard = *it;
 	pullOutCard(valCard,0);
@@ -23,7 +23,7 @@ int Draw::drawCard() {
 // Permet de retirer une carte de la main ou de la pioche en fonction d'un indicateur. 
 bool Draw::pullOutCard(int IdCard, int listChoice) {
 
-		if (listChoice == 0) // ici on parcours la pioche pour supprimer la valeur de la carte d�sir�e
+		if (listChoice == 0) // ici on parcours la pioche pour supprimer la valeur de la carte desiree
 		{
 			list<int>::iterator it1;
 			for (it1 = draw_.begin(); it1 != draw_.end(); it1++) {
@@ -34,7 +34,7 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 			}
 		}
 
-		else // ici on parcours lamain  pour supprimer la valeur de la carte d�sir�e
+		else // ici on parcours la main  pour supprimer la valeur de la carte desiree
 		{
 			list<int>::iterator it2;
 			for (it2 = hand_.begin(); it2 != hand_.end(); it2++) {
@@ -49,7 +49,7 @@ bool Draw::pullOutCard(int IdCard, int listChoice) {
 	
 }
 
-// genere la main de d�part du joueur 
+// genere la main de depart du joueur 
 void Draw::generateHand()
 {
 	
@@ -71,7 +71,7 @@ int Draw::DrawCardtoHand()
 	return drawnCard;
 }
 
-// permet de g�n�rer la liste de carte piochable (les 107 premi�res cartes du Deck)
+// permet de generer la liste de carte piochable (les 107 premi�res cartes du Deck)
 void Draw::genDraw()
 {
 	for (int i = 0; i < 108; i++)

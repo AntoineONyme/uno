@@ -17,13 +17,13 @@ class Draw {
 
 public:
     Draw();
-    int drawCard();
-    void generateHand();
-    list<int> getHand();
+    int drawCard(); // permet de piocher une carte aléatoirement dans la pioche en vérifiant si cette carte a été piochée ou non et retourne son identifiant.
+    void generateHand(); // permet de générer la main de départ de 7 cartes.
+    list<int> getHand(); // getter de la pioche.
     bool pullOutCard(int idCard, int listChoice );
-    int DrawCardtoHand();
-    void genDraw();
-    void clearHand() { hand_.clear(); };
-    list<int>getDraw() { return draw_; }
+    int DrawCardtoHand(); // permet de piocher une carte aléatoirement et l'ajoute dans la main du joueur et retourne son identifiant.
+    void genDraw(); // méthode appelée par le constructeur pour générer la pioche.
+    void clearHand() { hand_.clear(); }; // permet de vider la main de toutes ses cartes. 
+    list<int>getDraw() { return draw_; } // getter de la main du joueur.
    
 };

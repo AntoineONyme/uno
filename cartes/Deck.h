@@ -18,10 +18,10 @@ class Deck
 	Draw *draw_ ;
 public :
 	Deck(const string& name);
-	void addCard(Card *c);
-	void showDeck();
-	void generateOpalCards();
-	void generateColoredCards();
-	vector<Card *> getDeck();
+	void addCard(Card *c); // permet d'ajouter une carte au vecteur deck_ en prenant en entrée une carte.
+	void showDeck(); // permet d'afficher la totalité du des cartes ainsi que leurs caractéristiques.
+	void generateOpalCards(); // permet de générer toutes les cartes de classe OpalCard.
+	void generateColoredCards(); // permet de générer toutes les cartes de classe
+	vector<Card *> getDeck(); // getter du deck.
 };
 
